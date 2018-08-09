@@ -32,15 +32,20 @@ public class ReadFile {
         int moneyWon = 0;
         String userAnswer = "";
         String answer = "";
+        String question = "";
+        String[] options = new String[4];
+        int count= 0;
         
         while (questionNumber <= 22){
            while ((line = br.readLine())!= null && currentLine <= limit) 
             {
                 if (line.contains("?")){
-                    System.out.println(line );
+                    question = line;
+//                    System.out.println(line );
                 }
                 if (line.contains(":")){
-                    System.out.println(line);
+                    options[count++] = line;
+//                    System.out.println(line);
                 }
                if ((line.contains("A") || line.contains("B") || line.contains("C") || line.contains("D")) && !line.contains(":")){
                    answer = line;
@@ -49,6 +54,8 @@ public class ReadFile {
             }   
            questionNumber++;
            limit += 6;
+           Questions quizQues = new Questions(question, options, answer);
+           System.out.println("Questions from question " + quizQues.toString());
            System.out.println("\nWould you like to use one of the life lines? If so, type yes else please type a letter to submit your answer");
            userAnswer = keyboard.nextLine();
            
@@ -73,58 +80,9 @@ public class ReadFile {
                 System.out.println("Wrong Answer :(. The correct answer is " + answer +". Your points are BLAH");
             }
         }
+        System.out.println("End of the Game! To restart do ....");
         br.close();
         fr.close();
     }
     
 }
-
-
-//               if (line.contains("?")){ 
-//                   question = line;
-//               }
-//               if (line.contains(":")){
-//                   System.out.println("here");
-//                    options[count++] = line;
-//               }
-//               if (line.contains("A") || line.contains("B") || line.contains("C") || line.contains("D")){
-//                   answer = line;
-//               }
-//               currentLine++;
-
-
-
-
-
-
-//            Questions quizQuestion = new Questions(question, options, answer);
-//            System.out.println("output from Questions " + quizQuestion.toString());
-//            count = 0;
-            
-//            System.out.println("\nWould you like to use one of the life lines? If so, type yes else please type a letter to submit your answer");
-//            userAnswer = keyboard.nextLine();
-//
-//            if (userAnswer.equalsIgnoreCase(answer)){
-//                if (money == 0){
-//                    money = 100;
-//                }
-//                 
-//                else {
-//                    money *= 2;
-//                    if (money == 400 || money == 600){
-//                        money -= 100;
-//                    }
-//                    else if (money == 128000){
-//                        money -= 3000;
-//                    }
-//                }
-//                System.out.println("Correct Answer! You've reached  dollars."); //money
-//            }
-//            else{
-//                System.out.println("Wrong Answer :(. The correct answer is " + answer +". Your points are BLAH");
-//            }
-//            limit = limit + 6; 
-//            currentQuestion++;
-//        }
-       
-//        System.out.println("End of the Game! You won ___ dollars");
