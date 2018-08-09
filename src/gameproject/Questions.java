@@ -28,10 +28,13 @@ public class Questions {
     }
     
     public void setOptions(String[] inputOption){
+        this.options = new String[4];
         if (inputOption != null){
-            for (String s: inputOption){
-                for (int i = 0; i< this.options.length; i++){
-                    this.options[i] = s; 
+            for (int i = 0; i < inputOption.length; i++){
+                for (int j = 0; j <options.length; j++){
+                    if (i==j){
+                        options[i]= inputOption[j];
+                    }
                 }
             }
         }
@@ -47,10 +50,10 @@ public class Questions {
     
     public String[] getOptions(){
         String[] alternatives = new String[this.options.length];
-        for (String s: this.options){
-            if (s != null){
-                for (int i = 0; i < alternatives.length; i++){
-                    alternatives[i] = s;
+        for (int i= 0; i < options.length; i++){
+            for (int j = 0; j < alternatives.length; j++){
+                if (i==j && options[i] != null){
+                    alternatives[j] = options[i];
                 }
             }
         }

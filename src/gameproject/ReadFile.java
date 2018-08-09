@@ -33,7 +33,7 @@ public class ReadFile {
         String userAnswer = "";
         String answer = "";
         String question = "";
-        String[] options = new String[4];
+        String[] options = new String[100];
         int count= 0;
         
         while (questionNumber <= 22){
@@ -41,11 +41,9 @@ public class ReadFile {
             {
                 if (line.contains("?")){
                     question = line;
-//                    System.out.println(line );
                 }
                 if (line.contains(":")){
                     options[count++] = line;
-//                    System.out.println(line);
                 }
                if ((line.contains("A") || line.contains("B") || line.contains("C") || line.contains("D")) && !line.contains(":")){
                    answer = line;
@@ -54,6 +52,7 @@ public class ReadFile {
             }   
            questionNumber++;
            limit += 6;
+          
            Questions quizQues = new Questions(question, options, answer);
            System.out.println("Questions from question " + quizQues.toString());
            System.out.println("\nWould you like to use one of the life lines? If so, type yes else please type a letter to submit your answer");
