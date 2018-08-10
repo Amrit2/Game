@@ -26,7 +26,7 @@ public class Lifelines {
             this.setPhoneAFriendOptions(options, answer);
         }
         if (chosenLifeLine.equalsIgnoreCase("3")) {
-            this.setAudienceVoteOptions(options, answer);
+            this.setAudienceVoteOptions(options);
         }
     }
 
@@ -51,12 +51,13 @@ public class Lifelines {
         int low = 1;
         int high = 100;
         int probability = r.nextInt(high - low) + low;
-        if (probability >= 10){
+        if (probability >= 10) {
             this.phoneAFriendOptions = answer;
         }
     }
 
-    public void setAudienceVoteOptions(String[] options, String answer) {
+    public void setAudienceVoteOptions(String[] options) {
+        this.audienceVoteOptions = new String[options.length];
         Random r = new Random();
         int low = 1;
         int high = 100;
@@ -64,9 +65,17 @@ public class Lifelines {
         int probabilityTwo = r.nextInt(high - probabilityOne) + low;
         int probabilityThree = r.nextInt(high - probabilityTwo) + low;
         int probabilityFour = r.nextInt(high - probabilityThree) + low;
-        for (String s : options){
-           
+
+        options[0] = options[0] + " Audience Vote:" + probabilityOne;
+        options[1] = options[0] + " Audience Vote:" + probabilityOne;
+        options[2] = options[0] + " Audience Vote:" + probabilityOne;
+        options[3] = options[0] + " Audience Vote:" + probabilityOne;
+        for (int i = 0; i < audienceVoteOptions.length; i++) {
+            for (String s : options) {
+                audienceVoteOptions[i] = s;
+            }
         }
+
     }
 
     public String[] getFiftyFiftyOptions() {
@@ -85,7 +94,7 @@ public class Lifelines {
     }
 
     public String getPhoneAFriendOptions() {
-       return this.phoneAFriendOptions;
+        return this.phoneAFriendOptions;
     }
 
     public String[] getAudienceVoteOptions() {
@@ -93,9 +102,9 @@ public class Lifelines {
         if (used != true) {
             for (int i = 0; i < alteredOptions.length; i++) {
                 for (String s : this.audienceVoteOptions) {
-                     if (s!= null){
-                         alteredOptions[i] =s;
-                     }
+                    if (s != null) {
+                        alteredOptions[i] = s;
+                    }
                 }
             }
         }
