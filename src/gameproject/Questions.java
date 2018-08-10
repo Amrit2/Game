@@ -12,63 +12,61 @@ import java.util.Arrays;
  * @author Amrit
  */
 public class Questions {
+
     private String question;
     private String[] options;
     private String answer;
-    
-    public Questions(String question, String[] option, String answer){
+
+    public Questions(String question, String[] option, String answer) {
         setQuestion(question);
-        this.options = new String[4];
         setOptions(option);
         setAnswer(answer);
     }
-    
-    public void setQuestion(String inputQuestion){
+
+    public void setQuestion(String inputQuestion) {
         this.question = inputQuestion;
     }
-    
-    public void setOptions(String[] inputOption){
-        this.options = new String[4];
-        if (inputOption != null){
-            for (int i = 0; i < inputOption.length; i++){
-                for (int j = 0; j <options.length; j++){
-                    if (i==j){
-                        options[i]= inputOption[j];
+
+    public void setOptions(String[] inputOption) {
+        this.options = new String[inputOption.length];
+        if (inputOption != null) {
+            for (int i = 0; i < inputOption.length; i++) {
+                for (int j = 0; j < options.length; j++) {
+                    if (i == j) {
+                        options[i] = inputOption[j];
                     }
                 }
             }
         }
     }
-    
-    public void setAnswer(String answer){
+
+    public void setAnswer(String answer) {
         this.answer = answer;
     }
-    
-    public String getQuestion(){
+
+    public String getQuestion() {
         return this.question;
     }
-    
-    public String[] getOptions(){
+
+    public String[] getOptions() {
         String[] alternatives = new String[this.options.length];
-        for (int i= 0; i < options.length; i++){
-            for (int j = 0; j < alternatives.length; j++){
-                if (i==j && options[i] != null){
+        for (int i = 0; i < options.length; i++) {
+            for (int j = 0; j < alternatives.length; j++) {
+                if (i == j && options[i] != null) {
                     alternatives[j] = options[i];
                 }
             }
         }
         return alternatives;
     }
-    
-    public String getAnswer(){
+
+    public String getAnswer() {
         return this.answer;
     }
-    
-    public String toString(){
-//        String option = Arrays.toString(this.getOptions()).replace('[', ' ');
-//	option = option.replace(']', ' ');
+
+    public String toString() {
         String output = "Your question is: \n" + this.getQuestion() + "\n";
-        for (String choice: this.getOptions()){
+        for (String choice : this.getOptions()) {
             output += choice + "\n";
         }
         return output;

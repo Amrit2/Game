@@ -5,51 +5,40 @@
  */
 package gameproject;
 
+import java.io.BufferedWriter;
 import java.util.Scanner;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
-
 
 /**
  *
  * @author Amrit check
  */
 public class GameProject {
- 
+
     public static void main(String[] args) throws IOException {
-        PrintWriter pw = null;
         Scanner keyboard = new Scanner(System.in);
-       
+
         System.out.println("Please enter your name");
 
         try {
-            pw = new PrintWriter("output.txt");
+            FileWriter userFile = new FileWriter("UserInfo.txt");
+            BufferedWriter info = new BufferedWriter(userFile);
             String name = keyboard.nextLine();
-            pw.print(name);
-            pw.println();
-            System.out.println("Welcome to Who Wants To Be A Millionaire! \nInstruction!!!! Start Button!!\n");
+            info.write(name);
+            System.out.println("Welcome, " + name + " to Who Wants To Be A Millionaire! \nInstruction!!!! Start Button!!\n");
             ReadFile file = new ReadFile();
-            
-          
+
+            info.close();
         } catch (IOException e) {
             e.printStackTrace();
 
         } finally {
-            if (pw != null) {
-                pw.close();
-            }
+//            if (pw != null) {
+//                pw.close();
+//            }
         }
     }
 }
-
-//            if (userAnswer.equalsIgnoreCase("Yes")){
-//                System.out.println("Type the related number to pick an option "
-//                                 + "\n1. 50:50"
-//                                 + "\n2. Phone a friend"
-//                                 + "\n3. Audience Vote");
-//                String chosenLifeLine = keyboard.nextLine();
-//                if(chosenLifeLine.equalsIgnoreCase("1")){
-//                    
-//                }
-//            }
