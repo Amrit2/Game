@@ -7,8 +7,11 @@ package gameproject;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,7 +21,7 @@ import java.util.Scanner;
  */
 public class ReadFile {
 
-    public ReadFile() throws IOException {
+    public ReadFile(PrintWriter info) throws IOException {
         File f = new File("questions.txt");
         FileReader fr = new FileReader(f);
         BufferedReader br = new BufferedReader(fr);
@@ -58,7 +61,7 @@ public class ReadFile {
                 System.out.println("Would you like to use one of the life lines? If so, type yes else please type a letter to submit your answer");
                 userAnswer = keyboard.nextLine();
 
-                //EXTRACT THE MONEY COUNTING
+               
                 if (userAnswer.equalsIgnoreCase("Yes")) {
                     System.out.println("Type the related number to pick an option "
                             + "\n1. 50:50"
@@ -68,7 +71,7 @@ public class ReadFile {
                     Lifelines lifeline = new Lifelines(chosenLifeLine, options, answer, question);
                 }
                
-                moneyWon = checkAnswer(userAnswer, answer, moneyWon);
+                moneyWon = checkAnswer(userAnswer, answer, moneyWon, info);
                 
 //            } while (userAnswer == "Yes");
 
@@ -78,7 +81,7 @@ public class ReadFile {
         fr.close();
     }
 
-    private int checkAnswer(String userAnswer, String answer, int moneyWon) {
+    private int checkAnswer(String userAnswer, String answer, int moneyWon, PrintWriter info) throws FileNotFoundException {
         if (userAnswer.equalsIgnoreCase(answer)) {
             if (moneyWon == 0) {
                 moneyWon = 100;
@@ -105,6 +108,9 @@ public class ReadFile {
             }
             System.out.println("Wrong Answer :(. The correct answer is " + answer + ". You are on " + moneyWon);
         }
+        
+        info.println(moneyWon);
+        
         return moneyWon;
     }
 
