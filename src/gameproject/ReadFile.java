@@ -53,38 +53,59 @@ public class ReadFile {
             count = 0;
             Questions quizQues = new Questions(question, options, answer);
             System.out.println(quizQues.toString());
-            System.out.println("\nWould you like to use one of the life lines? If so, type yes else please type a letter to submit your answer");
-            userAnswer = keyboard.nextLine();
 
-            //EXTRACT THE MONEY COUNTING
-            if (userAnswer.equalsIgnoreCase("Yes")) {
-                System.out.println("Type the related number to pick an option "
-                        + "\n1. 50:50"
-                        + "\n2. Phone a friend"
-                        + "\n3. Audience Vote");
-                String chosenLifeLine = keyboard.nextLine();
-                Lifelines lifeline = new Lifelines(chosenLifeLine, options, answer);
-            }
-            if (userAnswer.equalsIgnoreCase(answer)) {
-                if (moneyWon == 0) {
-                    moneyWon = 100;
-                } else {
-                    moneyWon *= 2;
-                    if (moneyWon == 400 || moneyWon == 600) {
-                        moneyWon -= 100;
-                    } else if (moneyWon == 128000) {
-                        moneyWon -= 3000;
-                    }
+//            do {
+                System.out.println("Would you like to use one of the life lines? If so, type yes else please type a letter to submit your answer");
+                userAnswer = keyboard.nextLine();
+
+                //EXTRACT THE MONEY COUNTING
+                if (userAnswer.equalsIgnoreCase("Yes")) {
+                    System.out.println("Type the related number to pick an option "
+                            + "\n1. 50:50"
+                            + "\n2. Phone a friend"
+                            + "\n3. Audience Vote");
+                    String chosenLifeLine = keyboard.nextLine();
+                    Lifelines lifeline = new Lifelines(chosenLifeLine, options, answer, question);
                 }
-                System.out.println("Correct Answer! You've reached " + moneyWon + " dollars."); //money
-            } else {
-                System.out.println("Wrong Answer :(. The correct answer is " + answer + ". Your points are BLAH");
-            }
+               
+                moneyWon = checkAnswer(userAnswer, answer, moneyWon);
+                
+//            } while (userAnswer == "Yes");
 
         }
         System.out.println("End of the Game! To restart do ....");
         br.close();
         fr.close();
+    }
+
+    private int checkAnswer(String userAnswer, String answer, int moneyWon) {
+        if (userAnswer.equalsIgnoreCase(answer)) {
+            if (moneyWon == 0) {
+                moneyWon = 100;
+            } else {
+                moneyWon *= 2;
+                if (moneyWon == 400 || moneyWon == 600) {
+                    moneyWon -= 100;
+                } else if (moneyWon == 128000) {
+                    moneyWon -= 3000;
+                }
+            }
+            System.out.println("Correct Answer! You've reached " + moneyWon + " dollars."); //money
+        } 
+        else {
+            if (moneyWon >= 1000){
+                moneyWon = 1000;
+            }
+            else if (moneyWon >= 32000){
+                moneyWon = 32000;
+            }
+            else 
+            {
+                moneyWon = 0;
+            }
+            System.out.println("Wrong Answer :(. The correct answer is " + answer + ". You are on " + moneyWon);
+        }
+        return moneyWon;
     }
 
 }
