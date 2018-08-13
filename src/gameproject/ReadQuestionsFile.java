@@ -19,9 +19,9 @@ import java.util.Scanner;
  *
  * @author Amrit
  */
-public class ReadFile {
+public class ReadQuestionsFile {
 
-    public ReadFile(String name) throws IOException {
+    public ReadQuestionsFile(String name) throws IOException {
         File f = new File("questions.txt");
         FileReader fr = new FileReader(f);
         BufferedReader br = new BufferedReader(fr);
@@ -72,7 +72,7 @@ public class ReadFile {
                 }
                
                 moneyWon = checkAnswer(userAnswer, answer, moneyWon);
-                WriteFile file = new WriteFile(name, moneyWon);
+                PlayerInfo playerInfoFile = new PlayerInfo(name, moneyWon);
                 questionNumber++;
 //            } while (userAnswer == "Yes");
 

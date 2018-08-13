@@ -22,10 +22,12 @@ public class GameProject {
         System.out.println("Please enter your name");
 
         String name = keyboard.nextLine();
-        if (name != null){
-           ReadFile file = new ReadFile (name);
-        }
+       
         
         System.out.println("Welcome, " + name + " to Who Wants To Be A Millionaire! \nInstruction!!!! Start Button!!\n");
+        
+        if (name != null){
+           ReadQuestionsFile file = new ReadQuestionsFile (name);
+        }
     }
 }

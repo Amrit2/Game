@@ -14,31 +14,16 @@ import java.io.PrintWriter;
  *
  * @author Amrit
  */
-public class WriteFile {
+public class PlayerInfo {
     private String name;
     private int money;
-    FileOutputStream userFile;
-    PrintWriter info;
-
-    public WriteFile(String name, int money) throws IOException  {
+   
+    public PlayerInfo(String name, int money) throws IOException  {
        setName(name);
        setMoney(money);
-       addToTheFile();
+       WritePlayerInfo info = new WritePlayerInfo(this.getName(), this.getMoney());
     }
     
-    public void addToTheFile ()throws FileNotFoundException, IOException{
-         try {
-            this.userFile = new FileOutputStream("UserInfo.txt");
-            this.info = new PrintWriter(userFile, true);
-            info.println(this.getName() + " " + this.getMoney());
-            
-        } catch (FileNotFoundException e) {
-            System.out.print("Could not write to the file, error " + e);
-        } finally {
-             info.close();
-        }
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -54,5 +39,4 @@ public class WriteFile {
     public int getMoney(){
         return this.money;
     }
-    
 }
