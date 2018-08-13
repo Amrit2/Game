@@ -1,8 +1,5 @@
 
-ajdbv:100
-Second:100
-Third:100
-Fourth:100
-First:100
-hll:100
-sdc:100
+hello:100
+second:100
+second:200
+dsg:0

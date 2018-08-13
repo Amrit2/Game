@@ -51,33 +51,35 @@ public class ReadQuestionsFile {
                 }
                 currentLine++;
             }
-            
+
             limit += 6;
             count = 0;
             Questions quizQues = new Questions(question, options, answer);
             System.out.println(quizQues.toString());
 
-//            do {
-                System.out.println("Would you like to use one of the life lines? If so, type yes else please type a letter to submit your answer");
-                userAnswer = keyboard.nextLine();
+            System.out.println("Would you like to use one of the life lines? If so, type yes else please type a letter to submit your answer");
+            userAnswer = keyboard.nextLine();
 
-               
-                if (userAnswer.equalsIgnoreCase("Yes")) {
+            if (userAnswer.equalsIgnoreCase("Yes")) {
+                do {
                     System.out.println("Type the related number to pick an option "
                             + "\n1. 50:50"
                             + "\n2. Phone a friend"
                             + "\n3. Audience Vote");
                     String chosenLifeLine = keyboard.nextLine();
+
                     Lifelines lifeline = new Lifelines(chosenLifeLine, options, answer, question);
-                }
-               
-                moneyWon = checkAnswer(userAnswer, answer, moneyWon);
-                PlayerInfo playerInfoFile = new PlayerInfo(name, moneyWon);
-                
-//                LeaderBoard leaderBoard = new LeaderBoard();
-                
-                questionNumber++;
-//            } while (userAnswer == "Yes");
+
+                    System.out.println("Would you like to use one of the life lines? If so, type yes else please type a letter to submit your answer");
+                    userAnswer = keyboard.nextLine();
+                } while (userAnswer.equalsIgnoreCase("Yes"));
+            }
+
+            moneyWon = checkAnswer(userAnswer, answer, moneyWon);
+            PlayerInfo playerInfoFile = new PlayerInfo(name, moneyWon);
+
+// <<<<<<<<<<<<<<<<<<< LeaderBoard leaderBoard = new LeaderBoard(); NEEDS TO BE FIXED>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+            questionNumber++;
 
         }
         System.out.println("End of the Game! To restart do ....");
@@ -98,23 +100,17 @@ public class ReadQuestionsFile {
                 }
             }
             System.out.println("Correct Answer! You've reached " + moneyWon + " dollars."); //money
-        } 
-        else {
-            if (moneyWon >= 1000){
+        } else {
+            if (moneyWon >= 1000) {
                 moneyWon = 1000;
-            }
-            else if (moneyWon >= 32000){
+            } else if (moneyWon >= 32000) {
                 moneyWon = 32000;
-            }
-            else 
-            {
+            } else {
                 moneyWon = 0;
             }
             System.out.println("Wrong Answer :(. The correct answer is " + answer + ". You are on " + moneyWon);
         }
-        
-        
-       
+
         return moneyWon;
     }
 
