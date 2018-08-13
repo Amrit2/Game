@@ -21,7 +21,7 @@ import java.util.Scanner;
  */
 public class ReadFile {
 
-    public ReadFile(PrintWriter info) throws IOException {
+    public ReadFile(String name) throws IOException {
         File f = new File("questions.txt");
         FileReader fr = new FileReader(f);
         BufferedReader br = new BufferedReader(fr);
@@ -51,7 +51,7 @@ public class ReadFile {
                 }
                 currentLine++;
             }
-            questionNumber++;
+            
             limit += 6;
             count = 0;
             Questions quizQues = new Questions(question, options, answer);
@@ -71,8 +71,9 @@ public class ReadFile {
                     Lifelines lifeline = new Lifelines(chosenLifeLine, options, answer, question);
                 }
                
-                moneyWon = checkAnswer(userAnswer, answer, moneyWon, info);
-                
+                moneyWon = checkAnswer(userAnswer, answer, moneyWon);
+                WriteFile file = new WriteFile(name, moneyWon);
+                questionNumber++;
 //            } while (userAnswer == "Yes");
 
         }
@@ -81,7 +82,7 @@ public class ReadFile {
         fr.close();
     }
 
-    private int checkAnswer(String userAnswer, String answer, int moneyWon, PrintWriter info) throws FileNotFoundException {
+    private int checkAnswer(String userAnswer, String answer, int moneyWon) throws FileNotFoundException, IOException {
         if (userAnswer.equalsIgnoreCase(answer)) {
             if (moneyWon == 0) {
                 moneyWon = 100;
@@ -109,8 +110,8 @@ public class ReadFile {
             System.out.println("Wrong Answer :(. The correct answer is " + answer + ". You are on " + moneyWon);
         }
         
-        info.println(moneyWon);
         
+       
         return moneyWon;
     }
 

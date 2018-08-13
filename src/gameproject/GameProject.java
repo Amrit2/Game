@@ -23,7 +23,7 @@ public class GameProject {
 
         String name = keyboard.nextLine();
         if (name != null){
-           WriteFile writeToFile = new WriteFile(name); 
+           ReadFile file = new ReadFile (name);
         }
         
         System.out.println("Welcome, " + name + " to Who Wants To Be A Millionaire! \nInstruction!!!! Start Button!!\n");

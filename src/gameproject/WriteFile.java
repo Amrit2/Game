@@ -15,24 +15,44 @@ import java.io.PrintWriter;
  * @author Amrit
  */
 public class WriteFile {
-
+    private String name;
+    private int money;
     FileOutputStream userFile;
     PrintWriter info;
 
-    public WriteFile(String name) throws IOException  {
-       addToTheFile(name);
+    public WriteFile(String name, int money) throws IOException  {
+       setName(name);
+       setMoney(money);
+       addToTheFile();
     }
     
-    public void addToTheFile (String name)throws FileNotFoundException, IOException{
+    public void addToTheFile ()throws FileNotFoundException, IOException{
          try {
             this.userFile = new FileOutputStream("UserInfo.txt");
             this.info = new PrintWriter(userFile, true);
-            info.println(name);
-            ReadFile file = new ReadFile(info);
+            info.println(this.getName() + " " + this.getMoney());
+            
         } catch (FileNotFoundException e) {
             System.out.print("Could not write to the file, error " + e);
         } finally {
              info.close();
         }
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+    
+    public String getName(){
+        return this.name;
+    }
+    
+    public int getMoney(){
+        return this.money;
+    }
+    
 }

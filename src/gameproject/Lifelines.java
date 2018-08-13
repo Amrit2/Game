@@ -33,21 +33,32 @@ public class Lifelines {
     }
 
     public void setFiftyFiftyOptions(String[] options, String answer, String question) {
+        Random rand = new Random();
+        
         System.out.println("I'm in fifty fifty");
-        int number = 1;
         this.fiftyFiftyOptions = new String[1];
         if (this.usedFifty != true) {
             System.out.println("I'm being used fifty fifty");
+            
+            int secondOption = rand.nextInt(1) + 0;
             for (String s : options){
-                for (int i = 0; i < this.fiftyFiftyOptions.length; i++){
-                   do {
-                       this.fiftyFiftyOptions[i] = s;
-                   } while (s == answer);
-                   
+                if (s.contains(answer)){
+                    this.fiftyFiftyOptions[secondOption] = s;
                 }
-                
             }
             
+            for (String s : options){
+                if (!s.contains(answer)){
+                    for (int i = 0; i <= this.fiftyFiftyOptions.length; i++){
+                        if (fiftyFiftyOptions[i] == null){
+                            fiftyFiftyOptions[i] = s;
+                        }
+                    }
+                    this.fiftyFiftyOptions[secondOption] = s;
+                }
+            }
+            
+          
             Questions ques = new Questions(question, this.fiftyFiftyOptions, answer);
             ques.toString();
             this.usedFifty = true;
