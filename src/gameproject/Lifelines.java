@@ -5,6 +5,7 @@
  */
 package gameproject;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -72,13 +73,18 @@ public class Lifelines {
         int low = 1;
         int high = 100;
         int probability = r.nextInt(high - low) + low;
-
+        this.phoneAFriendOptions = new String[1];
         if (probability >= 10) {
-            this.phoneAFriendOptions[0] = answer;
-
+            for (int i = 0; i < options.length; i++){
+                if (options[i].contains(answer)){
+                     this.phoneAFriendOptions[0] = options[i];
+                }
+            }
         }
-        Questions ques = new Questions(question, this.phoneAFriendOptions, answer);
-        ques.toString();
+        for (String s : this.phoneAFriendOptions){
+            System.out.println("\nYour friend has suggested to go for " + s);
+        }
+       
     }
 
     public void setAudienceVoteOptions(String[] options, String question, String answer) {
