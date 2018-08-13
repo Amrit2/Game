@@ -73,6 +73,9 @@ public class ReadQuestionsFile {
                
                 moneyWon = checkAnswer(userAnswer, answer, moneyWon);
                 PlayerInfo playerInfoFile = new PlayerInfo(name, moneyWon);
+                
+//                LeaderBoard leaderBoard = new LeaderBoard();
+                
                 questionNumber++;
 //            } while (userAnswer == "Yes");
 

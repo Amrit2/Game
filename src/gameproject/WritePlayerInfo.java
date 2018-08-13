@@ -27,7 +27,7 @@ public class WritePlayerInfo {
          try {
             info = new PrintWriter( new FileOutputStream(("UserInfo.txt"), true));
             
-            info.println(name + " " + money);
+            info.println(name + ":" + money);
             
         } catch (FileNotFoundException e) {
             System.out.print("Could not write to the file, error " + e);
