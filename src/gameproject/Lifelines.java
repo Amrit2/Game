@@ -88,27 +88,22 @@ public class Lifelines {
     }
 
     public void setAudienceVoteOptions(String[] options, String question, String answer) {
-        this.audienceVoteOptions = new String[options.length];
         Random r = new Random();
         this.setUsedAudience();
-        int low = 1;
         int high = 100;
-        int probabilityOne = r.nextInt(high - low) + low;
-        int probabilityTwo = r.nextInt(high - probabilityOne) + low;
-        int probabilityThree = r.nextInt(high - probabilityTwo) + low;
-        int probabilityFour = r.nextInt(high - probabilityThree) + low;
+        
+        int probabilityOne = r.nextInt(high);
+        int probabilityTwo = r.nextInt(high - probabilityOne);
+        int probabilityThree = r.nextInt(high - (probabilityTwo + probabilityOne));
+        int probabilityFour = high - (probabilityTwo + probabilityOne+ probabilityThree);
 
-        options[0] = options[0] + " Audience Vote:" + probabilityOne;
-        options[1] = options[0] + " Audience Vote:" + probabilityTwo;
-        options[2] = options[0] + " Audience Vote:" + probabilityThree;
-        options[3] = options[0] + " Audience Vote:" + probabilityFour;
-        for (int i = 0; i < audienceVoteOptions.length; i++) {
-            for (String s : options) {
-                audienceVoteOptions[i] = s;
-            }
-        }
-        Questions ques = new Questions(question, this.audienceVoteOptions, answer);
-        ques.toString();
+        options[0] = options[0] + ", Audience Voted:" + probabilityOne;
+        options[1] = options[1] + ", Audience Voted:" + probabilityTwo;
+        options[2] = options[2] + ", Audience Voted:" + probabilityThree;
+        options[3] = options[3] + ", Audience Voted:" + probabilityFour;
+
+        Questions ques = new Questions(question, options, answer);
+        System.out.println(ques.toString());
     }
 
     public void setUsedFifty() {

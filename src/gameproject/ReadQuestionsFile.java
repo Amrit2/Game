@@ -102,7 +102,7 @@ public class ReadQuestionsFile {
                     moneyWon -= 3000;
                 }
             }
-            System.out.println("Correct Answer! You've reached " + moneyWon + " dollars."); //money
+            System.out.println("Correct Answer! You've reached " + moneyWon + " dollars.\n"); //money
         } else {
             if (moneyWon >= 1000) {
                 moneyWon = 1000;
