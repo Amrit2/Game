@@ -48,16 +48,14 @@ public class Lifelines {
     public void setFiftyFiftyOptions(String[] options, String answer, String question) {
         Random rand = new Random();
         this.setUsedFifty();
-//        System.out.println("I'm in fifty fifty");
         this.fiftyFiftyOptions = new String[2];
-//            System.out.println("I'm being used fifty fifty");
 
         this.fiftyFiftyOptions[0] = options[0];
         if (!options[0].contains(answer)) {
             for (int i = 1; i < options.length; i++) {
-                do {
+                if (options[i].contains(answer)){
                     this.fiftyFiftyOptions[1] = options[i];
-                } while (!options[i].contains(answer));
+                } 
             }
         } else {
             this.fiftyFiftyOptions[1] = options[1];

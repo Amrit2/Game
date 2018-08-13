@@ -62,24 +62,26 @@ public class ReadQuestionsFile {
 
             if (userAnswer.equalsIgnoreCase("Yes")) {
                 do {
-                    System.out.println("Type the related number to pick an option "
+                    String chosenLifeLine = "";
+                        System.out.println("Type the related NUMBER to pick an option "
                             + "\n1. 50:50"
                             + "\n2. Phone a friend"
                             + "\n3. Audience Vote");
-                    String chosenLifeLine = keyboard.nextLine();
-
-                    Lifelines lifeline = new Lifelines(chosenLifeLine, options, answer, question);
-
-                    System.out.println("Would you like to use one of the life lines? If so, type yes else please type a letter to submit your answer");
+                        chosenLifeLine = keyboard.nextLine();
+                    
+                    if ((chosenLifeLine != "1" || chosenLifeLine != "2"  || chosenLifeLine != "3" )){
+                       Lifelines lifeline = new Lifelines(chosenLifeLine, options, answer, question);
+                    }
+                   
+                    System.out.println("Would you like to use one of the life lines? If so, type yes else please type a LETTER to submit your answer");
                     userAnswer = keyboard.nextLine();
                 } while (userAnswer.equalsIgnoreCase("Yes"));
             }
 
             moneyWon = checkAnswer(userAnswer, answer, moneyWon);
             //change this
-            MoneyLadder playerMoneyWon = new MoneyLadder(moneyWon);
+//            MoneyLadder playerMoneyWon = new MoneyLadder(moneyWon);
 
-// <<<<<<<<<<<<<<<<<<< LeaderBoard leaderBoard = new LeaderBoard(); NEEDS TO BE FIXED>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
             questionNumber++;
 
         }

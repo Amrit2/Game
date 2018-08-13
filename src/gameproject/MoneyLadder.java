@@ -5,9 +5,13 @@
  */
 package gameproject;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
@@ -27,28 +31,27 @@ public class MoneyLadder {
         setMoney(money);
     }
 
-    private void setMoney(int money) throws FileNotFoundException {
+    private void setMoney(int money) throws FileNotFoundException, IOException {
+        String currentValue = Integer.toString(money);
         File file = new File("UserInfo.txt");
         if (file.exists()) {
             try {
                 ladder = Files.readAllLines(file.toPath(), Charset.defaultCharset());
+                int i = 0;
+                for (String s : ladder) {
+                    while (!s.equalsIgnoreCase(currentValue)){
+                        i++;
+                    }
+                }
+                ladder.set(i, "<----");
+                Files.write(file.toPath(), ladder, Charset.defaultCharset());
+
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
             if (ladder.isEmpty()) {
                 return;
             }
-        }
-        
-        for (String s: ladder){
-            if (s.equalsIgnoreCase(Integer.toString(money))){
-                PrintWriter info = new PrintWriter( new FileOutputStream(("UserInfo.txt"), true));
-                info.write("     <------");
-            }
-        }
-        
-        for (String s: ladder){
-            System.out.println(s);
         }
     }
 
