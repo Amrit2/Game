@@ -76,7 +76,8 @@ public class ReadQuestionsFile {
             }
 
             moneyWon = checkAnswer(userAnswer, answer, moneyWon);
-            PlayerInfo playerInfoFile = new PlayerInfo(name, moneyWon);
+            //change this
+            MoneyLadder playerMoneyWon = new MoneyLadder(moneyWon);
 
 // <<<<<<<<<<<<<<<<<<< LeaderBoard leaderBoard = new LeaderBoard(); NEEDS TO BE FIXED>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
             questionNumber++;
