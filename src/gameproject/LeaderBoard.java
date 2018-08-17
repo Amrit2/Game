@@ -28,9 +28,6 @@ public class LeaderBoard {
     File file = new File("UserInfo.txt");
     PrintWriter info;
 
-    public LeaderBoard(String name, int money) throws IOException{
-        addToTheFile(name, money);
-    }
     
      public void addToTheFile (String name, int money)throws FileNotFoundException, IOException{
          try {
@@ -50,20 +47,22 @@ public class LeaderBoard {
         }
     }
 
-//    public void showLeaderBoard() {
-//        File file = new File("UserInfo.txt");
-//        if (file.exists()) {
-//            try {
-//                board = Files.readAllLines(file.toPath(), Charset.defaultCharset());
-//            } catch (IOException ex) {
-//                ex.printStackTrace();
-//            }
-//            if (board.isEmpty()) {
-//                return;
-//            }
-//        }
-//        for (String s: board){
-//            System.out.println(s);
-//        }
-//    }
+    public void showLeaderBoard() {
+        File file = new File("UserInfo.txt");
+        if (file.exists()) {
+            try {
+                board = Files.readAllLines(file.toPath(), Charset.defaultCharset());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            if (board.isEmpty()) {
+                return;
+            }
+        }
+        System.out.println("\nThe current leaderboard is as follows:");
+        for (String s: board){
+            System.out.println(s);
+        }
+        System.out.println("\n\n");
+    }
 }

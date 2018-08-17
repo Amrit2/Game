@@ -1,1 +1,4 @@
 
+Amrit:600
+Hello:0
+yes:0

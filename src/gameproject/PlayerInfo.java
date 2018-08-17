@@ -21,7 +21,7 @@ public class PlayerInfo {
     public PlayerInfo(String name, int money) throws IOException  {
        setName(name);
        setMoney(money);
-       LeaderBoard info = new LeaderBoard(this.getName(), this.getMoney());
+//       LeaderBoard info = new LeaderBoard(this.getName(), this.getMoney());
     }
     
     public void setName(String name) {

@@ -34,28 +34,11 @@ public class GameProject {
     
     public static void main(String[] args) throws IOException {
        
-        List<String> board = new ArrayList<String>();
         System.out.println("Please enter your name");
         Scanner keyboard = new Scanner(System.in);
         String name;
-         name = keyboard.nextLine();
-       
-//        
-//        System.out.println("Welcome " + name + ", to Who Wants To Be A Millionaire! \n");
-//        System.out.println("The current leaderboard is as follows:");
-//
-//        File file;
-//        file = new File("UserInfo.txt");
-//        if (file.exists()) {
-//            board = Files.readAllLines(file.toPath(), Charset.defaultCharset());
-//            if (board.isEmpty()) {
-//                return;
-//            }
-//        }
-//        for (String s: board){
-//            System.out.println(s);
-//        }
-    
+        name = keyboard.nextLine();
+
         System.out.println("\nInstructions:\n"
                            + "- To answer a question please type the letter corresponding to the answer and hit enter.\n"
                            + "- To use a lifeline, type YES when prompted and pick a lifeline from the lifelines shown.\n"
