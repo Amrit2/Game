@@ -17,10 +17,10 @@ public class Questions {
     private String[] options;
     private String answer;
 
-    public Questions(String question, String[] option, String answer) {
-        setQuestion(question);
-        setOptions(option);
-        setAnswer(answer);
+    public Questions() {
+        question ="";
+        options = null;
+        answer = "";
     }
 
     public void setQuestion(String inputQuestion) {
