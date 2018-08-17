@@ -8,11 +8,8 @@ package gameproject;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -21,24 +18,31 @@ import java.util.Scanner;
  */
 public class ReadQuestionsFile {
 
-    File f = new File("questions.txt");
-    FileReader fr = new FileReader(f);
-    BufferedReader br = new BufferedReader(fr);
-    Scanner keyboard = new Scanner(System.in);
-    Lifelines lifeline = new Lifelines();
+    File f;
+    FileReader fr;
+    BufferedReader br;
+    Scanner keyboard;
+    Lifelines lifeline;
     private int moneyWon = 0;
+    String[] options;
+    String answer;
+    String question;
     Questions quizQuestion;
 
     public ReadQuestionsFile(String name) throws IOException {
-        String answer = "";
-        String question = "";
-        String[] options = new String[4];
+        f = new File("questions.txt");
+        fr = new FileReader(f);
+        br = new BufferedReader(fr);
+        answer = "";
+        question = "";
+        options = new String[4];
         quizQuestion = new Questions();
+
+        keyboard = new Scanner(System.in);
+        lifeline = new Lifelines();
+
         getQuestions(quizQuestion, answer, question, options);
 
-        System.out.println("End of the Game! To restart do ....");
-        br.close();
-        fr.close();
     }
 
     public void setMoneyWon(int money) {
@@ -58,7 +62,7 @@ public class ReadQuestionsFile {
         int currentLine = 0;
         int count = 0;
 
-        while (!userAnswer.equalsIgnoreCase("Q")) {
+        if (!userAnswer.equalsIgnoreCase("Q")) {
             while (questionNumber <= 22) {
 
                 while ((line = br.readLine()) != null && currentLine <= limit) {
@@ -90,12 +94,17 @@ public class ReadQuestionsFile {
                         System.out.println("Would you like to use one of the life lines? If so, type yes else please type a LETTER to submit your answer");
                         userAnswer = keyboard.nextLine();
                     } while (userAnswer.equalsIgnoreCase("Yes"));
+
                 }
 
                 this.setMoneyWon(checkAnswer(userAnswer, answer, moneyWon));
                 questionNumber++;
+
             }
         }
+
+        br.close();
+        fr.close();
     }
 
     public int checkAnswer(String userAnswer, String answer, int moneyWon) throws FileNotFoundException, IOException {
@@ -115,7 +124,7 @@ public class ReadQuestionsFile {
             if (moneyWon >= 1000) {
                 moneyWon = 1000;
             } else if (this.moneyWon >= 32000) {
-               moneyWon = 32000;
+                moneyWon = 32000;
             } else {
                 moneyWon = 0;
             }
@@ -133,19 +142,16 @@ public class ReadQuestionsFile {
                 + "\n3. Audience Vote");
         chosenLifeLine = keyboard.nextLine();
         if (chosenLifeLine.equalsIgnoreCase("1")) {
-            quizQues.setOptions(lifeline.setFiftyFiftyOptions(options, answer, question));
-            lifeline.setUsedFifty(true);
-
+            String[] resultedOption = lifeline.setFiftyFiftyOptions(options, answer, question);
+            quizQues.setOptions(resultedOption);
             System.out.println(quizQues.toString());
         }
         if (chosenLifeLine.equalsIgnoreCase("2")) {
             lifeline.setPhoneAFriendOptions(options, answer, question);
-            lifeline.setUsedCall(true);
             System.out.println(quizQues.toString());
         }
         if (chosenLifeLine.equalsIgnoreCase("3")) {
             quizQues.setOptions(lifeline.setAudienceVoteOptions(options, answer, question));
-            lifeline.setUsedAudience(true);
             System.out.println(quizQues.toString());
         }
     }

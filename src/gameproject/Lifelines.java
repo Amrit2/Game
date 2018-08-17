@@ -24,12 +24,13 @@ public class Lifelines {
         usedCall = false;
         usedAudience = false;
     }
-    
+
     public String[] setFiftyFiftyOptions(String[] options, String answer, String question) {
         Random rand = new Random();
 
         this.fiftyFiftyOptions = new String[2];
-        if (this.getUsedFifty() == false){
+        if (this.getUsedFifty() == false) {
+            this.setUsedFifty(true);
             this.fiftyFiftyOptions[0] = options[0];
             if (!options[0].contains(answer)) {
                 for (int i = 1; i < options.length; i++) {
@@ -39,13 +40,13 @@ public class Lifelines {
                 }
             } else {
                 this.fiftyFiftyOptions[1] = options[1];
-            
-           
-            return this.fiftyFiftyOptions;     
+            }
+            return this.fiftyFiftyOptions;
         }
-        }
+
         System.out.println("\nYou've already used this option\n");
         return options;
+
     }
 
     public void setPhoneAFriendOptions(String[] options, String answer, String question) {
@@ -53,7 +54,8 @@ public class Lifelines {
         int low = 1;
         int high = 100;
         int probability = r.nextInt(high - low) + low;
-        if (this.getUsedCall() == false){
+        if (this.getUsedCall() == false) {
+            this.setUsedCall(true);
             this.phoneAFriendOptions = new String[1];
             if (probability >= 10) {
                 for (int i = 0; i < options.length; i++) {
@@ -63,19 +65,20 @@ public class Lifelines {
                 }
             }
             for (String s : this.phoneAFriendOptions) {
-                System.out.println("\nYour friend has suggested to go for " + s);
+                System.out.println("\nYour friend has suggested to go for " + s + "\n");
             }
-             
+
+        } else {
+            System.out.println("\nYou've already used this option\n");
         }
-        else
-          System.out.println("\nYou've already used this option\n");
-      
+
     }
 
     public String[] setAudienceVoteOptions(String[] options, String question, String answer) {
         Random r = new Random();
         int high = 100;
-        if (this.getUsedAudience() == false){
+        if (this.getUsedAudience() == false) {
+            this.setUsedAudience(true);
             int probabilityOne = r.nextInt(high);
             int probabilityTwo = r.nextInt(high - probabilityOne);
             int probabilityThree = r.nextInt(high - (probabilityTwo + probabilityOne));
@@ -86,7 +89,7 @@ public class Lifelines {
             options[2] = options[2] + ", Audience Voted:" + probabilityThree + "%";
             options[3] = options[3] + ", Audience Voted:" + probabilityFour + "%";
 
-            return options;  
+            return options;
         }
         System.out.println("\nYou've already used this option\n");
         return options;
