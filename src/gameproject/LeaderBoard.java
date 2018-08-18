@@ -42,29 +42,6 @@ public class LeaderBoard {
         info.close();
     }
 
-    public void showLeaderBoard() {
-        System.out.println("\nThe current leaderboard is as follows:");
-        this.getFileContents();
-        for (String s : this.board) {
-            System.out.println(s);
-        }
-        System.out.println("\n");
-    }
-
-    public void getFileContents() {
-        File file = new File("UserInfo.txt");
-        if (file.exists()) {
-            try {
-                this.board = Files.readAllLines(file.toPath(), Charset.defaultCharset());
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            if (this.board.isEmpty()) {
-                return;
-            }
-        }
-    }
-
     public void sortedBoard() throws IOException {
         FileReader r = new FileReader("UserInfo.txt");
         List<PlayerInfo> person = new ArrayList<PlayerInfo>();
@@ -82,8 +59,6 @@ public class LeaderBoard {
         for (PlayerInfo player: person){
             System.out.println(player);
         }
-        
-
         r.close();
     }
 

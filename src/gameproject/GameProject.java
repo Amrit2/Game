@@ -37,5 +37,7 @@ public class GameProject {
             }
             
         }
+        LeaderBoard board = new LeaderBoard();
+        board.sortedBoard();
     }
 }
