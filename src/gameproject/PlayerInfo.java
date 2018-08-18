@@ -5,23 +5,20 @@
  */
 package gameproject;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  *
  * @author Amrit
  */
-public class PlayerInfo {
+public class PlayerInfo{
     private String name;
     private int money;
    
-    public PlayerInfo(String name, int money) throws IOException  {
-       setName(name);
-       setMoney(money);
-//       LeaderBoard info = new LeaderBoard(this.getName(), this.getMoney());
+    public PlayerInfo(String name, int money) {
+        this.name = name;
+        this.money = money;///// DO THIS FOR OTHER CLASSES
     }
     
     public void setName(String name) {
@@ -39,4 +36,10 @@ public class PlayerInfo {
     public int getMoney(){
         return this.money;
     }
+    
+    public String toString(){
+        return this.name + ":" + this.money;
+    }
+
+    
 }

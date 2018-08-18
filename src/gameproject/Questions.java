@@ -65,7 +65,7 @@ public class Questions {
     }
 
     public String toString() {
-        String output = "Your question is: \n" + this.getQuestion() + "\n";
+        String output = "\nYour question is: \n" + this.getQuestion() + "\n";
         for (String choice : this.getOptions()) {
             output += choice + "\n";
         }

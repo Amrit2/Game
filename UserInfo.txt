@@ -1,4 +1,3 @@
-
-Amrit:600
-Hello:0
-yes:0
+Someone:300
+Amrit:100
+New:400

@@ -63,7 +63,8 @@ public class ReadQuestionsFile {
         int limit = 5;
         int currentLine = 0;
         int count = 0;
-        leaderboard.showLeaderBoard();
+//        leaderboard.showLeaderBoard();
+        leaderboard.sortedBoard();
         while (questionNumber <= 22 && !userAnswer.equalsIgnoreCase("Q")) {
 
             while ((line = br.readLine()) != null && currentLine <= limit) {
@@ -106,7 +107,6 @@ public class ReadQuestionsFile {
 
         }
         leaderboard.addToTheFile(name, this.getMoneyWon());
-        
         br.close();
         fr.close();
     }

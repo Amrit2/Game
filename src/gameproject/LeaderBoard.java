@@ -17,6 +17,8 @@ import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -24,45 +26,66 @@ import java.util.List;
  * @author Amrit
  */
 public class LeaderBoard {
-    List<String> board = new ArrayList<String>();
-    File file = new File("UserInfo.txt");
+
+    private List<String> board;
+    File file;
     PrintWriter info;
 
-    
-     public void addToTheFile (String name, int money)throws FileNotFoundException, IOException{
-         try {
-              board = Files.readAllLines(file.toPath(), Charset.defaultCharset());
-              info = new PrintWriter( new FileOutputStream(("UserInfo.txt"), true));
-              for (String s: board){
-                  if (s.contains(name)){
-                    info.println(name + ":" + money);  
-                  }
-              }
-              info.println(name + ":" + money); 
-            
-        } catch (FileNotFoundException e) {
-            System.out.print("Could not write to the file, error " + e);
-        } finally {
-             info.close();
-        }
+    public LeaderBoard() throws FileNotFoundException {
+        board = new ArrayList<String>();
+        file = new File("UserInfo.txt");
+    }
+
+    public void addToTheFile(String name, int money) throws FileNotFoundException, IOException {
+        info = new PrintWriter(new FileOutputStream(("UserInfo.txt"), true));
+        info.println(name + ":" + money);
+        info.close();
     }
 
     public void showLeaderBoard() {
+        System.out.println("\nThe current leaderboard is as follows:");
+        this.getFileContents();
+        for (String s : this.board) {
+            System.out.println(s);
+        }
+        System.out.println("\n");
+    }
+
+    public void getFileContents() {
         File file = new File("UserInfo.txt");
         if (file.exists()) {
             try {
-                board = Files.readAllLines(file.toPath(), Charset.defaultCharset());
+                this.board = Files.readAllLines(file.toPath(), Charset.defaultCharset());
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-            if (board.isEmpty()) {
+            if (this.board.isEmpty()) {
                 return;
             }
         }
-        System.out.println("\nThe current leaderboard is as follows:");
-        for (String s: board){
-            System.out.println(s);
-        }
-        System.out.println("\n\n");
     }
+
+    public void sortedBoard() throws IOException {
+        FileReader r = new FileReader("UserInfo.txt");
+        List<PlayerInfo> person = new ArrayList<PlayerInfo>();
+
+        BufferedReader reader = new BufferedReader(r);
+        String line = "";
+
+        while ((line = reader.readLine()) != null) {
+            String[] result = line.split(":");
+            person.add(new PlayerInfo(result[0], Integer.parseInt(result[1])));
+        }
+        person.sort(Comparator.comparingInt(PlayerInfo::getMoney).reversed());
+        
+        System.out.println("\nThe leaderboard looks like:");
+        for (PlayerInfo player: person){
+            System.out.println(player);
+        }
+        
+
+        r.close();
+    }
+
 }
+
