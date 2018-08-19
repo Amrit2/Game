@@ -11,15 +11,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- *
- * @author Amrit
+ * @author Amritpal Kaur
+ * 14865526
  */
 public class ReadQuestionsFile {
 
+    //declaration of variables
     private String[] options;
     private String answer;
     private String question;
@@ -33,8 +32,8 @@ public class ReadQuestionsFile {
     Questions quizQues;
     LeaderBoard leaderboard;
 
-    public ReadQuestionsFile(String n) throws IOException {
-        setName(n);
+    public ReadQuestionsFile(String name) throws IOException {
+        setName(name);
         this.answer = "";
         this.question = "";
         this.options = new String[4];
@@ -113,12 +112,13 @@ public class ReadQuestionsFile {
 
             if (userAnswer.equalsIgnoreCase("Q")) {
                 try {
+                    leaderboard.addToTheFile(this.name, this.getMoneyWon());
                     leaderboard.sortedBoard();
                     System.exit(0);
                 } catch (IOException ex) {
                     System.out.println("Error: The leader board could not be displayed.");
                 }
-                System.exit(0);
+                
             }
 
             this.setMoneyWon(checkAnswer(userAnswer, answer, moneyWon));
@@ -189,9 +189,8 @@ public class ReadQuestionsFile {
             }
         } else {
             try {
+                leaderboard.addToTheFile(this.name, this.getMoneyWon());
                 leaderboard.sortedBoard();
-                System.exit(0);
-
                 System.exit(0);
             } catch (IOException ex) {
                 System.out.println("Error: The leader board could not be displayed.");
