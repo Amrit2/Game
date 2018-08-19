@@ -17,33 +17,30 @@ import java.util.Scanner;
  * @author Amrit
  */
 public class ReadQuestionsFile {
-
+    private String[] options;
+    private String answer;
+    private String question;
+    private String name;
     File f;
     FileReader fr;
     BufferedReader br;
     Scanner keyboard;
     Lifelines lifeline;
     private int moneyWon = 0;
-    String[] options;
-    String answer;
-    String question;
-    Questions quizQuestion;
+    Questions quizQues;
     LeaderBoard leaderboard;
 
-    public ReadQuestionsFile(String name) throws IOException {
+    public ReadQuestionsFile(String n) throws IOException {
+        setName(n);
+        this.answer = "";
+        this.question = "";
+        this.options = new String[4];
+        
         f = new File("questions.txt");
         fr = new FileReader(f);
         br = new BufferedReader(fr);
         leaderboard = new LeaderBoard();
-        answer = "";
-        question = "";
-        options = new String[4];
-        quizQuestion = new Questions(question, options, answer);
-
         keyboard = new Scanner(System.in);
-        lifeline = new Lifelines();
-
-        getQuestions(name, quizQuestion, answer, question, options);
 
     }
 
@@ -55,34 +52,36 @@ public class ReadQuestionsFile {
         return this.moneyWon;
     }
 
-    private void getQuestions(String name, Questions quizQues, String question, String answer, String[] options) throws IOException {
+    public void getQuestions() throws IOException {
+        quizQues = new Questions(this.question, this.options, this.answer);
         String userAnswer = "";
         String line;
         int questionNumber = 1;
-
         int limit = 5;
         int currentLine = 0;
         int count = 0;
+        lifeline = new Lifelines();
         leaderboard.sortedBoard();
+        
         while (questionNumber <= 22 && !userAnswer.equalsIgnoreCase("Q")) {
             while ((line = br.readLine()) != null && currentLine <= limit) {
                 if (line.contains("?")) {
-                    question = line;
+                    this.question = line;
                 }
                 if (line.contains(":")) {
-                    options[count++] = line;
+                    this.options[count++] = line;
                 }
                 if ((line.contains("A") || line.contains("B") || line.contains("C") || line.contains("D")) && !line.contains(":")) {
-                    answer = line;
+                    this.answer = line;
                 }
                 currentLine++;
             }
 
             limit += 6;
             count = 0;
-            quizQues.setQuestion(question);
-            quizQues.setAnswer(answer);
-            quizQues.setOptions(options);
+            quizQues.setQuestion(this.question);
+            quizQues.setAnswer(this.answer);
+            quizQues.setOptions(this.options);
             System.out.println(quizQues.toString());
 
             System.out.println("Would you like to use one of the life lines? If so, type \"YES\" else please type a LETTER to submit your answer or \"Q\" to quit the game.");
@@ -95,7 +94,8 @@ public class ReadQuestionsFile {
             }
 
             if (userAnswer.equalsIgnoreCase("Yes") || userAnswer.equalsIgnoreCase("Y")) {
-                useLifeLine(lifeline, quizQues, options, answer, question);
+                do {
+                    useLifeLine(lifeline, quizQues, options, answer, question);
                 System.out.println("Would you like to use one of the life lines? If so, type yes else please type a LETTER to submit your answer or Q to quit the game.");
                 userAnswer = keyboard.nextLine();
                 if (!validUserInput(userAnswer)) {
@@ -104,6 +104,8 @@ public class ReadQuestionsFile {
                         userAnswer = keyboard.nextLine();
                     } while (!validUserInput(userAnswer));
                 }
+                }while (userAnswer.equalsIgnoreCase("yes"));
+                
 
             }
 
@@ -115,7 +117,7 @@ public class ReadQuestionsFile {
             questionNumber++;
 
         }
-        leaderboard.addToTheFile(name, this.getMoneyWon());
+        leaderboard.addToTheFile(this.name, this.getMoneyWon());
         br.close();
         fr.close();
     }
@@ -198,5 +200,13 @@ public class ReadQuestionsFile {
             return true;
         }
         return false;
+    }
+
+    public void setName(String n) {
+        this.name = n;
+    }
+    
+    public String getName(){
+       return this.name;
     }
 }

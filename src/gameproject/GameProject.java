@@ -9,11 +9,15 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- *
- * @author Amrit
+ * @author Amritpal Kaur
+ * 14865526
  */
 public class GameProject {
 
+    /**
+     * 
+     * @param args 
+     */
     public static void main(String[] args) {
 
         System.out.println("Please enter your name");
@@ -34,11 +38,12 @@ public class GameProject {
                 System.out.println("Please type \"START\" to start the game or \"Q\" to quit the game.");
             }
 
-        } while (!ready.equalsIgnoreCase("Start") && !ready.equalsIgnoreCase("Q"));
+        } while (!ready.equalsIgnoreCase("Start") && !ready.equalsIgnoreCase("Q"));                     // ensures the user puts in a valid input
 
         if (!ready.equalsIgnoreCase("Q")) {
             try {
-                ReadQuestionsFile file = new ReadQuestionsFile(name);
+                ReadQuestionsFile file = new ReadQuestionsFile(name);                                   // instantiates the ReadQuestions file
+                file.getQuestions();
                 LeaderBoard board = new LeaderBoard();
                 board.sortedBoard();
             } catch (IOException e) {
