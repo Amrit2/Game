@@ -26,22 +26,28 @@ public class LeaderBoard {
     File file;
     PrintWriter info;
 
-    public LeaderBoard() throws FileNotFoundException {
+    public LeaderBoard(){
         board = new ArrayList<String>();
         file = new File("UserInfo.txt");
     }
 
-    public void addToTheFile(String name, int money) throws FileNotFoundException, IOException {
-        info = new PrintWriter(new FileOutputStream(("UserInfo.txt"), true));
-        info.println(name + ":" + money);
+    public void addToTheFile(String name, int money){
+        try{
+            info = new PrintWriter(new FileOutputStream(("UserInfo.txt"), true));
+            info.println(name + ":" + money);
+        }catch (FileNotFoundException e){
+            System.out.println("Error: File not found.");
+        }
+        
         info.close();
     }
 
     public void sortedBoard() throws IOException {
-        FileReader r = new FileReader("UserInfo.txt");
-        List<PlayerInfo> person = new ArrayList<PlayerInfo>();
 
         try {
+            FileReader r = new FileReader("UserInfo.txt");
+            List<PlayerInfo> person = new ArrayList<PlayerInfo>();
+
             BufferedReader reader = new BufferedReader(r);
             String line = "";
             try {
@@ -50,18 +56,19 @@ public class LeaderBoard {
                     person.add(new PlayerInfo(result[0], Integer.parseInt(result[1])));
                 }
                 person.sort(Comparator.comparingInt(PlayerInfo::getMoney).reversed());
+                System.out.println("\nThe leaderboard looks like:");
+                for (PlayerInfo player : person) {
+                    System.out.println(player);
+                }
+
+                r.close();
+
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Error: You are trying to access an illegal integer in the array");
             }
 
-            System.out.println("\nThe leaderboard looks like:");
-            for (PlayerInfo player : person) {
-                System.out.println(player);
-            }
         } catch (FileNotFoundException e) {
-            System.out.println("Error: " + e);
-        } finally {
-            r.close();
+            System.out.println("Error: File not found.");
         }
 
     }

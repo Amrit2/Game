@@ -42,7 +42,7 @@ public class GameProject {
                 LeaderBoard board = new LeaderBoard();
                 board.sortedBoard();
             } catch (IOException e) {
-                System.out.println("Error: " + e); // change error message
+                System.out.println("Error: Input/Output exception" ); 
             } finally {
                 System.out.println("Thank you for playing Who Wants To Be a Millionaire.");
             }
