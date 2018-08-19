@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gameproject;
 
 import java.io.BufferedReader;
@@ -13,6 +8,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
+ * This class reads the Questions file and handles users input to allow the user to play the game
  * @author Amritpal Kaur
  * 14865526
  */
@@ -32,20 +28,26 @@ public class ReadQuestionsFile {
     Questions quizQues;
     LeaderBoard leaderboard;
 
+    /**
+     * The constructor initializes the variables
+     * @param name of the player
+     * @throws IOException 
+     */
     public ReadQuestionsFile(String name) throws IOException {
         setName(name);
         this.answer = "";
         this.question = "";
         this.options = new String[4];
 
-        f = new File("questions.txt");
-        fr = new FileReader(f);
-        br = new BufferedReader(fr);
-        leaderboard = new LeaderBoard();
+        f = new File("questions.txt");                                  //instantiated a text file called questions
+        fr = new FileReader(f);                                         // passing that file to the file reader
+        br = new BufferedReader(fr);                                    // passing it to the buffered reader for reading
+        leaderboard = new LeaderBoard();                                // instantiated the leader board class
         keyboard = new Scanner(System.in);
 
     }
 
+    // get/set methods for the money won by the player
     public void setMoneyWon(int money) {
         this.moneyWon = money;
     }
@@ -54,40 +56,50 @@ public class ReadQuestionsFile {
         return this.moneyWon;
     }
 
+    /**
+     * This class shows the questions and handles player input for processing
+     * @throws IOException 
+     */
     public void playGame() throws IOException {
-        quizQues = new Questions(this.question, this.options, this.answer);
+        quizQues = new Questions(this.question, this.options, this.answer);                 // instantiating the question class
         String userAnswer = "";
         String line;
         int questionNumber = 1;
-        int limit = 5;
+        int limit = 5;                                                                     // the number of lines in the text file
+                                                                                           // after the question that need to be processed
         int currentLine = 0;
         int count = 0;
-        lifeline = new Lifelines();
-        leaderboard.sortedBoard();
+        
+        leaderboard.displayLeaderBoard();                                                   // displaying the sorted leaderboard
 
-        while (questionNumber <= 22 && !userAnswer.equalsIgnoreCase("Q")) {
-            while ((line = br.readLine()) != null && currentLine <= limit) {
+        // ensure the game keeps running until the questions finish
+        while (questionNumber <= 22 && !userAnswer.equalsIgnoreCase("Q") && (this.getMoneyWon()!= 1000000)) {   
+            while ((line = br.readLine()) != null && currentLine <= limit) {                // keep the loop running until no text in the file
                 if (line.contains("?")) {
-                    this.question = line;
+                    this.question = line;                                                   //store the question
                 }
                 if (line.contains(":")) {
-                    this.options[count++] = line;
+                    this.options[count++] = line;                                           // store all the options
                 }
                 if ((line.contains("A") || line.contains("B") || line.contains("C") || line.contains("D")) && !line.contains(":")) {
-                    this.answer = line;
+                    this.answer = line;                                                     // store the answer
                 }
                 currentLine++;
             }
 
             limit += 6;
             count = 0;
-            quizQues.setQuestion(this.question);
+            
+            // set the question, options and answer in the Question object
+            quizQues.setQuestion(this.question);                                        
             quizQues.setAnswer(this.answer);
             quizQues.setOptions(this.options);
-            System.out.println(quizQues.toString());
+            System.out.println(quizQues.toString());                                        // print the ques and options
 
             System.out.println("Would you like to use one of the life lines? If so, type \"YES\" else please type a LETTER to submit your answer or \"Q\" to quit the game.");
             userAnswer = keyboard.nextLine();
+            
+            // ensure the user enters a valid input 
             if (!validUserInput(userAnswer)) {
                 do {
                     System.out.println("Please enter a A,B,C,D or \"yes\" to access lifelines.");
@@ -95,11 +107,14 @@ public class ReadQuestionsFile {
                 } while (!validUserInput(userAnswer));
             }
 
+            //runs if the user says yes to use lifelines
             if (userAnswer.equalsIgnoreCase("Yes") || userAnswer.equalsIgnoreCase("Y")) {
                 do {
-                    useLifeLine(lifeline, quizQues, options, answer, question);
+                    useLifeLine(quizQues, options, answer, question);
                     System.out.println("Would you like to use one of the life lines? If so, type yes else please type a LETTER to submit your answer or Q to quit the game.");
                     userAnswer = keyboard.nextLine();
+                    
+                    //ensure a valid input
                     if (!validUserInput(userAnswer)) {
                         do {
                             System.out.println("Please enter a A,B,C,D or \"yes\" to access lifelines.\n");
@@ -110,10 +125,11 @@ public class ReadQuestionsFile {
 
             }
 
+            // if the player wants to quit the game, adds the player to the leaderboard and prints out the leaderboard
             if (userAnswer.equalsIgnoreCase("Q")) {
                 try {
                     leaderboard.addToTheFile(this.name, this.getMoneyWon());
-                    leaderboard.sortedBoard();
+                    leaderboard.displayLeaderBoard();
                     System.exit(0);
                 } catch (IOException ex) {
                     System.out.println("Error: The leader board could not be displayed.");
@@ -121,17 +137,27 @@ public class ReadQuestionsFile {
                 
             }
 
-            this.setMoneyWon(checkAnswer(userAnswer, answer, moneyWon));
+            this.setMoneyWon(checkAnswer(userAnswer, answer, moneyWon));                //checks the player's answer and sets the moneyWon
             questionNumber++;
 
         }
-        leaderboard.addToTheFile(this.name, this.getMoneyWon());
+
         br.close();
         fr.close();
     }
 
+    /**
+     * This method checks the user's answer
+     * @param userAnswer: the user's answer
+     * @param answer : actual answer
+     * @param moneyWon: the current amount the user has
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public int checkAnswer(String userAnswer, String answer, int moneyWon) throws FileNotFoundException, IOException {
-
+        
+        // checks if the user answered correctly and sets the money won accordingly
         if (userAnswer.equalsIgnoreCase(answer)) {
             if (moneyWon == 0) {
                 moneyWon = 100;
@@ -158,7 +184,16 @@ public class ReadQuestionsFile {
         return moneyWon;
     }
 
-    private void useLifeLine(Lifelines lifeline, Questions quizQues, String[] options, String answer, String question) {
+    /**
+     * This method processes the life line 
+     * @param lifeline 
+     * @param quizQues
+     * @param options
+     * @param answer
+     * @param question 
+     */
+    private void useLifeLine(Questions quizQues, String[] options, String answer, String question) {
+        lifeline = new Lifelines();                                                                         // instantiating the question class
         String chosenLifeLine = "";
 
         System.out.println("Type the related NUMBER to pick an option "
@@ -174,23 +209,24 @@ public class ReadQuestionsFile {
         }
 
         if (!chosenLifeLine.equalsIgnoreCase("Q")) {
-            if (chosenLifeLine.equalsIgnoreCase("1")) {
+            if (chosenLifeLine.equalsIgnoreCase("1")) {                                               // process the 50:50 option
                 String[] resultedOption = lifeline.setFiftyFiftyOptions(options, answer, question);
                 quizQues.setOptions(resultedOption);
                 System.out.println(quizQues.toString());
             }
-            if (chosenLifeLine.equalsIgnoreCase("2")) {
+            if (chosenLifeLine.equalsIgnoreCase("2")) {                                               // process the phone a friend option
                 lifeline.setPhoneAFriendOptions(options, answer, question);
                 System.out.println(quizQues.toString());
             }
-            if (chosenLifeLine.equalsIgnoreCase("3")) {
-                quizQues.setOptions(lifeline.setAudienceVoteOptions(options, answer, question));
+            if (chosenLifeLine.equalsIgnoreCase("3")) {                                               // process the set audience option
+                quizQues.setOptions(lifeline.setAudienceVoteOptions(options, answer, question));        
                 System.out.println(quizQues.toString());
             }
-        } else {
+        } else {            
+            //set the leaderboard before quitting if user enters Q for quit
             try {
                 leaderboard.addToTheFile(this.name, this.getMoneyWon());
-                leaderboard.sortedBoard();
+                leaderboard.displayLeaderBoard();
                 System.exit(0);
             } catch (IOException ex) {
                 System.out.println("Error: The leader board could not be displayed.");

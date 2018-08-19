@@ -4,13 +4,14 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
+ * This class is the entry point of the program
  * @author Amritpal Kaur
  * 14865526
  */
 public class GameProject {
 
     /**
-     * 
+     * the main function
      * @param args 
      */
     public static void main(String[] args) {
@@ -33,12 +34,12 @@ public class GameProject {
                 System.out.println("Please type \"START\" to start the game or \"Q\" to quit the game.");
             }
 
-        } while (!ready.equalsIgnoreCase("Start") && !ready.equalsIgnoreCase("Q"));                     // ensures the user puts in a valid input
+        } while (!ready.equalsIgnoreCase("Start") && !ready.equalsIgnoreCase("Q"));                  // ensures the user inputs in a valid input
 
         if (!ready.equalsIgnoreCase("Q")) {
             try {
-                ReadQuestionsFile file = new ReadQuestionsFile(name);                                   // instantiates the ReadQuestions file
-                file.playGame();                                                                        // play the game
+                ReadQuestionsFile file = new ReadQuestionsFile(name);                                // instantiates the ReadQuestions file
+                file.playGame();                                                                     // play the game
             } catch (IOException e) {
                 System.out.println("Error: Input/Output exception." ); 
             } finally {

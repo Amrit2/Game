@@ -42,7 +42,7 @@ public class LeaderBoard {
         info.close();
     }
 
-    public void sortedBoard() throws IOException {
+    public void displayLeaderBoard() throws IOException {
 
         try {
             FileReader r = new FileReader("UserInfo.txt");
