@@ -39,10 +39,10 @@ public class ReadQuestionsFile {
         this.question = "";
         this.options = new String[4];
 
-        f = new File("questions.txt");                                  //instantiated a text file called questions
-        fr = new FileReader(f);                                         // passing that file to the file reader
-        br = new BufferedReader(fr);                                    // passing it to the buffered reader for reading
-        this.leaderboard = new LeaderBoard();                                // instantiated the leader board class
+        f = new File("questions.txt");                                                           //instantiated a text file called questions
+        fr = new FileReader(f);                                                                  // passing that file to the file reader
+        br = new BufferedReader(fr);                                                             // passing it to the buffered reader for reading
+        this.leaderboard = new LeaderBoard();                                                    // instantiated the leader board class
         keyboard = new Scanner(System.in);
         this.quizQues = new Questions(this.question, this.options, this.answer);                 // instantiating the question class
     }

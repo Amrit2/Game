@@ -1,26 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gameproject;
 
 import java.util.Collections;
 import java.util.Comparator;
 
 /**
- *
- * @author Amrit
+ *The class stores the name and money won by each player
+ * @author Amritpal Kaur
+ * 14865526
  */
 public class PlayerInfo{
     private String name;
     private int money;
    
+    /**
+     * Initializes the name and money won
+     * @param name
+     * @param money 
+     */
     public PlayerInfo(String name, int money) {
         this.name = name;
         this.money = money;
     }
     
+   
+   // get/set methods for name and money
     public void setName(String name) {
         this.name = name;
     }

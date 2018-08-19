@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gameproject;
 
-import java.util.Arrays;
-
 /**
- *
- * @author Amrit
+ *This class is for Questions, options and answer
+ * @author Amritpal Kaur
+ * 14865526
  */
 public class Questions {
 
@@ -23,13 +17,21 @@ public class Questions {
         this.answer = a;
     }
 
+    /**
+     * Method for setting the question 
+     * @param inputQuestion 
+     */
     public void setQuestion(String inputQuestion) {
         this.question = inputQuestion;
     }
 
+    /**
+     * Method for storing the options from the text file
+     * @param inputOption 
+     */
     public void setOptions(String[] inputOption) {
         this.options = new String[inputOption.length];
-        if (inputOption != null) {
+        if (inputOption != null) {                                                  // ensures the input is not null
             for (int i = 0; i < inputOption.length; i++) {
 
                 for (int j = 0; j < options.length; j++) {
@@ -46,6 +48,10 @@ public class Questions {
         }
     }
 
+    /**
+     * method for setting the answer
+     * @param answer 
+     */
     public void setAnswer(String answer) {
         this.answer = answer;
     }
@@ -54,6 +60,10 @@ public class Questions {
         return this.question;
     }
 
+    /**
+     * method for getting the options, ensure no null value is returned
+     * @return 
+     */
     public String[] getOptions() {
         String[] alternatives = new String[this.options.length];
         for (int i = 0; i < options.length; i++) {
@@ -74,6 +84,10 @@ public class Questions {
         return this.answer;
     }
 
+    /**
+     * To string method displays the question and options
+     * @return a string
+     */
     public String toString() {
         String output = "\nYour question is: \n" + this.getQuestion() + "\n";
         for (String choice : this.getOptions()) {
