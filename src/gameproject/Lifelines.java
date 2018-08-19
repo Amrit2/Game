@@ -14,6 +14,7 @@ public class Lifelines {
     private boolean usedAudience;
     private String[] fiftyFiftyOptions;
     private String[] phoneAFriendOptions;
+    private boolean showWrongAnswer = false;
 
     /**
      * Constructor initializes the variables to false
@@ -67,7 +68,7 @@ public class Lifelines {
         Random r = new Random();
         int low = 1;
         int high = 100;
-        boolean showWrongAnswer = false;
+      
         int probability = r.nextInt(high - low) + low;
         if (this.getUsedCall() == false) {                                              // ensure the options hasn't been used already
             this.setUsedCall(true);
@@ -81,8 +82,8 @@ public class Lifelines {
                     }
                 } else {
                     for (int i = 0; i < options.length; i++) {                          // else give a wrong answer
-                        if (!options[i].contains(answer) && showWrongAnswer == false) {
-                            showWrongAnswer = true;
+                        if (!options[i].contains(answer) && this.getShowWrongAnswer() == false) {
+                            this.setShowWrongAnswer(true);
                            System.out.println("\nYour friend has suggested to go for " + options[i] + "\n");
                         }
                     }
@@ -141,6 +142,10 @@ public class Lifelines {
         this.usedAudience = used;
     }
 
+    public void setShowWrongAnswer(boolean state){
+        this.showWrongAnswer = state;
+    }
+    
     public boolean getUsedFifty() {
         return this.usedFifty;
     }
@@ -151,5 +156,9 @@ public class Lifelines {
 
     public boolean getUsedAudience() {
         return this.usedAudience;
+    }
+    
+    public boolean getShowWrongAnswer(){
+        return this.showWrongAnswer;
     }
 }

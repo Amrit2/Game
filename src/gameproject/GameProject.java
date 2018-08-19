@@ -37,16 +37,10 @@ public class GameProject {
         } while (!ready.equalsIgnoreCase("Start") && !ready.equalsIgnoreCase("Q"));                  // ensures the user inputs in a valid input
 
         if (!ready.equalsIgnoreCase("Q")) {
-            try {
-                ReadQuestionsFile file = new ReadQuestionsFile(name);                                // instantiates the ReadQuestions file
-                file.playGame();                                                                     // play the game
-            } catch (IOException e) {
-                System.out.println("Error: Input/Output exception." ); 
-            } finally {
-                System.out.println("Thank you for playing Who Wants To Be a Millionaire.");
-            }
-            
-            
+            ReadQuestionsFile file = new ReadQuestionsFile(name);                                // instantiates the ReadQuestions file
+            file.playGame();                                                                     // play the game
+            System.out.println("Congratulations! You've won 1 MILLION DOLLARS.");
+           
         }
 
     }
