@@ -64,11 +64,15 @@ public class Lifelines {
                     }
                 }
             }
+            else {
+                this.phoneAFriendOptions[0] = options[0];
+            }
             for (String s : this.phoneAFriendOptions) {
                 System.out.println("\nYour friend has suggested to go for " + s + "\n");
             }
 
-        } else {
+        } 
+        else {
             System.out.println("\nYou've already used this option\n");
         }
 
