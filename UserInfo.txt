@@ -1,3 +1,2 @@
-Amrit:100
-hello:200
 m:200
+amrit:200

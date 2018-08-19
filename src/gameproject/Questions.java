@@ -31,7 +31,7 @@ public class Questions {
      */
     public void setOptions(String[] inputOption) {
         this.options = new String[inputOption.length];
-        if (inputOption != null) {                                                  // ensures the input is not null
+        if (inputOption != null) {                                                                           // ensures the input is not null
             for (int i = 0; i < inputOption.length; i++) {
 
                 for (int j = 0; j < options.length; j++) {

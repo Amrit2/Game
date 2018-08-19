@@ -39,8 +39,12 @@ public class GameProject {
         if (!ready.equalsIgnoreCase("Q")) {
             ReadQuestionsFile file = new ReadQuestionsFile(name);                                // instantiates the ReadQuestions file
             file.playGame();                                                                     // play the game
-            System.out.println("Congratulations! You've won 1 MILLION DOLLARS.");
-           
+            
+            if (file.getMoneyWon() == 1000000){
+               System.out.println("Congratulations! You've won 1 MILLION DOLLARS."); 
+            }
+            else 
+                System.out.println("Game Over. Thank you for playing");
         }
 
     }

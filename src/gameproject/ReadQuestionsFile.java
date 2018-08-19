@@ -31,12 +31,10 @@ public class ReadQuestionsFile {
 
     /**
      * The constructor initializes the variables
-     *
      * @param name of the player
-     * @throws IOException
      */
     public ReadQuestionsFile(String name) {
-        setName(name);
+        this.setName(name);
         this.answer = "";
         this.question = "";
         this.options = new String[4];
@@ -65,8 +63,6 @@ public class ReadQuestionsFile {
 
     /**
      * This class shows the questions and handles player input for processing
-     *
-     * @throws IOException
      */
     public void playGame() {
         String userAnswer = "";
@@ -78,8 +74,8 @@ public class ReadQuestionsFile {
 
         leaderboard.displayLeaderBoard();                                                   // displaying the sorted leaderboard
 
-        // ensure the game keeps running until the questions finish
-        while (questionNumber <= 22 && !userAnswer.equalsIgnoreCase("Q") && (this.getMoneyWon() != 1000000)) {
+        // ensure the game keeps running until the player wins or quits the game
+        while ( !userAnswer.equalsIgnoreCase("Q") && (this.getMoneyWon() != 1000000)) {
             try {
                 while ((line = br.readLine()) != null && currentLine <= nextLineLimit) {                // keep the loop running until no text in the file
                     if (line.contains("?")) {
@@ -138,21 +134,14 @@ public class ReadQuestionsFile {
 
             // if the player wants to quit the game, adds the player to the leaderboard and prints out the leaderboard
             if (userAnswer.equalsIgnoreCase("Q")) {
-                leaderboard.addToTheFile(this.name, this.getMoneyWon());
+                leaderboard.addToTheFile(this.getName(), this.getMoneyWon());
                 leaderboard.displayLeaderBoard();
                 System.exit(0);
 
             }
             
-            try{
-                 this.setMoneyWon(checkAnswer(userAnswer));                //checks the player's answer and set the moneyWon
-                questionNumber++;
-            }catch (FileNotFoundException e){
-                System.out.println("File not found.");
-            }catch (IOException e){
-                System.out.println("Input output exception.");
-            }
-           
+            this.setMoneyWon(checkAnswer(userAnswer));                //checks the player's answer and set the moneyWon
+            questionNumber++;
 
         }
 
@@ -167,15 +156,10 @@ public class ReadQuestionsFile {
 
     /**
      * This method checks the user's answer
-     *
      * @param userAnswer: the user's answer
-     * @param answer : actual answer
-     * @param moneyWon: the current amount the user has
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
+     * @return the amount of money won by the player
      */
-    public int checkAnswer(String userAnswer) throws FileNotFoundException, IOException {
+    public int checkAnswer(String userAnswer){
 
         // checks if the user answered correctly and sets the money won accordingly
         if (userAnswer.equalsIgnoreCase(this.answer)) {
@@ -245,7 +229,7 @@ public class ReadQuestionsFile {
         } else {
 
             //set the leaderboard before quitting if user enters Q for quit
-            this.leaderboard.addToTheFile(this.name, this.getMoneyWon());
+            this.leaderboard.addToTheFile(this.getName(), this.getMoneyWon());
             this.leaderboard.displayLeaderBoard();
             System.exit(0);
         }
@@ -259,12 +243,9 @@ public class ReadQuestionsFile {
      * @return a boolean
      */
     private boolean validUserInput(String userAnswer) {
-        if (userAnswer.equalsIgnoreCase("Q") || userAnswer.equalsIgnoreCase("Yes")
+        return userAnswer.equalsIgnoreCase("Q") || userAnswer.equalsIgnoreCase("Yes")
                 || userAnswer.equalsIgnoreCase("A") || userAnswer.equalsIgnoreCase("B")
-                || userAnswer.equalsIgnoreCase("C") || userAnswer.equalsIgnoreCase("D")) {
-            return true;
-        }
-        return false;
+                || userAnswer.equalsIgnoreCase("C") || userAnswer.equalsIgnoreCase("D");
     }
 
     /**
@@ -274,11 +255,8 @@ public class ReadQuestionsFile {
      * @return a boolean
      */
     private boolean validLifeLineUserInput(String userChoice) {
-        if (userChoice.equalsIgnoreCase("Q") || userChoice.equalsIgnoreCase("1")
-                || userChoice.equalsIgnoreCase("2") || userChoice.equalsIgnoreCase("3")) {
-            return true;
-        }
-        return false;
+        return userChoice.equalsIgnoreCase("Q") || userChoice.equalsIgnoreCase("1")
+                || userChoice.equalsIgnoreCase("2") || userChoice.equalsIgnoreCase("3");
     }
 
     //get/set for name

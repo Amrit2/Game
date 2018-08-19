@@ -1,37 +1,37 @@
-What do we call a person who is in prison?
-A:Prisoner
-B:Prison
-C:Brother
-D:Sister
+Baleen whales have two and toothed whales have one of what?
+A:Stomachs
+B:Noses
+C:Fins
+D:Blowholes
+D
+
+Barak Obama is the .... president of the United States?
+A:38th
+B:42nd
+C:44th
+D:46th
+C
+
+Footballer David Beckham signed with which Major League Soccer club in the US in 2007?
+A:Colorado Rapids
+B:LA Galaxy
+C:FC Dallas
+D:Seattle Sounders
+B
+
+New Zealand was the second country in the world to institute..
+A:a public school system
+B:a driving license
+C:a reserve bank
+D:an old age pension
+D
+
+Coconut water is sterile and has an ideal pH level. It can be used (in emergencies) as a substitute for blood?
+A:Plasma
+B:Donation
+C:Transfusion
+D:Purification
 A
-
-What is the capital city of TURKEY?
-A:Istanbul
-B:Ankara
-C:Konya
-D:Samsun
-B
-
-What’s the American President’s office called?
-A:Office
-B:Heaven
-C:The White House
-D:Hell
-C
-
-What is the Pi number?
-A:3.16
-B:3.15
-C:3.14
-D:3.13
-C
-
-The chemical symbol Pt represents the element?
-A:Plutonium
-B:Platinum
-C:Rubidium
-D:Palladium
-B
 
 Who invented the telephone?
 A:Albert Einstein
@@ -54,12 +54,12 @@ C:Brazil
 D:United States
 C
 
-The longest river in the world is the ?
-A:Ostsee
-B:Adria
-C:Nordsee
-D:Nile
-D
+Jane Goodall is famous for studying what animal?
+A:Dolphins
+B:Orangutans
+C:Chimpanzee
+D:Sharks
+C
 
 The director of Shawshank Redemption movie is ?
 A:Neset Ertas
@@ -75,12 +75,12 @@ C:Fly
 D:Japanese Beetle
 A
 
-Which of these kitchen items most closely resembles a hemisphere?
-A:Salad Fork
-B:Cookie Sheet
-C:Spatula
-D:Cereal Bowl
-D
+What type of creature is a Pacific Sea Wasp?
+A:A Starfish
+B:A Jellyfish
+C:A Sea Urchin
+D:A Shark
+B
 
 What type of wild animal is an ibex?
 A:Goat
@@ -89,11 +89,11 @@ C:Hare
 D:Deer
 A
 
-The handled pointing device for computers is named after what rodent?
-A:Mouse
-B:Porcupine
-C:Squirrel
-D:Rat
+What type of creature is a Tai Pan?
+A:A Snake
+B:A Fish
+C:A Bird
+D:A Monkey
 A
 
 The television quizshow "Who Wants To Be A Millionaire" was first broadcasted in which year?
