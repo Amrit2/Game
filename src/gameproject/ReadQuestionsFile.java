@@ -38,7 +38,7 @@ public class ReadQuestionsFile {
         answer = "";
         question = "";
         options = new String[4];
-        quizQuestion = new Questions();
+        quizQuestion = new Questions(question, options, answer);
 
         keyboard = new Scanner(System.in);
         lifeline = new Lifelines();

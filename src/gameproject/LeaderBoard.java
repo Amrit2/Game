@@ -6,18 +6,13 @@
 package gameproject;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -46,21 +41,29 @@ public class LeaderBoard {
         FileReader r = new FileReader("UserInfo.txt");
         List<PlayerInfo> person = new ArrayList<PlayerInfo>();
 
-        BufferedReader reader = new BufferedReader(r);
-        String line = "";
+        try {
+            BufferedReader reader = new BufferedReader(r);
+            String line = "";
+            try {
+                while ((line = reader.readLine()) != null) {
+                    String[] result = line.split(":");
+                    person.add(new PlayerInfo(result[0], Integer.parseInt(result[1])));
+                }
+                person.sort(Comparator.comparingInt(PlayerInfo::getMoney).reversed());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Error: You are trying to access an illegal integer in the array");
+            }
 
-        while ((line = reader.readLine()) != null) {
-            String[] result = line.split(":");
-            person.add(new PlayerInfo(result[0], Integer.parseInt(result[1])));
+            System.out.println("\nThe leaderboard looks like:");
+            for (PlayerInfo player : person) {
+                System.out.println(player);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: " + e);
+        } finally {
+            r.close();
         }
-        person.sort(Comparator.comparingInt(PlayerInfo::getMoney).reversed());
-        
-        System.out.println("\nThe leaderboard looks like:");
-        for (PlayerInfo player: person){
-            System.out.println(player);
-        }
-        r.close();
+
     }
 
 }
-

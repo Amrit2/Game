@@ -32,16 +32,20 @@ public class Lifelines {
         if (this.getUsedFifty() == false) {
             this.setUsedFifty(true);
             this.fiftyFiftyOptions[0] = options[0];
-            if (!options[0].contains(answer)) {
-                for (int i = 1; i < options.length; i++) {
-                    if (options[i].contains(answer)) {
-                        this.fiftyFiftyOptions[1] = options[i];
+            try {
+                if (!options[0].contains(answer)) {
+                    for (int i = 1; i < options.length; i++) {
+                        if (options[i].contains(answer)) {
+                            this.fiftyFiftyOptions[1] = options[i];
+                        }
                     }
+                } else {
+                    this.fiftyFiftyOptions[1] = options[1];
                 }
-            } else {
-                this.fiftyFiftyOptions[1] = options[1];
+                return this.fiftyFiftyOptions;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Error: You are trying to access an illegal integer in the array");
             }
-            return this.fiftyFiftyOptions;
         }
 
         System.out.println("\nYou've already used this option\n");
@@ -57,22 +61,24 @@ public class Lifelines {
         if (this.getUsedCall() == false) {
             this.setUsedCall(true);
             this.phoneAFriendOptions = new String[1];
-            if (probability >= 10) {
-                for (int i = 0; i < options.length; i++) {
-                    if (options[i].contains(answer)) {
-                        this.phoneAFriendOptions[0] = options[i];
+            try {
+                if (probability >= 10) {
+                    for (int i = 0; i < options.length; i++) {
+                        if (options[i].contains(answer)) {
+                            this.phoneAFriendOptions[0] = options[i];
+                        }
                     }
+                } else {
+                    this.phoneAFriendOptions[0] = options[0];
                 }
-            }
-            else {
-                this.phoneAFriendOptions[0] = options[0];
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Error: You are trying to access an illegal integer in the array");
             }
             for (String s : this.phoneAFriendOptions) {
                 System.out.println("\nYour friend has suggested to go for " + s + "\n");
             }
 
-        } 
-        else {
+        } else {
             System.out.println("\nYou've already used this option\n");
         }
 
@@ -88,10 +94,14 @@ public class Lifelines {
             int probabilityThree = r.nextInt(high - (probabilityTwo + probabilityOne));
             int probabilityFour = high - (probabilityTwo + probabilityOne + probabilityThree);
 
-            options[0] = options[0] + ", Audience Voted:" + probabilityOne + "%";
-            options[1] = options[1] + ", Audience Voted:" + probabilityTwo + "%";
-            options[2] = options[2] + ", Audience Voted:" + probabilityThree + "%";
-            options[3] = options[3] + ", Audience Voted:" + probabilityFour + "%";
+            try {
+                options[0] = options[0] + ", Audience Voted:" + probabilityOne + "%";
+                options[1] = options[1] + ", Audience Voted:" + probabilityTwo + "%";
+                options[2] = options[2] + ", Audience Voted:" + probabilityThree + "%";
+                options[3] = options[3] + ", Audience Voted:" + probabilityFour + "%";
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Error: You are trying to access an illegal integer in the array");
+            }
 
             return options;
         }

@@ -17,10 +17,10 @@ public class Questions {
     private String[] options;
     private String answer;
 
-    public Questions() {
-        question ="";
-        options = null;
-        answer = "";
+    public Questions(String q, String[] o, String a) {
+        this.question = q;
+        this.options = o;
+        this.answer = a;
     }
 
     public void setQuestion(String inputQuestion) {
@@ -31,11 +31,17 @@ public class Questions {
         this.options = new String[inputOption.length];
         if (inputOption != null) {
             for (int i = 0; i < inputOption.length; i++) {
+
                 for (int j = 0; j < options.length; j++) {
                     if (i == j) {
-                        options[i] = inputOption[j];
+                        try {
+                            options[i] = inputOption[j];
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            System.out.println("Error: You are trying to access an illegal integer in the array");
+                        }
                     }
                 }
+
             }
         }
     }
@@ -53,7 +59,11 @@ public class Questions {
         for (int i = 0; i < options.length; i++) {
             for (int j = 0; j < alternatives.length; j++) {
                 if (i == j && options[i] != null) {
+                    try{
                     alternatives[j] = options[i];
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                            System.out.println("Error: You are trying to access an illegal integer in the array");
+                        }
                 }
             }
         }

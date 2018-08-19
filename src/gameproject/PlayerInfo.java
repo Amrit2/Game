@@ -18,7 +18,7 @@ public class PlayerInfo{
    
     public PlayerInfo(String name, int money) {
         this.name = name;
-        this.money = money;///// DO THIS FOR OTHER CLASSES
+        this.money = money;
     }
     
     public void setName(String name) {
