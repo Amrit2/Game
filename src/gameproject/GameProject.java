@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gameproject;
 
 import java.io.IOException;
@@ -43,11 +38,9 @@ public class GameProject {
         if (!ready.equalsIgnoreCase("Q")) {
             try {
                 ReadQuestionsFile file = new ReadQuestionsFile(name);                                   // instantiates the ReadQuestions file
-                file.getQuestions();
-                LeaderBoard board = new LeaderBoard();
-                board.sortedBoard();
+                file.playGame();                                                                        // play the game
             } catch (IOException e) {
-                System.out.println("Error: Input/Output exception" ); 
+                System.out.println("Error: Input/Output exception." ); 
             } finally {
                 System.out.println("Thank you for playing Who Wants To Be a Millionaire.");
             }

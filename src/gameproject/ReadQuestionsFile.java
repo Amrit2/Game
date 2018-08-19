@@ -11,12 +11,15 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Amrit
  */
 public class ReadQuestionsFile {
+
     private String[] options;
     private String answer;
     private String question;
@@ -35,7 +38,7 @@ public class ReadQuestionsFile {
         this.answer = "";
         this.question = "";
         this.options = new String[4];
-        
+
         f = new File("questions.txt");
         fr = new FileReader(f);
         br = new BufferedReader(fr);
@@ -52,7 +55,7 @@ public class ReadQuestionsFile {
         return this.moneyWon;
     }
 
-    public void getQuestions() throws IOException {
+    public void playGame() throws IOException {
         quizQues = new Questions(this.question, this.options, this.answer);
         String userAnswer = "";
         String line;
@@ -62,7 +65,7 @@ public class ReadQuestionsFile {
         int count = 0;
         lifeline = new Lifelines();
         leaderboard.sortedBoard();
-        
+
         while (questionNumber <= 22 && !userAnswer.equalsIgnoreCase("Q")) {
             while ((line = br.readLine()) != null && currentLine <= limit) {
                 if (line.contains("?")) {
@@ -96,20 +99,25 @@ public class ReadQuestionsFile {
             if (userAnswer.equalsIgnoreCase("Yes") || userAnswer.equalsIgnoreCase("Y")) {
                 do {
                     useLifeLine(lifeline, quizQues, options, answer, question);
-                System.out.println("Would you like to use one of the life lines? If so, type yes else please type a LETTER to submit your answer or Q to quit the game.");
-                userAnswer = keyboard.nextLine();
-                if (!validUserInput(userAnswer)) {
-                    do {
-                        System.out.println("Please enter a A,B,C,D or \"yes\" to access lifelines.\n");
-                        userAnswer = keyboard.nextLine();
-                    } while (!validUserInput(userAnswer));
-                }
-                }while (userAnswer.equalsIgnoreCase("yes"));
-                
+                    System.out.println("Would you like to use one of the life lines? If so, type yes else please type a LETTER to submit your answer or Q to quit the game.");
+                    userAnswer = keyboard.nextLine();
+                    if (!validUserInput(userAnswer)) {
+                        do {
+                            System.out.println("Please enter a A,B,C,D or \"yes\" to access lifelines.\n");
+                            userAnswer = keyboard.nextLine();
+                        } while (!validUserInput(userAnswer));
+                    }
+                } while (userAnswer.equalsIgnoreCase("yes"));
 
             }
 
             if (userAnswer.equalsIgnoreCase("Q")) {
+                try {
+                    leaderboard.sortedBoard();
+                    System.exit(0);
+                } catch (IOException ex) {
+                    System.out.println("Error: The leader board could not be displayed.");
+                }
                 System.exit(0);
             }
 
@@ -180,7 +188,14 @@ public class ReadQuestionsFile {
                 System.out.println(quizQues.toString());
             }
         } else {
-            System.exit(0);
+            try {
+                leaderboard.sortedBoard();
+                System.exit(0);
+
+                System.exit(0);
+            } catch (IOException ex) {
+                System.out.println("Error: The leader board could not be displayed.");
+            }
         }
 
     }
@@ -205,8 +220,8 @@ public class ReadQuestionsFile {
     public void setName(String n) {
         this.name = n;
     }
-    
-    public String getName(){
-       return this.name;
+
+    public String getName() {
+        return this.name;
     }
 }
