@@ -42,9 +42,9 @@ public class ReadQuestionsFile {
         f = new File("questions.txt");                                  //instantiated a text file called questions
         fr = new FileReader(f);                                         // passing that file to the file reader
         br = new BufferedReader(fr);                                    // passing it to the buffered reader for reading
-        leaderboard = new LeaderBoard();                                // instantiated the leader board class
+        this.leaderboard = new LeaderBoard();                                // instantiated the leader board class
         keyboard = new Scanner(System.in);
-
+        this.quizQues = new Questions(this.question, this.options, this.answer);                 // instantiating the question class
     }
 
     // get/set methods for the money won by the player
@@ -61,7 +61,7 @@ public class ReadQuestionsFile {
      * @throws IOException 
      */
     public void playGame() throws IOException {
-        quizQues = new Questions(this.question, this.options, this.answer);                 // instantiating the question class
+//        quizQues = new Questions(this.question, this.options, this.answer);                 // instantiating the question class
         String userAnswer = "";
         String line;
         int questionNumber = 1;
@@ -110,7 +110,7 @@ public class ReadQuestionsFile {
             //runs if the user says yes to use lifelines
             if (userAnswer.equalsIgnoreCase("Yes") || userAnswer.equalsIgnoreCase("Y")) {
                 do {
-                    useLifeLine(quizQues, options, answer, question);
+                    useLifeLine();
                     System.out.println("Would you like to use one of the life lines? If so, type yes else please type a LETTER to submit your answer or Q to quit the game.");
                     userAnswer = keyboard.nextLine();
                     
@@ -137,7 +137,7 @@ public class ReadQuestionsFile {
                 
             }
 
-            this.setMoneyWon(checkAnswer(userAnswer, answer, moneyWon));                //checks the player's answer and sets the moneyWon
+            this.setMoneyWon(checkAnswer(userAnswer));                //checks the player's answer and set the moneyWon
             questionNumber++;
 
         }
@@ -155,33 +155,33 @@ public class ReadQuestionsFile {
      * @throws FileNotFoundException
      * @throws IOException 
      */
-    public int checkAnswer(String userAnswer, String answer, int moneyWon) throws FileNotFoundException, IOException {
+    public int checkAnswer(String userAnswer) throws FileNotFoundException, IOException {
         
         // checks if the user answered correctly and sets the money won accordingly
-        if (userAnswer.equalsIgnoreCase(answer)) {
-            if (moneyWon == 0) {
-                moneyWon = 100;
+        if (userAnswer.equalsIgnoreCase(this.answer)) {
+            if (this.moneyWon == 0) {
+                this.moneyWon = 100;
             } else {
-                moneyWon *= 2;
-                if (moneyWon == 400 || this.moneyWon == 600) {
-                    moneyWon -= 100;
-                } else if (moneyWon == 128000) {
-                    moneyWon -= 3000;
+                this.moneyWon *= 2;
+                if (this.moneyWon == 400 || this.moneyWon == 600) {
+                    this.moneyWon -= 100;
+                } else if (this.moneyWon == 128000) {
+                    this.moneyWon -= 3000;
                 }
             }
-            System.out.println("Correct Answer! You've reached " + moneyWon + " dollars.\n"); //money
+            System.out.println("Correct Answer! You've reached " + this.moneyWon + " dollars.\n"); //money
         } else {
-            if (moneyWon >= 1000) {
-                moneyWon = 1000;
+            if (this.moneyWon >= 1000) {
+                this.moneyWon = 1000;
             } else if (this.moneyWon >= 32000) {
-                moneyWon = 32000;
+                this.moneyWon = 32000;
             } else {
-                moneyWon = 0;
+                this.moneyWon = 0;
             }
-            System.out.println("Wrong Answer :(. The correct answer is " + answer + ". You are on " + moneyWon);
+            System.out.println("Wrong Answer :(. The correct answer is " + answer + ". You are on " + this.moneyWon);
         }
 
-        return moneyWon;
+        return this.moneyWon;
     }
 
     /**
@@ -192,8 +192,9 @@ public class ReadQuestionsFile {
      * @param answer
      * @param question 
      */
-    private void useLifeLine(Questions quizQues, String[] options, String answer, String question) {
-        lifeline = new Lifelines();                                                                         // instantiating the question class
+    private void useLifeLine() {
+        
+        this.lifeline = new Lifelines();                                                                         // instantiating the question class
         String chosenLifeLine = "";
 
         System.out.println("Type the related NUMBER to pick an option "
@@ -211,22 +212,23 @@ public class ReadQuestionsFile {
         if (!chosenLifeLine.equalsIgnoreCase("Q")) {
             if (chosenLifeLine.equalsIgnoreCase("1")) {                                               // process the 50:50 option
                 String[] resultedOption = lifeline.setFiftyFiftyOptions(options, answer, question);
-                quizQues.setOptions(resultedOption);
+                this.quizQues.setOptions(resultedOption);
                 System.out.println(quizQues.toString());
             }
             if (chosenLifeLine.equalsIgnoreCase("2")) {                                               // process the phone a friend option
-                lifeline.setPhoneAFriendOptions(options, answer, question);
+                this.lifeline.setPhoneAFriendOptions(options, answer, question);
                 System.out.println(quizQues.toString());
             }
             if (chosenLifeLine.equalsIgnoreCase("3")) {                                               // process the set audience option
-                quizQues.setOptions(lifeline.setAudienceVoteOptions(options, answer, question));        
+                this.quizQues.setOptions(lifeline.setAudienceVoteOptions(options, answer, question));        
                 System.out.println(quizQues.toString());
             }
         } else {            
+            
             //set the leaderboard before quitting if user enters Q for quit
             try {
-                leaderboard.addToTheFile(this.name, this.getMoneyWon());
-                leaderboard.displayLeaderBoard();
+                this.leaderboard.addToTheFile(this.name, this.getMoneyWon());
+                this.leaderboard.displayLeaderBoard();
                 System.exit(0);
             } catch (IOException ex) {
                 System.out.println("Error: The leader board could not be displayed.");
@@ -235,6 +237,11 @@ public class ReadQuestionsFile {
 
     }
 
+    /**
+     * This method checks for a valid input 
+     * @param userAnswer
+     * @return a boolean
+     */
     private boolean validUserInput(String userAnswer) {
         if (userAnswer.equalsIgnoreCase("Q") || userAnswer.equalsIgnoreCase("Yes")
                 || userAnswer.equalsIgnoreCase("A") || userAnswer.equalsIgnoreCase("B")
@@ -244,6 +251,11 @@ public class ReadQuestionsFile {
         return false;
     }
 
+    /**
+     * This method checks for valid life line input
+     * @param userChoice
+     * @return a boolean
+     */
     private boolean validLifeLineUserInput(String userChoice) {
         if (userChoice.equalsIgnoreCase("Q") || userChoice.equalsIgnoreCase("1")
                 || userChoice.equalsIgnoreCase("2") || userChoice.equalsIgnoreCase("3")) {
@@ -252,6 +264,7 @@ public class ReadQuestionsFile {
         return false;
     }
 
+    //get/set for name
     public void setName(String n) {
         this.name = n;
     }
