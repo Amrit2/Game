@@ -141,6 +141,7 @@ public class ReadQuestionsFile {
             }
             
             this.setMoneyWon(checkAnswer(userAnswer));                //checks the player's answer and set the moneyWon
+           
             questionNumber++;
 
         }
@@ -160,7 +161,8 @@ public class ReadQuestionsFile {
      * @return the amount of money won by the player
      */
     public int checkAnswer(String userAnswer){
-
+        int currentMoney = this.moneyWon;
+        
         // checks if the user answered correctly and sets the money won accordingly
         if (userAnswer.equalsIgnoreCase(this.answer)) {
             if (this.moneyWon == 0) {
@@ -184,7 +186,12 @@ public class ReadQuestionsFile {
             }
             System.out.println("Wrong Answer :(. The correct answer is " + answer + ". You are on " + this.moneyWon);
         }
-
+        if (currentMoney== 0 && this.moneyWon == 0){
+            leaderboard.addToTheFile(this.getName(), this.getMoneyWon());
+            leaderboard.displayLeaderBoard();
+            System.out.println("You've lost the game.");
+            System.exit(0);
+        }
         return this.moneyWon;
     }
 
