@@ -63,10 +63,8 @@ public class ReadQuestionsFile {
         int limit = 5;
         int currentLine = 0;
         int count = 0;
-//        leaderboard.showLeaderBoard();
         leaderboard.sortedBoard();
         while (questionNumber <= 22 && !userAnswer.equalsIgnoreCase("Q")) {
-
             while ((line = br.readLine()) != null && currentLine <= limit) {
                 if (line.contains("?")) {
                     question = line;
@@ -87,23 +85,34 @@ public class ReadQuestionsFile {
             quizQues.setOptions(options);
             System.out.println(quizQues.toString());
 
-            System.out.println("Would you like to use one of the life lines? If so, type yes else please type a letter to submit your answer or Q to quit the game.");
+            System.out.println("Would you like to use one of the life lines? If so, type \"YES\" else please type a LETTER to submit your answer or \"Q\" to quit the game.");
             userAnswer = keyboard.nextLine();
-
-            if (userAnswer.equalsIgnoreCase("Yes")) {
-
+            if (!validUserInput(userAnswer)) {
                 do {
-                    useLifeLine(lifeline, quizQues, options, answer, question);
-                    System.out.println("Would you like to use one of the life lines? If so, type yes else please type a LETTER to submit your answer or Q to quit the game.");
+                    System.out.println("Please enter a A,B,C,D or \"yes\" to access lifelines.");
                     userAnswer = keyboard.nextLine();
+                } while (!validUserInput(userAnswer));
+            }
 
-                } while (userAnswer.equalsIgnoreCase("Yes"));
+            if (userAnswer.equalsIgnoreCase("Yes") || userAnswer.equalsIgnoreCase("Y")) {
+                useLifeLine(lifeline, quizQues, options, answer, question);
+                System.out.println("Would you like to use one of the life lines? If so, type yes else please type a LETTER to submit your answer or Q to quit the game.");
+                userAnswer = keyboard.nextLine();
+                if (!validUserInput(userAnswer)) {
+                    do {
+                        System.out.println("Please enter a A,B,C,D or \"yes\" to access lifelines.\n");
+                        userAnswer = keyboard.nextLine();
+                    } while (!validUserInput(userAnswer));
+                }
 
             }
-            if (!userAnswer.equalsIgnoreCase("Q")) {
-                this.setMoneyWon(checkAnswer(userAnswer, answer, moneyWon));
-                questionNumber++;
+
+            if (userAnswer.equalsIgnoreCase("Q")) {
+                System.exit(0);
             }
+
+            this.setMoneyWon(checkAnswer(userAnswer, answer, moneyWon));
+            questionNumber++;
 
         }
         leaderboard.addToTheFile(name, this.getMoneyWon());
@@ -112,6 +121,7 @@ public class ReadQuestionsFile {
     }
 
     public int checkAnswer(String userAnswer, String answer, int moneyWon) throws FileNotFoundException, IOException {
+
         if (userAnswer.equalsIgnoreCase(answer)) {
             if (moneyWon == 0) {
                 moneyWon = 100;
@@ -140,11 +150,19 @@ public class ReadQuestionsFile {
 
     private void useLifeLine(Lifelines lifeline, Questions quizQues, String[] options, String answer, String question) {
         String chosenLifeLine = "";
+
         System.out.println("Type the related NUMBER to pick an option "
                 + "\n1. 50:50"
                 + "\n2. Phone a friend"
                 + "\n3. Audience Vote");
         chosenLifeLine = keyboard.nextLine();
+        if (!validLifeLineUserInput(chosenLifeLine)) {
+            do {
+                System.out.println("\nPlease choose 1, 2 or 3.");
+                chosenLifeLine = keyboard.nextLine();
+            } while (!validLifeLineUserInput(chosenLifeLine));
+        }
+
         if (!chosenLifeLine.equalsIgnoreCase("Q")) {
             if (chosenLifeLine.equalsIgnoreCase("1")) {
                 String[] resultedOption = lifeline.setFiftyFiftyOptions(options, answer, question);
@@ -159,8 +177,26 @@ public class ReadQuestionsFile {
                 quizQues.setOptions(lifeline.setAudienceVoteOptions(options, answer, question));
                 System.out.println(quizQues.toString());
             }
-
+        } else {
+            System.exit(0);
         }
+
     }
 
+    private boolean validUserInput(String userAnswer) {
+        if (userAnswer.equalsIgnoreCase("Q") || userAnswer.equalsIgnoreCase("Yes")
+                || userAnswer.equalsIgnoreCase("A") || userAnswer.equalsIgnoreCase("B")
+                || userAnswer.equalsIgnoreCase("C") || userAnswer.equalsIgnoreCase("D")) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean validLifeLineUserInput(String userChoice) {
+        if (userChoice.equalsIgnoreCase("Q") || userChoice.equalsIgnoreCase("1")
+                || userChoice.equalsIgnoreCase("2") || userChoice.equalsIgnoreCase("3")) {
+            return true;
+        }
+        return false;
+    }
 }
