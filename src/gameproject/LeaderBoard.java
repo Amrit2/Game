@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * This class handles the leader board
+ *
  * @author Amritpal Kaur 14865526
  */
 public class LeaderBoard {
@@ -27,28 +28,30 @@ public class LeaderBoard {
     public LeaderBoard() {
         board = new ArrayList<String>();
         file = new File("UserInfo.txt");
+        try {
+
+            info = new PrintWriter(new FileOutputStream(("UserInfo.txt"), true));               // instantiates a print writer object
+        } catch (FileNotFoundException e) {
+            System.out.println("File UserInfo.txt not found.");
+        }
     }
 
     /**
      * This method adds a new player to the user info file
+     *
      * @param name
      * @param money
      */
     public void addToTheFile(String name, int money) {
-        try {
-            info = new PrintWriter(new FileOutputStream(("UserInfo.txt"), true));               // instantiates a print writer object
-            info.println(name + ":" + money);                                                   // write the name and money to file
-        } catch (FileNotFoundException e) {
-            System.out.println("File UserInfo.txt not found.");
-        }
-
+        info.println(name + ":" + money);                                                   // write the name and money to file
         info.close();                                                                           // closes the print writer
     }
 
     /**
-     * This method reads the userInfo file and displays a leader board in the descending order
+     * This method reads the userInfo file and displays a leader board in the
+     * descending order
      */
-    public void displayLeaderBoard(){
+    public void displayLeaderBoard() {
 
         try {
             FileReader r = new FileReader("UserInfo.txt");                                  // instantiates a file reader
@@ -56,19 +59,28 @@ public class LeaderBoard {
 
             BufferedReader reader = new BufferedReader(r);                                  // instantiate a buffered reader
             String line = "";
-
+            boolean skipEmptyLine = false;
             // ensure the whole file is read
             while ((line = reader.readLine()) != null) {                                // read the file until null
-                String[] result = line.split(":");                                      // split the text based on a semi-colon
-                try {
-                    person.add(new PlayerInfo(result[0], Integer.parseInt(result[1])));         //instantiate a player info class and pass the name and money to it
-            
-                }catch (NumberFormatException e){
-                    System.out.println("The string could not be converted to an integer.");
+                String[] result = line.split(":");                                      // split the name and money won by looking at semi colon
+              
+                if (!line.isEmpty()){
+                    skipEmptyLine = true;
                 }
-             }
+                if (skipEmptyLine != false) {
+                    try {
+                        person.add(new PlayerInfo(result[0], Integer.parseInt(result[1])));         //instantiate a player info class and pass the name and money to it
+
+                    } catch (NumberFormatException e) {
+                        System.out.println("The string could not be converted to an integer.");
+                    }
+                }
+
+             
+            }
             person.sort(Comparator.comparingInt(PlayerInfo::getMoney).reversed());      // sort the array list based on the money value in descending order
             System.out.println("\nThe leaderboard looks like:");
+           
             for (PlayerInfo player : person) {
                 System.out.println(player);                                             // display eaach player's name and money won
             }
@@ -79,7 +91,7 @@ public class LeaderBoard {
             System.out.println("Could not find the File Reader file.");
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("There are no players on the leaderboard.");
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Could not close the file reader.");
         }
 

@@ -1,3 +1,2 @@
 
-Amrit:200
-Amrit:0
+Amrit:1000

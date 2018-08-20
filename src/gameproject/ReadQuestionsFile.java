@@ -87,6 +87,8 @@ public class ReadQuestionsFile {
                         this.answer = line;                                                                     // store the answer
                     }
                     currentLine++;                                                              // increases to process the next line in the file
+                    questionNumber++;                                          // increments to read the next questions 
+            
                 }
 
             } catch (IOException e) {
@@ -140,7 +142,6 @@ public class ReadQuestionsFile {
             }
             
             this.setMoneyWon(checkAnswer(userAnswer));                //checks the player's answer and set the moneyWon
-            questionNumber++;                                          // increments to read the next questions 
             
         }
 
@@ -192,7 +193,7 @@ public class ReadQuestionsFile {
         }
         
         //if the user was on $0 and gets a questions wrong, the game quits
-        if (currentMoney== 0 && this.moneyWon == 0){
+        if ((currentMoney== 0 && this.moneyWon == 0) || (currentMoney== 1000 && this.moneyWon == 1000) || (currentMoney== 32000 && this.moneyWon == 32000)){
             leaderboard.addToTheFile(this.getName(), this.getMoneyWon());
             leaderboard.displayLeaderBoard();
             System.out.println("You've lost the game.");
