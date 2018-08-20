@@ -181,7 +181,7 @@ public class ReadQuestionsFile {
             // if the user gets a question wrong their money is decreased to the corresponding thresh hold. 
             // If they were above $1000 and get a ques wrong, they come down to $1000, if they were above $32000 it comes down to 
             // $32000.
-            if (this.moneyWon >= 1000) {
+            if (this.moneyWon >= 1000 && this.moneyWon < 32000) {
                 this.moneyWon = 1000;
             } else if (this.moneyWon >= 32000) {
                 this.moneyWon = 32000;
