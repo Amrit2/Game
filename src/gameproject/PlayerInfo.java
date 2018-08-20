@@ -1,8 +1,5 @@
 package gameproject;
 
-import java.util.Collections;
-import java.util.Comparator;
-
 /**
  *The class stores the name and money won by each player
  * @author Amritpal Kaur

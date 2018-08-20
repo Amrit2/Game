@@ -1,12 +1,13 @@
 package gameproject;
 
 /**
- *This class is for Questions, options and answer
- * @author Amritpal Kaur
- * 14865526
+ * This class save the Questions, options and answer
+ *
+ * @author Amritpal Kaur 14865526
  */
 public class Questions {
 
+    //declarations of the questions, options, answer
     private String question;
     private String[] options;
     private String answer;
@@ -18,39 +19,45 @@ public class Questions {
     }
 
     /**
-     * Method for setting the question 
-     * @param inputQuestion 
+     * Method for setting the question
+     *
+     * @param inputQuestion
      */
     public void setQuestion(String inputQuestion) {
         this.question = inputQuestion;
     }
 
     /**
-     * Method for storing the options from the text file
-     * @param inputOption 
+     * Method for storing the options from the text file if the input parameter
+     * has values. Catches a null pointer exception
+     *
+     * @param inputOption
      */
     public void setOptions(String[] inputOption) {
-        this.options = new String[inputOption.length];
-        if (inputOption != null) {                                                                           // ensures the input is not null
-            for (int i = 0; i < inputOption.length; i++) {
+        this.options = new String[inputOption.length]; try {
+                for (int i = 0; i < inputOption.length; i++) {
 
-                for (int j = 0; j < options.length; j++) {
-                    if (i == j) {
-                        try {
-                            options[i] = inputOption[j];
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            System.out.println("Error: You are trying to access an illegal integer in the array");
+                    for (int j = 0; j < options.length; j++) {
+                        if (i == j) {
+                            try {
+                                options[i] = inputOption[j];                                // loop through and save the options
+                            } catch (ArrayIndexOutOfBoundsException e) {
+                                System.out.println("Error: You are trying to access an illegal integer in the array");
+                            }
                         }
                     }
-                }
 
+                }
+            } catch (NullPointerException e) {
+                System.out.println("There are no options to add.");
             }
-        }
+        
     }
 
     /**
      * method for setting the answer
-     * @param answer 
+     *
+     * @param answer
      */
     public void setAnswer(String answer) {
         this.answer = answer;
@@ -62,18 +69,19 @@ public class Questions {
 
     /**
      * method for getting the options, ensure no null value is returned
-     * @return 
+     *
+     * @return
      */
     public String[] getOptions() {
         String[] alternatives = new String[this.options.length];
         for (int i = 0; i < options.length; i++) {
             for (int j = 0; j < alternatives.length; j++) {
                 if (i == j && options[i] != null) {
-                    try{
-                    alternatives[j] = options[i];
+                    try {
+                        alternatives[j] = options[i];
                     } catch (ArrayIndexOutOfBoundsException e) {
-                            System.out.println("Error: You are trying to access an illegal integer in the array");
-                        }
+                        System.out.println("Error: You are trying to access an illegal integer in the array");
+                    }
                 }
             }
         }
@@ -86,6 +94,7 @@ public class Questions {
 
     /**
      * To string method displays the question and options
+     *
      * @return a string
      */
     public String toString() {

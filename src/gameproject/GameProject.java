@@ -1,6 +1,5 @@
 package gameproject;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -19,7 +18,7 @@ public class GameProject {
         System.out.println("Please enter your name");
         Scanner keyboard = new Scanner(System.in);
         String name;
-        name = keyboard.nextLine();
+        name = keyboard.nextLine();                                                     // allows the user to choose any name, no restrictions
 
         System.out.println("\nInstructions:\n"
                 + "- To answer a question please type the letter corresponding to the answer and hit enter.\n"
@@ -34,8 +33,9 @@ public class GameProject {
                 System.out.println("Please type \"START\" to start the game or \"Q\" to quit the game.");
             }
 
-        } while (!ready.equalsIgnoreCase("Start") && !ready.equalsIgnoreCase("Q"));                  // ensures the user inputs in a valid input
+        } while (!ready.equalsIgnoreCase("Start") && !ready.equalsIgnoreCase("Q"));                  // loops to ensures the user inputs in a valid input
 
+        // process only when the user doesn't want to quit
         if (!ready.equalsIgnoreCase("Q")) {
             ReadQuestionsFile file = new ReadQuestionsFile(name);                                // instantiates the ReadQuestions file
             file.playGame();                                                                     // play the game

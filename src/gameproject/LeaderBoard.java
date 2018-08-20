@@ -31,7 +31,6 @@ public class LeaderBoard {
 
     /**
      * This method adds a new player to the user info file
-     *
      * @param name
      * @param money
      */
@@ -43,12 +42,11 @@ public class LeaderBoard {
             System.out.println("Error: File UserInfo.txt not found.");
         }
 
-        info.close();
+        info.close();                                                                           // closes the print writer
     }
 
     /**
-     * This method reads the userInfo file and create a leader board
-     * @throws IOException
+     * This method reads the userInfo file and displays a leader board in the descending order
      */
     public void displayLeaderBoard(){
 
@@ -59,6 +57,7 @@ public class LeaderBoard {
             BufferedReader reader = new BufferedReader(r);                                  // instantiate a buffered reader
             String line = "";
 
+            // ensure the whole file is read
             while ((line = reader.readLine()) != null) {                                // read the file until null
                 String[] result = line.split(":");                                      // split the text based on a semi-colon
                 try {
@@ -74,7 +73,7 @@ public class LeaderBoard {
                 System.out.println(player);                                             // display eaach player's name and money won
             }
 
-            r.close();
+            r.close();                                                                  // close the file reader 
 
         } catch (FileNotFoundException e) {
             System.out.println("Error: File not found.");

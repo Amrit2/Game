@@ -3,17 +3,17 @@ package gameproject;
 import java.util.Random;
 
 /**
- *This class handles life lines
+ *This class handles the life lines to alter the options accordingly
  * @author Amritpal Kaur
  * 14865526
  */
 public class Lifelines {
 
+    // variable declarations
     private boolean usedFifty;
     private boolean usedCall;
     private boolean usedAudience;
     private String[] fiftyFiftyOptions;
-    private String[] phoneAFriendOptions;
     private boolean showWrongAnswer = false;
 
     /**
@@ -69,10 +69,10 @@ public class Lifelines {
         int low = 1;
         int high = 100;
       
+        // randoly choose a number which decides if the right answer is given or not
         int probability = r.nextInt(high - low) + low;
         if (this.getUsedCall() == false) {                                              // ensure the options hasn't been used already
             this.setUsedCall(true);
-            this.phoneAFriendOptions = new String[1];
             try {
                 if (probability >= 10) {                                                //if the number picked is greater or equal to 10 give the correct answer
                     for (int i = 0; i < options.length; i++) {
@@ -109,11 +109,14 @@ public class Lifelines {
         int high = 100;
         if (this.getUsedAudience() == false) {                                  // ensure the options hasn't been used already
             this.setUsedAudience(true);
+            
+            //randomly choose probablity for each option
             int probabilityOne = r.nextInt(high);
             int probabilityTwo = r.nextInt(high - probabilityOne);
             int probabilityThree = r.nextInt(high - (probabilityTwo + probabilityOne));
             int probabilityFour = high - (probabilityTwo + probabilityOne + probabilityThree);
 
+            // rewrite the options to include probability
             try {
                 options[0] = options[0] + ", Audience Voted:" + probabilityOne + "%";
                 options[1] = options[1] + ", Audience Voted:" + probabilityTwo + "%";

@@ -9,8 +9,7 @@ import java.util.Scanner;
 
 /**
  * This class reads the Questions file and handles users input to allow the user
- * to play the game
- *
+ * to play the game.
  * @author Amritpal Kaur 14865526
  */
 public class ReadQuestionsFile {
@@ -30,7 +29,7 @@ public class ReadQuestionsFile {
     LeaderBoard leaderboard;
 
     /**
-     * The constructor initializes the variables
+     * The constructor initializes the variables and accesses the file to be read 
      * @param name of the player
      */
     public ReadQuestionsFile(String name) {
@@ -68,9 +67,9 @@ public class ReadQuestionsFile {
         String userAnswer = "";
         String line;
         int questionNumber = 1;
-        int nextLineLimit = 5;                          // the number of lines in the text file after the question that need to be processed
+        int nextLineLimit = 5;                    // the number of lines in the text file after the question that need to be processed
         int currentLine = 0;
-        int currentOptionPosition = 0;
+        int currentOption = 0;
 
         leaderboard.displayLeaderBoard();                                                   // displaying the sorted leaderboard
 
@@ -79,23 +78,23 @@ public class ReadQuestionsFile {
             try {
                 while ((line = br.readLine()) != null && currentLine <= nextLineLimit) {                // keep the loop running until no text in the file
                     if (line.contains("?")) {
-                        this.question = line;                                                   //store the question
+                        this.question = line;                                                           //store the question
                     }
                     if (line.contains(":")) {
-                        this.options[currentOptionPosition++] = line;                                           // store all the options
+                        this.options[currentOption++] = line;                                           // store all the options
                     }
                     if ((line.contains("A") || line.contains("B") || line.contains("C") || line.contains("D")) && !line.contains(":")) {
                         this.answer = line;                                                                     // store the answer
                     }
-                    currentLine++;
+                    currentLine++;                                                              // increases to process the next line in the file
                 }
 
             } catch (IOException e) {
                 System.out.println("Input output exception");
             }
 
-            nextLineLimit += 6;
-            currentOptionPosition = 0;
+            nextLineLimit += 6;                                                                 // 4 options, an answer and a free line taken into account
+            currentOption = 0;
 
             // set the question, options and answer in the Question object
             quizQues.setQuestion(this.question);
@@ -106,7 +105,7 @@ public class ReadQuestionsFile {
             System.out.println("Would you like to use one of the life lines? If so, type \"YES\" else please type a LETTER to submit your answer or \"Q\" to quit the game.");
             userAnswer = keyboard.nextLine();
 
-            // ensure the user enters a valid input 
+            // loops to ensure the user enters a valid input 
             if (!validUserInput(userAnswer)) {
                 do {
                     System.out.println("Please enter a A,B,C,D or \"yes\" to access lifelines.");
@@ -114,14 +113,14 @@ public class ReadQuestionsFile {
                 } while (!validUserInput(userAnswer));
             }
 
-            //runs if the user says yes to use lifelines
+            //runs if the user says yes to use lifelines and loops to ensure the user picks between one of the three options
             if (userAnswer.equalsIgnoreCase("Yes") || userAnswer.equalsIgnoreCase("Y")) {
                 do {
                     useLifeLine();
                     System.out.println("Would you like to use one of the life lines? If so, type yes else please type a LETTER to submit your answer or Q to quit the game.");
                     userAnswer = keyboard.nextLine();
 
-                    //ensure a valid input
+                    //loops to ensure a valid input
                     if (!validUserInput(userAnswer)) {
                         do {
                             System.out.println("Please enter a A,B,C,D or \"yes\" to access lifelines.\n");
@@ -141,12 +140,12 @@ public class ReadQuestionsFile {
             }
             
             this.setMoneyWon(checkAnswer(userAnswer));                //checks the player's answer and set the moneyWon
-           
-            questionNumber++;
-
+            questionNumber++;                                          // increments to read the next questions 
+            
         }
 
-        try {
+        //close the file reader and buffered reader
+        try {                                                           
             br.close();
             fr.close();
         }catch (IOException e){
@@ -158,7 +157,7 @@ public class ReadQuestionsFile {
     /**
      * This method checks the user's answer
      * @param userAnswer: the user's answer
-     * @return the amount of money won by the player
+     * @return the amount of money won by the player after processing the answer
      */
     public int checkAnswer(String userAnswer){
         int currentMoney = this.moneyWon;
@@ -175,8 +174,12 @@ public class ReadQuestionsFile {
                     this.moneyWon -= 3000;
                 }
             }
-            System.out.println("Correct Answer! You've reached " + this.moneyWon + " dollars.\n"); //money
+            System.out.println("Correct Answer! \nYou've reached " + this.moneyWon + " dollars.\n"); //money
         } else {
+            
+            // if the user gets a question wrong their money is decreased to the corresponding thresh hold. 
+            // If they were above $1000 and get a ques wrong, they come down to $1000, if they were above $32000 it comes down to 
+            // $32000.
             if (this.moneyWon >= 1000) {
                 this.moneyWon = 1000;
             } else if (this.moneyWon >= 32000) {
@@ -184,8 +187,11 @@ public class ReadQuestionsFile {
             } else {
                 this.moneyWon = 0;
             }
-            System.out.println("Wrong Answer :(. The correct answer is " + answer + ". You are on " + this.moneyWon);
+            System.out.println("Wrong Answer :(. \n"
+                    + "The correct answer is " + answer + ". \nYou are on " + this.moneyWon + " dollars.");
         }
+        
+        //if the user was on $0 and gets a questions wrong, the game quits
         if (currentMoney== 0 && this.moneyWon == 0){
             leaderboard.addToTheFile(this.getName(), this.getMoneyWon());
             leaderboard.displayLeaderBoard();
@@ -196,8 +202,7 @@ public class ReadQuestionsFile {
     }
 
     /**
-     * This method processes the life line
-     *
+     * This method processes the life line based on user's choice
      * @param lifeline
      * @param quizQues
      * @param options
@@ -212,6 +217,8 @@ public class ReadQuestionsFile {
                 + "\n2. Phone a friend"
                 + "\n3. Audience Vote");
         chosenLifeLine = keyboard.nextLine();
+        
+        //loops to ensure the user picks an option from 1,2,3
         if (!validLifeLineUserInput(chosenLifeLine)) {
             do {
                 System.out.println("\nPlease choose 1, 2 or 3.");
@@ -219,6 +226,7 @@ public class ReadQuestionsFile {
             } while (!validLifeLineUserInput(chosenLifeLine));
         }
 
+        // process the life line chosen if the user didn't choose q
         if (!chosenLifeLine.equalsIgnoreCase("Q")) {
             if (chosenLifeLine.equalsIgnoreCase("1")) {                                               // process the 50:50 option
                 String[] resultedOption = lifeline.setFiftyFiftyOptions(options, answer, question);
@@ -244,8 +252,7 @@ public class ReadQuestionsFile {
     }
 
     /**
-     * This method checks for a valid input
-     *
+     * This method checks for a valid input which includes ensuring that the user chooses one of the options or q
      * @param userAnswer
      * @return a boolean
      */
@@ -256,8 +263,7 @@ public class ReadQuestionsFile {
     }
 
     /**
-     * This method checks for valid life line input
-     *
+     * This method checks for valid life line input to ensure users picks at least one of the options or q
      * @param userChoice
      * @return a boolean
      */
