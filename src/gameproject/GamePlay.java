@@ -3,11 +3,12 @@ package gameproject;
 import java.util.Scanner;
 
 /**
- * This class reads the Questions file and handles users input to allow the user
- * to play the game.
+ * This class handles the game play
  * @author Amritpal Kaur 14865526
  */
 public class GamePlay {
+    
+    //declarations
     Scanner keyboard;
     Lifelines lifeline;
     Questions quizQues;
@@ -17,7 +18,7 @@ public class GamePlay {
     CheckAnswer userChoice;
 
     /**
-     * The constructor initializes the variables and accesses the file to be read 
+     * The constructor instantiates the PlayerInfo, Lifelines, ReadQuestionsFile, Check Answer, LeaderBoard and Questions class
      * @param name of the player
      */
     public GamePlay(String name) {
@@ -78,7 +79,8 @@ public class GamePlay {
 
             }
             
-            player.setMoney(userChoice.check(userAnswer, player, quizQues, leaderboard));                //checks the player's answer and set the moneyWon
+             //checks the player's answer and set the moneyWon accordingly
+            player.setMoney(userChoice.check(userAnswer, player, quizQues, leaderboard));               
             
         }
     }

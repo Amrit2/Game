@@ -8,13 +8,17 @@ import java.io.IOException;
 
 /**
  *This class contains the functionalities related to reading the file and saving the questions in the object
- * @author Amrit
+ * @author Amritpal Kaur 14865526
  */
 public class ReadQuestionsFile {
+    //declarations
     File f;
     FileReader fr;
     BufferedReader br;
     
+    /**
+     * Constructor instantiates the file, file reader and buffered reader
+     */
     public ReadQuestionsFile(){
          try {
             f = new File("questions.txt");                                                           //instantiated a text file called questions
@@ -25,6 +29,10 @@ public class ReadQuestionsFile {
         }
     }
     
+    /**
+     * This method reads the lines in the file to set the questions,options and answers
+     * @param quiz 
+     */
     public void setQuestionsAndOptions(Questions quiz){
         String line;
         String question = "";
@@ -32,7 +40,7 @@ public class ReadQuestionsFile {
         String[] options = new String[4];
         int nextLineLimit = 5;                    // the number of lines in the text file after the question that need to be processed
         int currentLine = 0;
-        int currentOption = 0;
+        int currentOption = 0;                     // array index of the options
          try {
                 while ((line = br.readLine()) != null && currentLine <= nextLineLimit) {                // keep the loop running until no text in the file
                     if (line.contains("?")) {
@@ -51,15 +59,17 @@ public class ReadQuestionsFile {
             } catch (IOException e) {
                 System.out.println("Unable to read the questions.txt file");
             } catch (NullPointerException e){
-                System.out.println("ADD SOMETHING HERE");
+                System.out.println("There is nothing in the file.");
             }
+         
+            // store it in the questions object
             quiz.setOptions(options);
             quiz.setQuestion(question);
             quiz.setAnswer(answer);
             System.out.println(quiz.toString());                                                    // print the ques and options
             
             nextLineLimit += 6;                                                                 // 4 options, an answer and a free line taken into account
-            currentOption = 0;
+            currentOption = 0;                                                                  // reset the array index
           
     }
 }

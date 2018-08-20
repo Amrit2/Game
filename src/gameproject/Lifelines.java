@@ -28,6 +28,12 @@ public class Lifelines {
         keyboard = new Scanner(System.in);
     }
 
+    /**
+     * This method processes the user input by calling the corresponding methods
+     * @param player
+     * @param leaderboard
+     * @param quizQues 
+     */
     public void useLifeLine(PlayerInfo player, LeaderBoard leaderboard, Questions quizQues) {
         String chosenLifeLine = "";
 

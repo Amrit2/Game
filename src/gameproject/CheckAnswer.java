@@ -6,15 +6,11 @@
 package gameproject;
 
 /**
- *
- * @author Amrit
+ *This class has the functions related to checking the players answer and setting the money 
+ * @author Amritpal Kaur 14865526
  */
 public class CheckAnswer {
-    
-    public CheckAnswer(){
-        
-    }
-    
+   
     /**
      * This method checks the user's answer
      * @param userAnswer: the user's answer
