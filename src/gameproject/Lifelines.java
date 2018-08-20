@@ -25,6 +25,8 @@ public class Lifelines {
         usedAudience = false;
     }
 
+    
+    
     /**
      * Method for setting the fifty fifty options
      * @param options

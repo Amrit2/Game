@@ -39,8 +39,8 @@ public class GameProject {
 
         // process only when the user doesn't want to quit
         if (!ready.equalsIgnoreCase("Q")) {
-            ReadQuestionsFile file = new ReadQuestionsFile(name);                                // instantiates the ReadQuestions file
-            file.playGame();                                                                     // play the game
+            GamePlay file = new GamePlay(name);                                // instantiates the ReadQuestions file
+            file.playGame();                                                   // play the game
             
             if (file.getMoneyWon() == 1000000){
                System.out.println("Congratulations! You've won 1 MILLION DOLLARS."); 
