@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- *
+ *This class contains the functionalities related to reading the file and saving the questions in the object
  * @author Amrit
  */
 public class ReadQuestionsFile {

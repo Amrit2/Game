@@ -1,6 +1,7 @@
 package gameproject;
 
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  *This class handles the life lines to alter the options accordingly
@@ -15,6 +16,7 @@ public class Lifelines {
     private boolean usedAudience;
     private String[] fiftyFiftyOptions;
     private boolean showWrongAnswer = false;
+    Scanner keyboard;
 
     /**
      * Constructor initializes the variables to false
@@ -23,9 +25,51 @@ public class Lifelines {
         usedFifty = false;
         usedCall = false;
         usedAudience = false;
+        keyboard = new Scanner(System.in);
     }
 
-    
+    public void useLifeLine(PlayerInfo player, LeaderBoard leaderboard, Questions quizQues) {
+        String chosenLifeLine = "";
+
+        System.out.println("Type the related NUMBER to pick an option "
+                + "\n1. 50:50"
+                + "\n2. Phone a friend"
+                + "\n3. Audience Vote");
+        chosenLifeLine = keyboard.nextLine();
+        
+        //loops to ensure the user picks an option from 1,2,3
+        if (!validLifeLineUserInput(chosenLifeLine)) {
+            do {
+                System.out.println("\nPlease choose 1, 2 or 3.");
+                chosenLifeLine = keyboard.nextLine();
+            } while (!validLifeLineUserInput(chosenLifeLine));
+        }
+
+        // process the life line chosen if the user didn't choose q
+        if (!chosenLifeLine.equalsIgnoreCase("Q")) {
+            if (chosenLifeLine.equalsIgnoreCase("1")) {                                               // process the 50:50 option
+                String[] resultedOption = this.setFiftyFiftyOptions(quizQues.getOptions(), quizQues.getAnswer(), quizQues.getQuestion());
+                quizQues.setOptions(resultedOption);
+                System.out.println(quizQues.toString());
+            }
+            if (chosenLifeLine.equalsIgnoreCase("2")) {                                               // process the phone a friend option
+                this.setPhoneAFriendOptions(quizQues.getOptions(), quizQues.getAnswer(), quizQues.getQuestion());
+                System.out.println(quizQues.toString());
+            }
+            if (chosenLifeLine.equalsIgnoreCase("3")) {                                               // process the set audience option
+                String[] resultedOption = this.setAudienceVoteOptions(quizQues.getOptions(), quizQues.getAnswer(), quizQues.getQuestion());
+                quizQues.setOptions(resultedOption);
+                System.out.println(quizQues.toString());
+            }
+        } else {
+
+            //set the leaderboard before quitting if user enters Q for quit
+            leaderboard.addToTheFile(player.getName(), player.getMoney());
+            leaderboard.displayLeaderBoard();
+            System.exit(0);
+        }
+
+    }
     
     /**
      * Method for setting the fifty fifty options
@@ -134,6 +178,16 @@ public class Lifelines {
         return options;
     }
 
+     /**
+     * This method checks for valid life line input to ensure users picks at least one of the options or q
+     * @param userChoice
+     * @return a boolean
+     */
+    private boolean validLifeLineUserInput(String userChoice) {
+        return userChoice.equalsIgnoreCase("Q") || userChoice.equalsIgnoreCase("1")
+                || userChoice.equalsIgnoreCase("2") || userChoice.equalsIgnoreCase("3");
+    }
+    
     // get/set methods of the boolean for the lifelines
     public void setUsedFifty(boolean used) {
         this.usedFifty = used;
