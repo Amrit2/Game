@@ -51,7 +51,7 @@ public class Lifelines {
                 }
                 return this.fiftyFiftyOptions;
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Error: You are trying to access an illegal integer in the array");
+                System.out.println("The array that stores the options is of the incorrect length.");
             }
         }
         System.out.println("\nYou've already used this option\n");
@@ -89,7 +89,7 @@ public class Lifelines {
                     }
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Error: You are trying to access an illegal integer in the array");
+                System.out.println("The array that stores the options is of the incorrect length.");
             }
         } else {
             System.out.println("\nYou've already used this option\n");
@@ -123,7 +123,7 @@ public class Lifelines {
                 options[2] = options[2] + ", Audience Voted:" + probabilityThree + "%";
                 options[3] = options[3] + ", Audience Voted:" + probabilityFour + "%";
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Error: You are trying to access an illegal integer in the array");
+                System.out.println("The array that stores the options is of the incorrect length.");
             }
 
             return options;

@@ -23,8 +23,10 @@ public class GameProject {
         System.out.println("\nInstructions:\n"
                 + "- To answer a question please type the letter corresponding to the answer and hit enter.\n"
                 + "- To use a lifeline, type \"YES\" when prompted and pick a lifeline from the lifelines shown.\n"
-                + "- To walk away with the money, type \"Q\" and press enter\n"
-                + "- If you're ready to become a millionaire, type \"START\" and hit enter\n");
+                + "- To walk away with the money, enter \"Q\" at any time and press enter.\n"
+                + "- If you get an answer wrong, your money won will decrease to the corresponding thresholds (100, 1000, 32000).\n"
+                + "- If you get a question wrong at the threshold, the game will end.\n"
+                + "- If you're ready to become a millionaire, type \"START\" and hit enter.\n");
 
         String ready = "";
         do {

@@ -39,7 +39,7 @@ public class LeaderBoard {
             info = new PrintWriter(new FileOutputStream(("UserInfo.txt"), true));               // instantiates a print writer object
             info.println(name + ":" + money);                                                   // write the name and money to file
         } catch (FileNotFoundException e) {
-            System.out.println("Error: File UserInfo.txt not found.");
+            System.out.println("File UserInfo.txt not found.");
         }
 
         info.close();                                                                           // closes the print writer
@@ -76,11 +76,11 @@ public class LeaderBoard {
             r.close();                                                                  // close the file reader 
 
         } catch (FileNotFoundException e) {
-            System.out.println("Error: File not found.");
+            System.out.println("Could not find the File Reader file.");
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("There are no players on the leaderboard.");
         } catch (IOException e){
-            System.out.println("Input output operation failed");
+            System.out.println("Could not close the file reader.");
         }
 
     }

@@ -1,4 +1,3 @@
-amrit:200
-Alvin:0
-Alvin:0
-jskjhsdf:0
+
+Amrit:200
+Amrit:0

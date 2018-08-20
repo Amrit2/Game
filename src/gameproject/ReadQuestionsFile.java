@@ -43,7 +43,7 @@ public class ReadQuestionsFile {
             fr = new FileReader(f);                                                                  // passing that file to the file reader
             br = new BufferedReader(fr);                                                            // passing it to the buffered reader for reading
         } catch (FileNotFoundException e) {
-            System.out.println("The File questions.txt could not be found");
+            System.out.println("The file questions.txt could not be found");
         }
 
         this.leaderboard = new LeaderBoard();                                                    // instantiated the leader board class
@@ -90,7 +90,7 @@ public class ReadQuestionsFile {
                 }
 
             } catch (IOException e) {
-                System.out.println("Input output exception");
+                System.out.println("Unable to read the questions.txt file");
             }
 
             nextLineLimit += 6;                                                                 // 4 options, an answer and a free line taken into account
@@ -149,7 +149,7 @@ public class ReadQuestionsFile {
             br.close();
             fr.close();
         }catch (IOException e){
-            System.out.println("Input output exception");
+            System.out.println("Could not close the buffer reader/file reader.");
         }
         
     }

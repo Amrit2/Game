@@ -80,7 +80,7 @@ public class Questions {
                     try {
                         alternatives[j] = options[i];
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Error: You are trying to access an illegal integer in the array");
+                        System.out.println("The array is of the incorrect length.");
                     }
                 }
             }
