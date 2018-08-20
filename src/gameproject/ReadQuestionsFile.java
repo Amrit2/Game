@@ -230,6 +230,7 @@ public class ReadQuestionsFile {
         if (!chosenLifeLine.equalsIgnoreCase("Q")) {
             if (chosenLifeLine.equalsIgnoreCase("1")) {                                               // process the 50:50 option
                 String[] resultedOption = lifeline.setFiftyFiftyOptions(options, answer, question);
+                this.options = resultedOption;
                 this.quizQues.setOptions(resultedOption);
                 System.out.println(quizQues.toString());
             }
@@ -238,7 +239,9 @@ public class ReadQuestionsFile {
                 System.out.println(quizQues.toString());
             }
             if (chosenLifeLine.equalsIgnoreCase("3")) {                                               // process the set audience option
-                this.quizQues.setOptions(lifeline.setAudienceVoteOptions(options, answer, question));
+                String[] resultedOption = lifeline.setAudienceVoteOptions(options, answer, question);
+                this.options = resultedOption;
+                this.quizQues.setOptions(resultedOption);
                 System.out.println(quizQues.toString());
             }
         } else {
