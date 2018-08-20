@@ -13,53 +13,24 @@ import java.util.Scanner;
  * @author Amritpal Kaur 14865526
  */
 public class GamePlay {
-
-    //declaration of variables
-//    private String[] options;
-//    private String answer;
-//    private String question;
-    private String name;
-//    File f;
-//    FileReader fr;
-//    BufferedReader br;
     Scanner keyboard;
     Lifelines lifeline;
-    private int moneyWon = 0;
     Questions quizQues;
     LeaderBoard leaderboard;
     ReadQuestionsFile file;
+    PlayerInfo player;
 
     /**
      * The constructor initializes the variables and accesses the file to be read 
      * @param name of the player
      */
     public GamePlay(String name) {
-        this.setName(name);
-//        this.answer = "";
-//        this.question = "";
-//        this.options = new String[4];
+        player = new PlayerInfo(name, 0);
         this.lifeline = new Lifelines();                                                         // instantiate the lifeline class
-//        try {
-//            f = new File("questions.txt");                                                           //instantiated a text file called questions
-//            fr = new FileReader(f);                                                                  // passing that file to the file reader
-//            br = new BufferedReader(fr);                                                            // passing it to the buffered reader for reading
-//        } catch (FileNotFoundException e) {
-//            System.out.println("The file questions.txt could not be found");
-//        }
-
         this.leaderboard = new LeaderBoard();                                                    // instantiated the leader board class
         keyboard = new Scanner(System.in);
         file = new ReadQuestionsFile();
         this.quizQues = new Questions("", null, "");                 // instantiating the question class
-    }
-
-    // get/set methods for the money won by the player
-    public void setMoneyWon(int money) {
-        this.moneyWon = money;
-    }
-
-    public int getMoneyWon() {
-        return this.moneyWon;
     }
 
     /**
@@ -67,48 +38,12 @@ public class GamePlay {
      */
     public void playGame() {
         String userAnswer = "";
-//        String line;
-//        int questionNumber = 1;
-//        int nextLineLimit = 5;                    // the number of lines in the text file after the question that need to be processed
-//        int currentLine = 0;
-//        int currentOption = 0;
-
         leaderboard.displayLeaderBoard();                                                   // displaying the sorted leaderboard
 
         // ensure the game keeps running until the player wins or quits the game
-        while ( !userAnswer.equalsIgnoreCase("Q") && (this.getMoneyWon() != 1000000)) {
+        while ( !userAnswer.equalsIgnoreCase("Q") && (player.getMoney() != 1000000)) {
             
             file.setQuestionsAndOptions(quizQues);
-//            try {
-//                while ((line = br.readLine()) != null && currentLine <= nextLineLimit) {                // keep the loop running until no text in the file
-//                    if (line.contains("?")) {
-//                        this.question = line;                                                           //store the question
-//                    }
-//                    if (line.contains(":")) {
-//                        this.options[currentOption++] = line;                                           // store all the options
-//                    }
-//                    if ((line.contains("A") || line.contains("B") || line.contains("C") || line.contains("D")) && !line.contains(":")) {
-//                        this.answer = line;                                                                     // store the answer
-//                    }
-//                    currentLine++;                                                              // increases to process the next line in the file
-//                    questionNumber++;                                          // increments to read the next questions 
-//            
-//                }
-//
-//            } catch (IOException e) {
-//                System.out.println("Unable to read the questions.txt file");
-//            }
-//
-//            nextLineLimit += 6;                                                                 // 4 options, an answer and a free line taken into account
-//            currentOption = 0;
-
-            // set the question, options and answer in the Question object
-//            quizQues.setQuestion(this.question);
-//            quizQues.setAnswer(this.answer);
-//            quizQues.setOptions(this.options);
-//            System.out.println(quizQues.toString());                                                    // print the ques and options
-//            
-            
             System.out.println("Would you like to use one of the life lines? If so, type \"YES\" else please type a LETTER to submit your answer or \"Q\" to quit the game.");
             userAnswer = keyboard.nextLine();
             
@@ -140,13 +75,13 @@ public class GamePlay {
 
             // if the player wants to quit the game, adds the player to the leaderboard and prints out the leaderboard
             if (userAnswer.equalsIgnoreCase("Q")) {
-                leaderboard.addToTheFile(this.getName(), this.getMoneyWon());
+                leaderboard.addToTheFile(player.getName(), player.getMoney());
                 leaderboard.displayLeaderBoard();
                 System.exit(0);
 
             }
             
-            this.setMoneyWon(checkAnswer(userAnswer));                //checks the player's answer and set the moneyWon
+            player.setMoney(checkAnswer(userAnswer));                //checks the player's answer and set the moneyWon
             
         }
 
@@ -161,45 +96,45 @@ public class GamePlay {
      * @return the amount of money won by the player after processing the answer
      */
     public int checkAnswer(String userAnswer){
-        int currentMoney = this.moneyWon;
+        int currentMoney = player.getMoney();
         
         // checks if the user answered correctly and sets the money won accordingly
         if (userAnswer.equalsIgnoreCase(quizQues.getAnswer())) {
-            if (this.moneyWon == 0) {
-                this.moneyWon = 100;
+            if (player.getMoney() == 0) {
+                player.setMoney(100);
             } else {
-                this.moneyWon *= 2;
-                if (this.moneyWon == 400 || this.moneyWon == 600) {
-                    this.moneyWon -= 100;
-                } else if (this.moneyWon == 128000) {
-                    this.moneyWon -= 3000;
+                player.setMoney(player.getMoney()*2);
+                if (player.getMoney() == 400 || player.getMoney()== 600) {
+                    player.setMoney(player.getMoney() - 100);
+                } else if (player.getMoney() == 128000) {
+                    player.setMoney(player.getMoney() - 3000);
                 }
             }
-            System.out.println("Correct Answer! \nYou've reached " + this.moneyWon + " dollars.\n"); //money
+            System.out.println("Correct Answer! \nYou've reached " + player.getMoney() + " dollars.\n"); //money
         } else {
             
             // if the user gets a question wrong their money is decreased to the corresponding thresh hold. 
             // If they were above $1000 and get a ques wrong, they come down to $1000, if they were above $32000 it comes down to 
             // $32000.
-            if (this.moneyWon >= 1000 && this.moneyWon < 32000) {
-                this.moneyWon = 1000;
-            } else if (this.moneyWon >= 32000) {
-                this.moneyWon = 32000;
+            if (player.getMoney() >= 1000 && player.getMoney() < 32000) {
+                player.setMoney(1000);
+            } else if (player.getMoney() >= 32000) {
+                player.setMoney(32000);
             } else {
-                this.moneyWon = 0;
+                player.setMoney(0);
             }
             System.out.println("Wrong Answer :(. \n"
-                    + "The correct answer is " + quizQues.getAnswer() + ". \nYou are on " + this.moneyWon + " dollars.");
+                    + "The correct answer is " + quizQues.getAnswer() + ". \nYou are on " + player.getMoney() + " dollars.");
         }
         
         //if the user was on $0 and gets a questions wrong, the game quits
-        if ((currentMoney== 0 && this.moneyWon == 0) || (currentMoney== 1000 && this.moneyWon == 1000) || (currentMoney== 32000 && this.moneyWon == 32000)){
-            leaderboard.addToTheFile(this.getName(), this.getMoneyWon());
+        if ((currentMoney== 0 && player.getMoney() == 0) || (currentMoney== 1000 && player.getMoney() == 1000) || (currentMoney== 32000 && player.getMoney() == 32000)){
+            leaderboard.addToTheFile(player.getName(), player.getMoney());
             leaderboard.displayLeaderBoard();
             System.out.println("You've lost the game.");
             System.exit(0);
         }
-        return this.moneyWon;
+        return player.getMoney();
     }
 
     /**
@@ -248,7 +183,7 @@ public class GamePlay {
         } else {
 
             //set the leaderboard before quitting if user enters Q for quit
-            this.leaderboard.addToTheFile(this.getName(), this.getMoneyWon());
+            this.leaderboard.addToTheFile(player.getName(), player.getMoney());
             this.leaderboard.displayLeaderBoard();
             System.exit(0);
         }
@@ -274,14 +209,5 @@ public class GamePlay {
     private boolean validLifeLineUserInput(String userChoice) {
         return userChoice.equalsIgnoreCase("Q") || userChoice.equalsIgnoreCase("1")
                 || userChoice.equalsIgnoreCase("2") || userChoice.equalsIgnoreCase("3");
-    }
-
-    //get/set for name
-    public void setName(String n) {
-        this.name = n;
-    }
-
-    public String getName() {
-        return this.name;
     }
 }

@@ -42,11 +42,11 @@ public class GameProject {
             GamePlay file = new GamePlay(name);                                // instantiates the ReadQuestions file
             file.playGame();                                                   // play the game
             
-            if (file.getMoneyWon() == 1000000){
-               System.out.println("Congratulations! You've won 1 MILLION DOLLARS."); 
-            }
-            else 
-                System.out.println("Game Over. Thank you for playing");
+//            if (file.getMoneyWon() == 1000000){
+//               System.out.println("Congratulations! You've won 1 MILLION DOLLARS."); 
+////            }
+//            else 
+//                System.out.println("Game Over. Thank you for playing");
         }
 
     }
