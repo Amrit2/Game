@@ -26,6 +26,20 @@ C:a reserve bank
 D:an old age pension
 D
 
+How many African countries have elephants?
+A:9
+B:14
+C:48
+D:37
+D
+
+The main predators of healthy adult elephants are ...?
+A:They have none
+B:Lions and Tigers
+C:Tigers
+D:Lions, Tigers and Jackals
+A
+
 Coconut water is sterile and has an ideal pH level. It can be used (in emergencies) as a substitute for blood?
 A:Plasma
 B:Donation
@@ -39,6 +53,13 @@ B:Nikola Tesla
 C:Thomas Edison
 D:Graham Bell
 D
+
+The GLK is a ...?
+A:Coupe
+B:Truck
+C:SUV
+D:Crossover Minivan
+C
 
 Indonesian state, which is the continent?
 A:Asia
@@ -61,6 +82,13 @@ C:Chimpanzee
 D:Sharks
 C
 
+Stirling Moss was a famous ..?
+A:F1 Driver
+B:Car Safety Pioneer
+C:Automotive Designer
+D:CEO
+A
+
 The director of Shawshank Redemption movie is ?
 A:Neset Ertas
 B:Frank Darabont
@@ -74,6 +102,13 @@ B:Roach
 C:Fly
 D:Japanese Beetle
 A
+
+In 1924 Mercedes-Benz produced the first passenger road car to have ..?
+A:Back Seats
+B:A Windscreen
+C:A differential
+D:Brakes on each wheel
+D
 
 What type of creature is a Pacific Sea Wasp?
 A:A Starfish
