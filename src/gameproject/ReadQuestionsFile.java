@@ -11,7 +11,7 @@ import java.io.IOException;
  * @author Amritpal Kaur 14865526
  */
 public class ReadQuestionsFile {
-    //declarations
+    // variable declarations
     File f;
     FileReader fr;
     BufferedReader br;
@@ -33,11 +33,11 @@ public class ReadQuestionsFile {
      * This method reads the lines in the file to set the questions,options and answers
      * @param quiz 
      */
-    public void setQuestionsAndOptions(Questions quiz){
+    public void getQuestionsAndOptions(Questions quiz){
         String line;
         String question = "";
-        String answer = "";
-        String[] options = new String[4];
+        String answer = ""; 
+        String[] options = new String[4];          // the options related to the question 
         int nextLineLimit = 5;                    // the number of lines in the text file after the question that need to be processed
         int currentLine = 0;
         int currentOption = 0;                     // array index of the options
@@ -66,10 +66,10 @@ public class ReadQuestionsFile {
             quiz.setOptions(options);
             quiz.setQuestion(question);
             quiz.setAnswer(answer);
-            System.out.println(quiz.toString());                                                    // print the ques and options
+            System.out.println(quiz.toString());                                 // print the ques and options
             
-            nextLineLimit += 6;                                                                 // 4 options, an answer and a free line taken into account
-            currentOption = 0;                                                                  // reset the array index
+            nextLineLimit += 6;                                                  // 4 options, an answer and a free line taken into account
+            currentOption = 0;                                                   // reset the array index
           
     }
 }

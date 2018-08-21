@@ -1,8 +1,7 @@
 package gameproject;
 
 /**
- * This class save the Questions, options and answer
- *
+ * This class saves the Questions, options and answer\
  * @author Amritpal Kaur 14865526
  */
 public class Questions {
@@ -29,7 +28,7 @@ public class Questions {
 
     /**
      * Method for storing the options from the text file if the input parameter
-     * has values. Catches a null pointer exception
+     * has values. 
      *
      * @param inputOption
      */
@@ -55,8 +54,7 @@ public class Questions {
     }
 
     /**
-     * method for setting the answer
-     *
+     * method for setting the answer to the question
      * @param answer
      */
     public void setAnswer(String answer) {

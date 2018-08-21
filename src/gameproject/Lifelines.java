@@ -68,7 +68,6 @@ public class Lifelines {
                 System.out.println(quizQues.toString());
             }
         } else {
-
             //set the leaderboard before quitting if user enters Q for quit
             leaderboard.addToTheFile(player.getName(), player.getMoney());
             leaderboard.displayLeaderBoard();

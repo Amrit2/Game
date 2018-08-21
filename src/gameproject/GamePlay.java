@@ -22,13 +22,13 @@ public class GamePlay {
      * @param name of the player
      */
     public GamePlay(String name) {
-        player = new PlayerInfo(name, 0);
-        this.lifeline = new Lifelines();                                                         // instantiate the lifeline class
-        this.leaderboard = new LeaderBoard();                                                    // instantiated the leader board class
+        this.player = new PlayerInfo(name, 0);
+        this.lifeline = new Lifelines();                               // instantiate the lifeline class
+        this.leaderboard = new LeaderBoard();                         // instantiated the leader board class
         keyboard = new Scanner(System.in);
         file = new ReadQuestionsFile();
         this.quizQues = new Questions("", null, "");                 // instantiating the question class
-        userChoice = new CheckAnswer();
+        this.userChoice = new CheckAnswer();
     }
 
     /**
@@ -41,7 +41,7 @@ public class GamePlay {
         // ensure the game keeps running until the player wins or quits the game
         while ( !userAnswer.equalsIgnoreCase("Q") && (player.getMoney() != 1000000)) {
             
-            file.setQuestionsAndOptions(quizQues);
+            file.getQuestionsAndOptions(quizQues);
             System.out.println("Would you like to use one of the life lines? If so, type \"YES\" else please type a LETTER to submit your answer or \"Q\" to quit the game.");
             userAnswer = keyboard.nextLine();
             
@@ -55,8 +55,13 @@ public class GamePlay {
 
             //runs if the user says yes to use lifelines and loops to ensure the user picks between one of the three options
             if (userAnswer.equalsIgnoreCase("Yes") || userAnswer.equalsIgnoreCase("Y")) {
+                
+                // keep repeting the loop to allow the user to use lifelines until the user answers the questions
                 do {
+                    // displays the lifeline options and process the use of the lifeline used
                     lifeline.useLifeLine(player, leaderboard, quizQues);
+                    
+                    //asks the player if they want to use another lifelline 
                     System.out.println("Would you like to use one of the life lines? If so, type yes else please type a LETTER to submit your answer or Q to quit the game.");
                     userAnswer = keyboard.nextLine();
 

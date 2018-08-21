@@ -3,3 +3,6 @@ Amrit:1000
 Me:1000
 jimmy:0
 yd:0
+SOmeone:0
+m:100
+me:500

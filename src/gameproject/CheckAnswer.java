@@ -10,7 +10,12 @@ package gameproject;
  * @author Amritpal Kaur 14865526
  */
 public class CheckAnswer {
-   
+   int currentMoney;
+    
+    public CheckAnswer(){
+        this.currentMoney = 0;
+    }
+    
     /**
      * This method checks the user's answer
      * @param userAnswer: the user's answer
@@ -20,7 +25,7 @@ public class CheckAnswer {
      * @return the amount of money won by the player after processing the answer
      */
     public int check(String userAnswer, PlayerInfo player, Questions quizQues, LeaderBoard leaderboard){
-        int currentMoney = player.getMoney();
+        this.currentMoney = player.getMoney();
         
         // checks if the user answered correctly and sets the money won accordingly
         if (userAnswer.equalsIgnoreCase(quizQues.getAnswer())) {
@@ -47,7 +52,7 @@ public class CheckAnswer {
             } else {
                 player.setMoney(0);
             }
-            System.out.println("Wrong Answer :(. \n"
+            System.out.println("\nWrong Answer :(. \n"
                     + "The correct answer is " + quizQues.getAnswer() + ". \nYou are on " + player.getMoney() + " dollars.");
         }
         
