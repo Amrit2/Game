@@ -24,7 +24,7 @@ public class CheckAnswer {
      * @param leaderboard
      * @return the amount of money won by the player after processing the answer
      */
-    public int check(String userAnswer, PlayerInfo player, Questions quizQues, LeaderBoard leaderboard){
+    public int setMoneyWon(String userAnswer, PlayerInfo player, Questions quizQues, LeaderBoard leaderboard){
         this.currentMoney = player.getMoney();
         
         // checks if the user answered correctly and sets the money won accordingly
@@ -56,14 +56,24 @@ public class CheckAnswer {
                     + "The correct answer is " + quizQues.getAnswer() + ". \nYou are on " + player.getMoney() + " dollars.");
         }
         
-        //if the user was on $0 and gets a questions wrong, the game quits
-        if ((currentMoney== 0 && player.getMoney() == 0) || (currentMoney== 1000 && player.getMoney() == 1000) || (currentMoney== 32000 && player.getMoney() == 32000)){
+        //if the user was on $0, $1000, $32000 and gets a questions wrong, the game quits
+        if (answerWrongAtThreshhold(player)){
             leaderboard.addToTheFile(player.getName(), player.getMoney());
             leaderboard.displayLeaderBoard();
             System.out.println("You've lost the game.");
             System.exit(0);
         }
         return player.getMoney();
+   }
+    
+   /**
+    * This method compares the user's money won with their current value and if it's the same means the user got the answer wrong
+    * and hence returns true else returns false
+    * @param player
+    * @return a boolean
+    */
+   private boolean answerWrongAtThreshhold(PlayerInfo player){
+      return (currentMoney== 0 && player.getMoney() == 0) || (currentMoney== 1000 && player.getMoney() == 1000) || (currentMoney== 32000 && player.getMoney() == 32000);
    }
     
 }
