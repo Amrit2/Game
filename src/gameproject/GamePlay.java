@@ -36,7 +36,7 @@ public class GamePlay {
      */
     public void playGame() {
         String userAnswer = "";
-        leaderboard.displayLeaderBoard();                                                   // displaying the sorted leaderboard
+        leaderboard.sortLeaderBoard();                                                   // displaying the sorted leaderboard
 
         // ensure the game keeps running until the player wins or quits the game
         while ( !userAnswer.equalsIgnoreCase("Q") && (player.getMoney() != 1000000)) {
@@ -79,13 +79,13 @@ public class GamePlay {
             // if the player wants to quit the game, adds the player to the leaderboard and prints out the leaderboard
             if (userAnswer.equalsIgnoreCase("Q")) {
                 leaderboard.addToTheFile(player.getName(), player.getMoney());
-                leaderboard.displayLeaderBoard();
+                leaderboard.sortLeaderBoard();
                 System.exit(0);
 
             }
             
              //checks the player's answer and set the moneyWon accordingly
-            player.setMoney(checkAnswer.setMoneyWon(userAnswer, player, quiz, leaderboard));               
+            player.setMoney(checkAnswer.getMoneyWon(userAnswer, player, quiz, leaderboard));               
             
         }
     }

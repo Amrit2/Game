@@ -51,20 +51,20 @@ public class LeaderBoard {
      * This method reads the userInfo file and displays a leader board in the
      * descending order
      */
-    public void displayLeaderBoard() {
+    public void sortLeaderBoard() {
 
         try {
-            FileReader r = new FileReader("UserInfo.txt");                                  // instantiates a file reader
-            List<PlayerInfo> person = new ArrayList<PlayerInfo>();                          // instantiate an array list of type PlayerInfo
+            FileReader r = new FileReader("UserInfo.txt");                                          // instantiates a file reader
+            List<PlayerInfo> person = new ArrayList<PlayerInfo>();                                   // instantiate an array list of type PlayerInfo
 
-            BufferedReader reader = new BufferedReader(r);                                  // instantiate a buffered reader
+            BufferedReader reader = new BufferedReader(r);                                          // instantiate a buffered reader
             String line = "";
             boolean skipEmptyLine = false;
             // ensure the whole file is read
-            while ((line = reader.readLine()) != null) {                                // read the file until null
-                String[] result = line.split(":");                                      // split the name and money won by looking at semi colon
-              
-                if (!line.isEmpty()){
+            while ((line = reader.readLine()) != null) {                                            // read the file until null
+                String[] result = line.split(":");                                                  // split the name and money won by looking at semi colon
+
+                if (!line.isEmpty()) {
                     skipEmptyLine = true;
                 }
                 if (skipEmptyLine != false) {
@@ -76,15 +76,11 @@ public class LeaderBoard {
                     }
                 }
 
-             
             }
             person.sort(Comparator.comparingInt(PlayerInfo::getMoney).reversed());      // sort the array list based on the money value in descending order
             System.out.println("\nThe leaderboard looks like:");
-           
-            for (PlayerInfo player : person) {
-                System.out.println(player);                                             // display eaach player's name and money won
-            }
 
+            displayLeaderBoard(person);
             r.close();                                                                  // close the file reader 
 
         } catch (FileNotFoundException e) {
@@ -95,6 +91,12 @@ public class LeaderBoard {
             System.out.println("Could not close the file reader.");
         }
 
+    }
+
+    private void displayLeaderBoard(List<PlayerInfo> person) {
+        for (PlayerInfo player : person) {
+            System.out.println(player);                                             // display each player's name and money won
+        }
     }
 
 }

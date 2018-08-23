@@ -37,7 +37,7 @@ public class ReadQuestionsFile {
      * @param quiz 
      */
     public void showQuizQues(Questions quiz){
-        this.getQuestionsAndOptions();
+        this.setQuestionsAndOptions();
         quiz.setOptions(this.options);
         quiz.setQuestion(this.question);
         quiz.setAnswer(this.answer);
@@ -45,10 +45,10 @@ public class ReadQuestionsFile {
     }
     
     /**
-     * This method reads the lines in the file to set the questions,options and answers
+     * This method reads the lines in the file to set the questions,options and answer accordingly
      * @param quiz 
      */
-    public void getQuestionsAndOptions(){
+    public void setQuestionsAndOptions(){
         String line;
         
         int nextLineLimit = 5;                    // the number of lines in the text file after the question that need to be processed

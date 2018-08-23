@@ -70,7 +70,7 @@ public class Lifelines {
         } else {
             //set the leaderboard before quitting if user enters Q for quit
             leaderboard.addToTheFile(player.getName(), player.getMoney());
-            leaderboard.displayLeaderBoard();
+            leaderboard.sortLeaderBoard();
             System.exit(0);
         }
 
