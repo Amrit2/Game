@@ -1,6 +1,9 @@
 package gameproject;
 
+import java.awt.Color;
+import java.awt.Toolkit;
 import java.util.Scanner;
+import javax.swing.JFrame;
 
 /**
  * This class is the entry point of the program
@@ -14,11 +17,14 @@ public class GameProject {
      * @param args 
      */
     public static void main(String[] args) {
-
-        System.out.println("Please enter your name");
         Scanner keyboard = new Scanner(System.in);
         String name;
-        name = keyboard.nextLine();                                                     // allows the user to choose any name, no restrictions
+        do{
+          System.out.println("Please enter your name");
+           
+            name = keyboard.nextLine();  
+        }while(name.equalsIgnoreCase(""));
+                                                             // allows the user to choose any name, no restrictions
 
         System.out.println("\nInstructions:\n"
                 + "- To answer a question please type the letter corresponding to the answer and hit enter.\n"
