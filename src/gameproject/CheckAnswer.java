@@ -26,7 +26,7 @@ public class CheckAnswer {
      * @param leaderboard
      * @return the amount of money won by the player after processing the answer
      */
-    public int getMoneyWon(String userAnswer, PlayerInfo player, Map<Integer, Questions> hMap, int currentQuestion, LeaderBoard leaderboard){
+    public int getMoneyWon(String userAnswer, PlayerInfo player, Map<Integer, Questions> hMap, int currentQuestion, LeaderBoardDatabase database){
         this.currentMoney = player.getMoney();
         
         
@@ -61,8 +61,8 @@ public class CheckAnswer {
         
         //if the user was on $0, $1000, $32000 and gets a questions wrong, the game quits
         if (answerWrongAtThreshhold(player) || player.getMoney() == 0){
-            leaderboard.addToTheFile(player.getName(), player.getMoney());
-            leaderboard.sortLeaderBoard();
+            database.addToDatabase(player.getName(), player.getMoney());
+//--------            leaderboard.sortLeaderBoard();
             System.out.println("You've lost the game.");
             System.exit(0);
         }

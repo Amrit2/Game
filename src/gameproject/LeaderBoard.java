@@ -43,6 +43,7 @@ public class LeaderBoard {
      * @param money
      */
     public void addToTheFile(String name, int money) {
+        //add to the database
         info.println(name + ":" + money);                                                   // write the name and money to file
         info.close();                                                                           // closes the print writer
     }
@@ -52,7 +53,8 @@ public class LeaderBoard {
      * descending order
      */
     public void sortLeaderBoard() {
-
+        //Query the database
+        
         try {
             FileReader r = new FileReader("UserInfo.txt");                                          // instantiates a file reader
             List<PlayerInfo> person = new ArrayList<PlayerInfo>();                                   // instantiate an array list of type PlayerInfo

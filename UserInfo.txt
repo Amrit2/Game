@@ -2,6 +2,3 @@
 Amrit:200
 Test:100
 Isaiah:0
-me:0
-me:0
-me:0
