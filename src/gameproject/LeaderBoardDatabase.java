@@ -43,9 +43,6 @@ public class LeaderBoardDatabase {
                                     + "Name VARCHAR (100), Points INT)";
                 statement.executeUpdate(sqlCreateTable); 
                 
-                String insertInto = "INSERT INTO " + newTable + " VALUES ('Baleen whales have two and toothed whales have one of what?', "
-                    + "'A:Stomachs', 'B:Noses', 'C:Fins', 'D:Blowholes', 'D')";
-                statement.executeUpdate(insertInto); 
                 
             }catch(SQLException ex){
                 System.out.println("SQL Exception " + ex.getMessage());

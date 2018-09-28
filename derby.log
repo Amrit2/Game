@@ -1,13 +1,14 @@
+Fri Sep 28 15:44:21 NZST 2018 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
 ----------------------------------------------------------------
-Fri Sep 28 15:25:37 NZST 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0166-1e35-da4e-0000035dea68 
-on database directory C:\Users\Amrit\Documents\GameProject\LeaderBoard with class loader sun.misc.Launcher$AppClassLoader@5c647e05 
-Loaded from file:/C:/Users/Amrit/Documents/GameProject/lib/derby.jar
+Fri Sep 28 15:44:21 NZST 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0166-1e46-fede-00007aa598df 
+on database directory C:\Users\Amrit\Documents\GameProject\LeaderBoard with class loader sun.misc.Launcher$AppClassLoader@6f94fa3e 
+Loaded from file:/C:/Users/Amrit/Downloads/db-derby-10.14.2.0-bin/db-derby-10.14.2.0-bin/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_131-b11
-user.dir=C:\Users\Amrit\Documents\GameProject
+user.dir=C:\Users\Amrit\Downloads\db-derby-10.14.2.0-bin\db-derby-10.14.2.0-bin
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0
-derby.system.home=null
+derby.system.home=C:\Users\Amrit\Documents\GameProject
 Database Class Loader started - derby.database.classpath=''
