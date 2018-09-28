@@ -1,13 +1,20 @@
 package gameproject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
  * This class handles the game play
+ *
  * @author Amritpal Kaur 14865526
  */
 public class GamePlay {
-    
+
     //declarations
     Scanner keyboard;
     Lifelines lifeline;
@@ -16,9 +23,12 @@ public class GamePlay {
     ReadQuestionsFile file;
     PlayerInfo player;
     CheckAnswer checkAnswer;
+    Map<Integer, Questions> hMap;
 
     /**
-     * The constructor instantiates the PlayerInfo, Lifelines, ReadQuestionsFile, Check Answer, LeaderBoard and Questions class
+     * The constructor instantiates the PlayerInfo, Lifelines,
+     * ReadQuestionsFile, Check Answer, LeaderBoard and Questions class
+     *
      * @param name of the player
      */
     public GamePlay(String name) {
@@ -35,16 +45,20 @@ public class GamePlay {
      * This class shows the questions and handles player input for processing
      */
     public void playGame() {
+        int currentQuestion;
+        List questionsAsked = new ArrayList();
+        hMap = new HashMap<Integer, Questions>();
         String userAnswer = "";
         leaderboard.sortLeaderBoard();                                                   // displaying the sorted leaderboard
-
+        file.setQuizQuestions(hMap);
+        
         // ensure the game keeps running until the player wins or quits the game
-        while ( !userAnswer.equalsIgnoreCase("Q") && (player.getMoney() != 1000000)) {
+        while (!userAnswer.equalsIgnoreCase("Q") && (player.getMoney() != 1000000)) {
+            currentQuestion = getAQuestionAtRandom(hMap, questionsAsked);
             
-            file.showQuizQues(quiz);
             System.out.println("Would you like to use one of the life lines? If so, type \"YES\" else please type a LETTER to submit your answer or \"Q\" to quit the game.");
             userAnswer = keyboard.nextLine();
-            
+
             // loops to ensure the user enters a valid input 
             if (!validUserInput(userAnswer)) {
                 do {
@@ -55,12 +69,12 @@ public class GamePlay {
 
             //runs if the user says yes to use lifelines and loops to ensure the user picks between one of the three options
             if (userAnswer.equalsIgnoreCase("Yes") || userAnswer.equalsIgnoreCase("Y")) {
-                
+
                 // keep repeting the loop to allow the user to use lifelines until the user answers the questions
                 do {
                     // displays the lifeline options and process the use of the lifeline used
-                    lifeline.useLifeLine(player, leaderboard, quiz);
-                    
+                    lifeline.useLifeLine(player, leaderboard, hMap, currentQuestion);
+
                     //asks the player if they want to use another lifelline 
                     System.out.println("Would you like to use one of the life lines? If so, type yes else please type a LETTER to submit your answer or Q to quit the game.");
                     userAnswer = keyboard.nextLine();
@@ -83,15 +97,17 @@ public class GamePlay {
                 System.exit(0);
 
             }
-            
-             //checks the player's answer and set the moneyWon accordingly
-            player.setMoney(checkAnswer.getMoneyWon(userAnswer, player, quiz, leaderboard));               
-            
+
+            //checks the player's answer and set the moneyWon accordingly
+            player.setMoney(checkAnswer.getMoneyWon(userAnswer, player, hMap, currentQuestion, leaderboard));
+
         }
     }
 
     /**
-     * This method checks for a valid input which includes ensuring that the user chooses one of the options or q
+     * This method checks for a valid input which includes ensuring that the
+     * user chooses one of the options or q
+     *
      * @param userAnswer
      * @return a boolean
      */
@@ -99,6 +115,18 @@ public class GamePlay {
         return userAnswer.equalsIgnoreCase("Q") || userAnswer.equalsIgnoreCase("Yes")
                 || userAnswer.equalsIgnoreCase("A") || userAnswer.equalsIgnoreCase("B")
                 || userAnswer.equalsIgnoreCase("C") || userAnswer.equalsIgnoreCase("D");
+    }
+
+    private int getAQuestionAtRandom(Map<Integer, Questions> hMap, List questionsAlreadyAsked) {
+        int chosenQuestionNumber = 0;
+        do {
+            Random generator = new Random();
+            chosenQuestionNumber = generator.nextInt(hMap.size());
+        } while (questionsAlreadyAsked.contains(chosenQuestionNumber));
+
+        System.out.println(hMap.get(chosenQuestionNumber));
+        questionsAlreadyAsked.add(chosenQuestionNumber);
+        return chosenQuestionNumber;
     }
 
 }
