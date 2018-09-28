@@ -21,7 +21,7 @@ public class LeaderBoardDatabase {
     public static String url = "jdbc:derby:LeaderBoard; create=true";
     public static String username = "game";
     public static String pass = "game";
-    public int id = 0;
+    public int id = 1;
     public Statement statement;
     public String table = "LeaderBoard";
  
@@ -61,13 +61,25 @@ public class LeaderBoardDatabase {
             System.out.println("Adding to database...");
             String insertData = "INSERT INTO " + table + " VALUES (" + id  + ", '"+ name + "', " + money + ")";
             statement.executeUpdate(insertData);
+            id++;
         }catch (SQLException ex){
             System.out.println("SQL Exception " + ex.getMessage());
         }
-        id++;
+        
     }
     
     public void getDatabase(){
-        
+        try{
+           ResultSet rs = statement.executeQuery("SELECT *FROM " + table); 
+           System.out.print("\nLeaderBoard: \n");
+           while (rs.next()){
+               String playerName = rs.getString("Name");
+               int playerPoints = rs.getInt("Points");
+               System.out.print(playerName + ": " + playerPoints + "\n");
+           }
+        }catch(SQLException ex){
+            System.out.println("Could not get data from table.");
+        }
+       
     }
 }

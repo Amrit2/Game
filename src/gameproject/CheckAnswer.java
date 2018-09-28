@@ -56,14 +56,15 @@ public class CheckAnswer {
                 player.setMoney(0);
             }
             System.out.println("\nWrong Answer :(. \n"
-                    + "The correct answer is " + hMap.get(currentQuestion).getAnswer() + ". \nYou are on " + player.getMoney() + " dollars.");
+                    + "The correct answer is " + hMap.get(currentQuestion).getAnswer() + 
+                    ". \nYou are on " + player.getMoney() + " dollars.");
         }
         
         //if the user was on $0, $1000, $32000 and gets a questions wrong, the game quits
         if (answerWrongAtThreshhold(player) || player.getMoney() == 0){
-            database.addToDatabase(player.getName(), player.getMoney());
-//--------            leaderboard.sortLeaderBoard();
             System.out.println("You've lost the game.");
+            database.addToDatabase(player.getName(), player.getMoney());
+            database.getDatabase();
             System.exit(0);
         }
         return player.getMoney();

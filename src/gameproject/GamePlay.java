@@ -49,7 +49,7 @@ public class GamePlay {
         List questionsAsked = new ArrayList();
         hMap = new HashMap<Integer, Questions>();
         String userAnswer = "";
-//---------------------------        leaderboard.sortLeaderBoard();                                                   // displaying the sorted leaderboard
+        database.getDatabase();                                                  // displaying the sorted leaderboard
         file.setQuizQuestions(hMap);
         
         // ensure the game keeps running until the player wins or quits the game
@@ -93,7 +93,7 @@ public class GamePlay {
             // if the player wants to quit the game, adds the player to the leaderboard and prints out the leaderboard
             if (userAnswer.equalsIgnoreCase("Q")) {
                 database.addToDatabase(player.getName(), player.getMoney());
-//--------------                leaderboard.sortLeaderBoard();
+                database.getDatabase();
                 System.exit(0);
 
             }
