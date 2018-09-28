@@ -21,7 +21,7 @@ public class GameProject {
         Scanner keyboard = new Scanner(System.in);
         String name;
         
-        DatabaseQuestions database = new DatabaseQuestions();
+        LeaderBoardDatabase database = new LeaderBoardDatabase();
         database.establishConnection();
         database.createTable();
         /**
