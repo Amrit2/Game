@@ -158,6 +158,8 @@ public class Lifelines {
         Random r = new Random();
         int high = 100;
         String[] options = hMap.get(currentQuestion).getOptions();
+        String question = hMap.get(currentQuestion).getQuestion();
+        String answer = hMap.get(currentQuestion).getAnswer();
         if (this.usedAudienceVote() == false) {                                  // ensure the options hasn't been used already
             this.setUsedAudience(true);
             
@@ -177,7 +179,7 @@ public class Lifelines {
                 System.out.println("The array that stores the options is of the incorrect length.");
             }
 
-            hMap.put(currentQuestion, new Questions(hMap.get(currentQuestion).getQuestion(), this.fiftyFiftyOptions, hMap.get(currentQuestion).getAnswer()));
+            hMap.put(currentQuestion, new Questions(question, options, answer));
             System.out.println(hMap.get(currentQuestion));    
         }
         else

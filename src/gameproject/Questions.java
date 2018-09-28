@@ -2,6 +2,7 @@ package gameproject;
 
 /**
  * This class saves the Questions, options and answer\
+ *
  * @author Amritpal Kaur 14865526
  */
 public class Questions {
@@ -31,14 +32,14 @@ public class Questions {
 
     /**
      * Method for storing the options from the text file if the input parameter
-     * has values. 
+     * has values.
      *
      * @param inputOption
      */
     public void setOptions(String[] inputOption) {
-        if (inputOption != null){
-        this.options = new String[inputOption.length]; 
-        try {
+        if (inputOption != null) {
+            this.options = new String[inputOption.length];
+            try {
                 for (int i = 0; i < inputOption.length; i++) {
 
                     for (int j = 0; j < options.length; j++) {
@@ -52,14 +53,15 @@ public class Questions {
                     }
 
                 }
-        } catch (NullPointerException e) {
+            } catch (NullPointerException e) {
                 System.out.println("There are no options to add.");
-                }
+            }
         }
     }
 
     /**
      * method for setting the answer to the question
+     *
      * @param answer
      */
     public void setAnswer(String answer) {
@@ -76,19 +78,21 @@ public class Questions {
      * @return
      */
     public String[] getOptions() {
-        String[] alternatives = new String[this.options.length];
-        for (int i = 0; i < options.length; i++) {
-            for (int j = 0; j < alternatives.length; j++) {
-                if (i == j && options[i] != null) {
-                    try {
-                        alternatives[j] = options[i];
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("The array is of the incorrect length.");
+       
+            String[] alternatives = new String[this.options.length];
+            for (int i = 0; i < options.length; i++) {
+                for (int j = 0; j < alternatives.length; j++) {
+                    if (i == j && options[i] != null) {
+                        try {
+                            alternatives[j] = options[i];
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            System.out.println("The array is of the incorrect length.");
+                        }
                     }
                 }
             }
-        }
-        return alternatives;
+            return alternatives;
+   
     }
 
     public String getAnswer() {
@@ -102,6 +106,7 @@ public class Questions {
      */
     public String toString() {
         String output = "\nYour question is: \n" + this.getQuestion() + "\n";
+        
         for (String choice : this.getOptions()) {
             output += choice + "\n";
         }
