@@ -70,7 +70,7 @@ public class LeaderBoardDatabase {
     
     public void getDatabase(){
         try{
-           ResultSet rs = statement.executeQuery("SELECT *FROM " + table); 
+           ResultSet rs = statement.executeQuery("SELECT *FROM " + table + " ORDER BY 'Points'"); 
            System.out.print("\nLeaderBoard: \n");
            while (rs.next()){
                String playerName = rs.getString("Name");
