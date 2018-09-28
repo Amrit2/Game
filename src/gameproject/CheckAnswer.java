@@ -5,6 +5,8 @@
  */
 package gameproject;
 
+import java.util.Map;
+
 /**
  *This class has the functions related to checking the players answer and setting the money 
  * @author Amritpal Kaur 14865526
@@ -24,11 +26,12 @@ public class CheckAnswer {
      * @param leaderboard
      * @return the amount of money won by the player after processing the answer
      */
-    public int getMoneyWon(String userAnswer, PlayerInfo player, Questions quizQues, LeaderBoard leaderboard){
+    public int getMoneyWon(String userAnswer, PlayerInfo player, Map<Integer, Questions> hMap, int currentQuestion, LeaderBoard leaderboard){
         this.currentMoney = player.getMoney();
         
+        
         // checks if the user answered correctly and sets the money won accordingly
-        if (userAnswer.equalsIgnoreCase(quizQues.getAnswer())) {
+        if (userAnswer.equalsIgnoreCase(hMap.get(currentQuestion).getAnswer())) {
             if (player.getMoney() == 0) {
                 player.setMoney(100);
             } else {
@@ -53,7 +56,7 @@ public class CheckAnswer {
                 player.setMoney(0);
             }
             System.out.println("\nWrong Answer :(. \n"
-                    + "The correct answer is " + quizQues.getAnswer() + ". \nYou are on " + player.getMoney() + " dollars.");
+                    + "The correct answer is " + hMap.get(currentQuestion).getAnswer() + ". \nYou are on " + player.getMoney() + " dollars.");
         }
         
         //if the user was on $0, $1000, $32000 and gets a questions wrong, the game quits

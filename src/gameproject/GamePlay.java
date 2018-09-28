@@ -45,6 +45,7 @@ public class GamePlay {
      * This class shows the questions and handles player input for processing
      */
     public void playGame() {
+        int currentQuestion;
         List questionsAsked = new ArrayList();
         hMap = new HashMap<Integer, Questions>();
         String userAnswer = "";
@@ -53,7 +54,8 @@ public class GamePlay {
         
         // ensure the game keeps running until the player wins or quits the game
         while (!userAnswer.equalsIgnoreCase("Q") && (player.getMoney() != 1000000)) {
-            getAQuestionAtRandom(hMap, questionsAsked);
+            currentQuestion = getAQuestionAtRandom(hMap, questionsAsked);
+            
             System.out.println("Would you like to use one of the life lines? If so, type \"YES\" else please type a LETTER to submit your answer or \"Q\" to quit the game.");
             userAnswer = keyboard.nextLine();
 
@@ -97,7 +99,7 @@ public class GamePlay {
             }
 
             //checks the player's answer and set the moneyWon accordingly
-            player.setMoney(checkAnswer.getMoneyWon(userAnswer, player, quiz, leaderboard));
+            player.setMoney(checkAnswer.getMoneyWon(userAnswer, player, hMap, currentQuestion, leaderboard));
 
         }
     }
@@ -115,18 +117,16 @@ public class GamePlay {
                 || userAnswer.equalsIgnoreCase("C") || userAnswer.equalsIgnoreCase("D");
     }
 
-    private void getAQuestionAtRandom(Map<Integer, Questions> hMap, List questionsAlreadyAsked) {
+    private int getAQuestionAtRandom(Map<Integer, Questions> hMap, List questionsAlreadyAsked) {
         int chosenQuestionNumber = 0;
-        Object[] values;
         do {
             Random generator = new Random();
-            values = hMap.values().toArray();
-            chosenQuestionNumber = generator.nextInt(values.length);
+            chosenQuestionNumber = generator.nextInt(hMap.size());
         } while (questionsAlreadyAsked.contains(chosenQuestionNumber));
 
-        Object randomValue = values[chosenQuestionNumber];
+        System.out.println(hMap.get(chosenQuestionNumber));
         questionsAlreadyAsked.add(chosenQuestionNumber);
-        System.out.println(randomValue);
+        return chosenQuestionNumber;
     }
 
 }
