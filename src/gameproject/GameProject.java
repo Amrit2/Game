@@ -21,10 +21,6 @@ public class GameProject {
         Scanner keyboard = new Scanner(System.in);
         String name;
         
-//        LeaderBoardDatabase database = new LeaderBoardDatabase();
-//        database.establishConnection();
-//        database.createTable();
-        
         do{
           System.out.println("Please enter your name");
            

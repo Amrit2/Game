@@ -32,10 +32,13 @@ public class Lifelines {
     /**
      * This method processes the user input by calling the corresponding methods
      * @param player
+     * @param database
+     * @param hMap
+     * @param currentQuestion
      * @param leaderboard
      * @param quizQues 
      */
-    public void useLifeLine(PlayerInfo player, LeaderBoard leaderboard, Map<Integer, Questions> hMap, int currentQuestion) {
+    public void useLifeLine(PlayerInfo player, LeaderBoardDatabase database, Map<Integer, Questions> hMap, int currentQuestion) {
         String chosenLifeLine = "";
 
         System.out.println("Type the related NUMBER to pick an option "
@@ -66,8 +69,8 @@ public class Lifelines {
             }
         } else {
             //set the leaderboard before quitting if user enters Q for quit
-            leaderboard.addToTheFile(player.getName(), player.getMoney());
-            leaderboard.sortLeaderBoard();
+            database.addToDatabase(player.getName(), player.getMoney());
+            database.getDatabase();
             System.exit(0);
         }
 
@@ -75,6 +78,8 @@ public class Lifelines {
     
     /**
      * Method for setting the fifty fifty options
+     * @param hMap
+     * @param currentQuestion
      * @param options
      * @param answer
      * @param question

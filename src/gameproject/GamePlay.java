@@ -19,7 +19,7 @@ public class GamePlay {
     Scanner keyboard;
     Lifelines lifeline;
     Questions quiz;
-    LeaderBoard leaderboard;
+    LeaderBoardDatabase database;
     ReadQuestionsFile file;
     PlayerInfo player;
     CheckAnswer checkAnswer;
@@ -34,7 +34,7 @@ public class GamePlay {
     public GamePlay(String name) {
         this.player = new PlayerInfo(name, 0);
         this.lifeline = new Lifelines();                               // instantiate the lifeline class
-        this.leaderboard = new LeaderBoard();                         // instantiated the leader board class
+        database = new LeaderBoardDatabase();                       // instantiated the leader board class
         keyboard = new Scanner(System.in);
         file = new ReadQuestionsFile();
         this.quiz = new Questions("", null, "");                 // instantiating the question class
@@ -49,7 +49,7 @@ public class GamePlay {
         List questionsAsked = new ArrayList();
         hMap = new HashMap<Integer, Questions>();
         String userAnswer = "";
-        leaderboard.sortLeaderBoard();                                                   // displaying the sorted leaderboard
+        database.getDatabase();                                                  // displaying the sorted leaderboard
         file.setQuizQuestions(hMap);
         
         // ensure the game keeps running until the player wins or quits the game
@@ -73,7 +73,7 @@ public class GamePlay {
                 // keep repeting the loop to allow the user to use lifelines until the user answers the questions
                 do {
                     // displays the lifeline options and process the use of the lifeline used
-                    lifeline.useLifeLine(player, leaderboard, hMap, currentQuestion);
+                    lifeline.useLifeLine(player, database, hMap, currentQuestion);
 
                     //asks the player if they want to use another lifelline 
                     System.out.println("Would you like to use one of the life lines? If so, type yes else please type a LETTER to submit your answer or Q to quit the game.");
@@ -92,14 +92,14 @@ public class GamePlay {
 
             // if the player wants to quit the game, adds the player to the leaderboard and prints out the leaderboard
             if (userAnswer.equalsIgnoreCase("Q")) {
-                leaderboard.addToTheFile(player.getName(), player.getMoney());
-                leaderboard.sortLeaderBoard();
+                database.addToDatabase(player.getName(), player.getMoney());
+                database.getDatabase();
                 System.exit(0);
 
             }
 
             //checks the player's answer and set the moneyWon accordingly
-            player.setMoney(checkAnswer.getMoneyWon(userAnswer, player, hMap, currentQuestion, leaderboard));
+            player.setMoney(checkAnswer.getMoneyWon(userAnswer, player, hMap, currentQuestion, database));
 
         }
     }
