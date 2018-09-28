@@ -21,15 +21,15 @@ public class GameProject {
         Scanner keyboard = new Scanner(System.in);
         String name;
         
-        LeaderBoardDatabase database = new LeaderBoardDatabase();
-        database.establishConnection();
-        database.createTable();
-        /**
+//        LeaderBoardDatabase database = new LeaderBoardDatabase();
+//        database.establishConnection();
+//        database.createTable();
+        
         do{
           System.out.println("Please enter your name");
            
             name = keyboard.nextLine();  
-        }while(name.equalsIgnoreCase(""));
+        }while(name.equalsIgnoreCase("") || name.equalsIgnoreCase(" "));
                                                              // allows the user to choose any name, no restrictions
 
         System.out.println("\nInstructions:\n"
@@ -54,6 +54,6 @@ public class GameProject {
             GamePlay file = new GamePlay(name);                                // instantiates the GamePlay class
             file.playGame();                                                   // play the game
         }
-        **/
+        
     }
 }
