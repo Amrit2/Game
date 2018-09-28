@@ -21,6 +21,8 @@ public class ReadQuestionsFile {
     String question = "";
     String answer = ""; 
     String[] options = new String[4];          // the options related to the question
+    
+    //create a map
     /**
      * Constructor instantiates the file, file reader and buffered reader
      */
@@ -29,6 +31,7 @@ public class ReadQuestionsFile {
             f = new File("questions.txt");                                                           //instantiated a text file called questions
             fr = new FileReader(f);                                                                  // passing that file to the file reader
             br = new BufferedReader(fr);                                                            // passing it to the buffered reader for reading
+            //instantiate a hash map
          } catch (FileNotFoundException e) {
             System.out.println("The file questions.txt could not be found");
         }
@@ -58,6 +61,7 @@ public class ReadQuestionsFile {
         int currentOption = 0;                     // array index of the options
          try {
                 while ((line = br.readLine()) != null && currentLine <= nextLineLimit) {                // keep the loop running until no text in the file
+                    
                     if (line.contains("?")) {
                         
                         this.question = line;                                                          //store the question
@@ -69,7 +73,9 @@ public class ReadQuestionsFile {
                        this.answer = line;                                                                  // store the answer
                     }
                     currentLine++;                                                              // increases to process the next line in the file
-                                           
+                    
+                    //create a new questions and pass in the variables 
+                    // put the ques into the hasmap
                 }
 
             } catch (IOException e) {
