@@ -12,9 +12,12 @@ public class Questions {
     private String answer;
 
     public Questions(String q, String[] o, String a) {
-        this.question = q;
-        this.options = o;
-        this.answer = a;
+        this.setQuestion(q);
+        this.setOptions(o);
+        this.setAnswer(a);
+//        this.question = q;
+//        this.options = o;
+//        this.answer = a;
     }
 
     /**
@@ -33,7 +36,9 @@ public class Questions {
      * @param inputOption
      */
     public void setOptions(String[] inputOption) {
-        this.options = new String[inputOption.length]; try {
+        if (inputOption != null){
+        this.options = new String[inputOption.length]; 
+        try {
                 for (int i = 0; i < inputOption.length; i++) {
 
                     for (int j = 0; j < options.length; j++) {
@@ -47,10 +52,10 @@ public class Questions {
                     }
 
                 }
-            } catch (NullPointerException e) {
+        } catch (NullPointerException e) {
                 System.out.println("There are no options to add.");
-            }
-        
+                }
+        }
     }
 
     /**

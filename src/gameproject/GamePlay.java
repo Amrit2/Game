@@ -1,5 +1,8 @@
 package gameproject;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -16,6 +19,7 @@ public class GamePlay {
     ReadQuestionsFile file;
     PlayerInfo player;
     CheckAnswer checkAnswer;
+    Map<Integer, Questions> hMap;
 
     /**
      * The constructor instantiates the PlayerInfo, Lifelines, ReadQuestionsFile, Check Answer, LeaderBoard and Questions class
@@ -35,13 +39,16 @@ public class GamePlay {
      * This class shows the questions and handles player input for processing
      */
     public void playGame() {
+        hMap = new HashMap<Integer, Questions>();
         String userAnswer = "";
         leaderboard.sortLeaderBoard();                                                   // displaying the sorted leaderboard
-
+        file.setQuizQuestions(hMap);
+        
+       
+        
         // ensure the game keeps running until the player wins or quits the game
         while ( !userAnswer.equalsIgnoreCase("Q") && (player.getMoney() != 1000000)) {
             
-            file.showQuizQues(quiz);
             System.out.println("Would you like to use one of the life lines? If so, type \"YES\" else please type a LETTER to submit your answer or \"Q\" to quit the game.");
             userAnswer = keyboard.nextLine();
             

@@ -21,46 +21,34 @@ public class ReadQuestionsFile {
     String question = "";
     String answer = ""; 
     String[] options = new String[4];          // the options related to the question
-    
+   
     //create a map
     /**
      * Constructor instantiates the file, file reader and buffered reader
      */
     public ReadQuestionsFile(){
          try {
+            
             f = new File("questions.txt");                                                           //instantiated a text file called questions
             fr = new FileReader(f);                                                                  // passing that file to the file reader
             br = new BufferedReader(fr);                                                            // passing it to the buffered reader for reading
-            //instantiate a hash map
+            
          } catch (FileNotFoundException e) {
             System.out.println("The file questions.txt could not be found");
         }
     }
     
     /**
-     * Sets and displays the quiz ques
-     * @param quiz 
-     */
-    public void showQuizQues(Questions quiz){
-        this.setQuestionsAndOptions();
-        quiz.setOptions(this.options);
-        quiz.setQuestion(this.question);
-        quiz.setAnswer(this.answer);
-        System.out.println(quiz.toString());                                 // print the ques and options
-    }
-    
-    /**
      * This method reads the lines in the file to set the questions,options and answer accordingly
+     * @param hMap
      * @param quiz 
      */
-    public void setQuestionsAndOptions(){
+    public void setQuizQuestions( Map<Integer, Questions> hMap){
+        int quesNumber = 1;
         String line;
-        
-        int nextLineLimit = 5;                    // the number of lines in the text file after the question that need to be processed
-        int currentLine = 0;
         int currentOption = 0;                     // array index of the options
          try {
-                while ((line = br.readLine()) != null && currentLine <= nextLineLimit) {                // keep the loop running until no text in the file
+                while ((line = br.readLine()) != null) {                // keep the loop running until no text in the file
                     
                     if (line.contains("?")) {
                         
@@ -69,13 +57,16 @@ public class ReadQuestionsFile {
                     if (line.contains(":")) {
                         this.options[currentOption++] = line;                                           // store all the options
                     }
-                    if ((line.contains("A") || line.contains("B") || line.contains("C") || line.contains("D")) && !line.contains(":")) {
+                    if ((line.contains("A") || line.contains("B") || line.contains("C") || line.contains("D")) && !line.contains(":") && !line.contains("?")) {
                        this.answer = line;                                                                  // store the answer
                     }
-                    currentLine++;                                                              // increases to process the next line in the file
                     
-                    //create a new questions and pass in the variables 
-                    // put the ques into the hasmap
+                    if (line.isEmpty()){
+                        hMap.put(quesNumber, new Questions(this.question, this.options, this.answer));
+                        quesNumber++;
+                        currentOption = 0;
+                    }
+                    
                 }
 
             } catch (IOException e) {
@@ -84,9 +75,6 @@ public class ReadQuestionsFile {
                 System.out.println("There is nothing in the file.");
             }
             
-            nextLineLimit += 6;                                                  // 4 options, an answer and a free line taken into account
-            currentOption = 0;                                                   // reset the array index
-          
     }
     
    
