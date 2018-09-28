@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *This class contains the functionalities related to reading the file and saving the questions in the object
@@ -17,8 +20,7 @@ public class ReadQuestionsFile {
     BufferedReader br;
     String question = "";
     String answer = ""; 
-    String[] options = new String[4];          // the options related to the question 
-    
+    String[] options = new String[4];          // the options related to the question
     /**
      * Constructor instantiates the file, file reader and buffered reader
      */
@@ -27,7 +29,7 @@ public class ReadQuestionsFile {
             f = new File("questions.txt");                                                           //instantiated a text file called questions
             fr = new FileReader(f);                                                                  // passing that file to the file reader
             br = new BufferedReader(fr);                                                            // passing it to the buffered reader for reading
-        } catch (FileNotFoundException e) {
+         } catch (FileNotFoundException e) {
             System.out.println("The file questions.txt could not be found");
         }
     }
@@ -57,6 +59,7 @@ public class ReadQuestionsFile {
          try {
                 while ((line = br.readLine()) != null && currentLine <= nextLineLimit) {                // keep the loop running until no text in the file
                     if (line.contains("?")) {
+                        
                         this.question = line;                                                          //store the question
                     }
                     if (line.contains(":")) {

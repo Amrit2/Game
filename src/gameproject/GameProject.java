@@ -2,6 +2,7 @@ package gameproject;
 
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.sql.SQLException;
 import java.util.Scanner;
 import javax.swing.JFrame;
 
@@ -16,9 +17,14 @@ public class GameProject {
      * the main function
      * @param args 
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Scanner keyboard = new Scanner(System.in);
         String name;
+        
+        DatabaseQuestions database = new DatabaseQuestions();
+        database.establishConnection();
+        database.createTable();
+        /**
         do{
           System.out.println("Please enter your name");
            
@@ -48,6 +54,6 @@ public class GameProject {
             GamePlay file = new GamePlay(name);                                // instantiates the GamePlay class
             file.playGame();                                                   // play the game
         }
-        
+        **/
     }
 }
