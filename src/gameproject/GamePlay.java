@@ -73,7 +73,7 @@ public class GamePlay {
                 // keep repeting the loop to allow the user to use lifelines until the user answers the questions
                 do {
                     // displays the lifeline options and process the use of the lifeline used
-                    lifeline.useLifeLine(player, leaderboard, quiz);
+                    lifeline.useLifeLine(player, leaderboard, hMap, currentQuestion);
 
                     //asks the player if they want to use another lifelline 
                     System.out.println("Would you like to use one of the life lines? If so, type yes else please type a LETTER to submit your answer or Q to quit the game.");
