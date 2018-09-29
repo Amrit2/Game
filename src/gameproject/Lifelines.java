@@ -34,11 +34,11 @@ public class Lifelines {
      * @param player
      * @param database
      * @param hMap
-     * @param currentQuestion
+     * @param currentQuestionNumber
      * @param leaderboard
      * @param quizQues 
      */
-    public void useLifeLine(PlayerInfo player, LeaderBoardDatabase database, Map<Integer, Questions> hMap, int currentQuestion) {
+    public void useLifeLine(PlayerInfo player, LeaderBoardDatabase database, Map<Integer, Questions> hMap, int currentQuestionNumber) {
         String chosenLifeLine = "";
 
         System.out.println("Type the related NUMBER to pick an option "
@@ -58,13 +58,13 @@ public class Lifelines {
         // process the life line chosen if the user didn't choose q
         if (!chosenLifeLine.equalsIgnoreCase("Q")) {
             if (chosenLifeLine.equalsIgnoreCase("1")) {                                               // process the 50:50 option
-                this.setFiftyFiftyOptions(hMap, currentQuestion);
+                this.setFiftyFiftyOptions(hMap, currentQuestionNumber);
             }
             if (chosenLifeLine.equalsIgnoreCase("2")) {                                               // process the phone a friend option
-                this.setPhoneAFriendOptions(hMap, currentQuestion);
+                this.setPhoneAFriendOptions(hMap, currentQuestionNumber);
             }
             if (chosenLifeLine.equalsIgnoreCase("3")) {                                               // process the set audience option
-                this.setAudienceVoteOptions(hMap, currentQuestion);
+                this.setAudienceVoteOptions(hMap, currentQuestionNumber);
                 
             }
         } else {

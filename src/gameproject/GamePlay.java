@@ -45,7 +45,7 @@ public class GamePlay {
      * This class shows the questions and handles player input for processing
      */
     public void playGame() {
-        int currentQuestion;
+        int currentQuestionNumber;
         List questionsAsked = new ArrayList();
         hMap = new HashMap<Integer, Questions>();
         String userAnswer = "";
@@ -54,7 +54,7 @@ public class GamePlay {
         
         // ensure the game keeps running until the player wins or quits the game
         while (!userAnswer.equalsIgnoreCase("Q") && (player.getMoney() != 1000000)) {
-            currentQuestion = getAQuestionAtRandom(hMap, questionsAsked);
+            currentQuestionNumber = getAQuestionAtRandom(hMap, questionsAsked);
             
             System.out.println("Would you like to use one of the life lines? If so, type \"YES\" else please type a LETTER to submit your answer or \"Q\" to quit the game.");
             userAnswer = keyboard.nextLine();
@@ -73,7 +73,7 @@ public class GamePlay {
                 // keep repeting the loop to allow the user to use lifelines until the user answers the questions
                 do {
                     // displays the lifeline options and process the use of the lifeline used
-                    lifeline.useLifeLine(player, database, hMap, currentQuestion);
+                    lifeline.useLifeLine(player, database, hMap, currentQuestionNumber);
 
                     //asks the player if they want to use another lifelline 
                     System.out.println("Would you like to use one of the life lines? If so, type yes else please type a LETTER to submit your answer or Q to quit the game.");
@@ -99,7 +99,7 @@ public class GamePlay {
             }
 
             //checks the player's answer and set the moneyWon accordingly
-            player.setMoney(checkAnswer.getMoneyWon(userAnswer, player, hMap, currentQuestion, database));
+            player.setMoney(checkAnswer.getMoneyWon(userAnswer, player, hMap, currentQuestionNumber, database));
 
         }
     }

@@ -26,12 +26,12 @@ public class CheckAnswer {
      * @param leaderboard
      * @return the amount of money won by the player after processing the answer
      */
-    public int getMoneyWon(String userAnswer, PlayerInfo player, Map<Integer, Questions> hMap, int currentQuestion, LeaderBoardDatabase database){
+    public int getMoneyWon(String userAnswer, PlayerInfo player, Map<Integer, Questions> hMap, int currentQuestionNumber, LeaderBoardDatabase database){
         this.currentMoney = player.getMoney();
         
         
         // checks if the user answered correctly and sets the money won accordingly
-        if (userAnswer.equalsIgnoreCase(hMap.get(currentQuestion).getAnswer())) {
+        if (userAnswer.equalsIgnoreCase(hMap.get(currentQuestionNumber).getAnswer())) {
             if (player.getMoney() == 0) {
                 player.setMoney(100);
             } else {
@@ -62,7 +62,7 @@ public class CheckAnswer {
                 player.setMoney(0);
             }
             System.out.println("\nWrong Answer :(. \n"
-                    + "The correct answer is " + hMap.get(currentQuestion).getAnswer() + 
+                    + "The correct answer is " + hMap.get(currentQuestionNumber).getAnswer() + 
                     ". \nYou are on " + player.getMoney() + " dollars.");
         }
         

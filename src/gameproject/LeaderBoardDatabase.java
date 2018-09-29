@@ -41,7 +41,7 @@ public class LeaderBoardDatabase {
             }
             
         }catch (SQLException ex){
-            System.err.println("SQL Exception: " + ex.getMessage());
+            System.err.println("Unable to check if the table, "+ table + ", exists.");
         }
     }
     
@@ -52,7 +52,7 @@ public class LeaderBoardDatabase {
                                     + "Name VARCHAR (100), Points INT)";
                 statement.executeUpdate(sqlCreateTable); 
             }catch(SQLException ex){
-                System.out.println("SQL Exception " + ex.getMessage());
+                System.out.println("Unable to create the table, " + table);
             }
     }
     
@@ -62,7 +62,7 @@ public class LeaderBoardDatabase {
             statement.executeUpdate(insertData);
             id++;
         }catch (SQLException ex){
-            System.out.println("SQL Exception " + ex.getMessage());
+            System.out.println("Unable to update the table.");
         }
         
     }
