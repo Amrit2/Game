@@ -42,7 +42,13 @@ public class CheckAnswer {
                     player.setMoney(player.getMoney() - 3000);
                 }
             }
-            System.out.println("Correct Answer! \nYou've reached " + player.getMoney() + " dollars.\n"); //money
+            if (player.getMoney() == 1000000){
+                System.out.println("You just won " + player.getMoney() + " dollars!!! (Note: In virtual money)\n"); //money
+                database.addToDatabase(player.getName(), player.getMoney());
+                database.getDatabase();
+            }
+            else 
+                System.out.println("Correct Answer! \nYou've reached " + player.getMoney() + " dollars.\n"); //money
         } else {
             
             // if the user gets a question wrong their money is decreased to the corresponding thresh hold. 

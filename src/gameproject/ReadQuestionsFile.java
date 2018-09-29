@@ -44,7 +44,7 @@ public class ReadQuestionsFile {
      * @param quiz 
      */
     public void setQuizQuestions( Map<Integer, Questions> hMap){
-        int quesNumber = 1;
+        int quesNumber = 0;
         String line;
         int currentOption = 0;                     // array index of the options
          try {

@@ -58,7 +58,6 @@ public class LeaderBoardDatabase {
     
     public void addToDatabase(String name, int money){
         try{
-            System.out.println("Adding to database...");
             String insertData = "INSERT INTO " + table + " VALUES (" + id  + ", '"+ name + "', " + money + ")";
             statement.executeUpdate(insertData);
             id++;
