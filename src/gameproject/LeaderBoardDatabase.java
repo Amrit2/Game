@@ -69,7 +69,7 @@ public class LeaderBoardDatabase {
     
     public void getDatabase(){
         try{
-           ResultSet rs = statement.executeQuery("SELECT *FROM " + table + " ORDER BY 'Points'"); 
+           ResultSet rs = statement.executeQuery("SELECT *FROM " + table + " ORDER BY Points DESC"); 
            System.out.print("\nLeaderBoard: \n");
            while (rs.next()){
                String playerName = rs.getString("Name");
@@ -77,7 +77,7 @@ public class LeaderBoardDatabase {
                System.out.print(playerName + ": " + playerPoints + "\n");
            }
         }catch(SQLException ex){
-            System.out.println("Could not get data from table.");
+            System.out.println("Unable to access data in the database.");
         }
        
     }
