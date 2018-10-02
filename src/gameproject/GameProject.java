@@ -47,8 +47,8 @@ public class GameProject {
 
         // process only when the user doesn't want to quit
         if (!ready.equalsIgnoreCase("Q")) {
-            GamePlay file = new GamePlay(name);                                // instantiates the GamePlay class
-            file.playGame();                                                   // play the game
+//            GamePlay file = new GamePlay(name);                                // instantiates the GamePlay class
+//            file.playGame();                                                   // play the game
         }
         
     }

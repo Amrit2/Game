@@ -24,7 +24,8 @@ public class LeaderBoardDatabase {
     public int id = 1;
     public Statement statement;
     public String table = "LeaderBoard";
- 
+    public String leaderBoard = "";
+    
     public LeaderBoardDatabase(){
         establishConnection();
     }
@@ -67,18 +68,20 @@ public class LeaderBoardDatabase {
         
     }
     
-    public void getDatabase(){
+    public String getDatabase(){
         try{
            ResultSet rs = statement.executeQuery("SELECT *FROM " + table + " ORDER BY Points DESC"); 
-           System.out.print("\nLeaderBoard: \n");
+//           System.out.print("\nLeaderBoard: \n");
            while (rs.next()){
                String playerName = rs.getString("Name");
                int playerPoints = rs.getInt("Points");
-               System.out.print(playerName + ": " + playerPoints + "\n");
+               leaderBoard +=  playerName + ": " + playerPoints + "\n";
+//               System.out.print(playerName + ": " + playerPoints + "\n");
            }
         }catch(SQLException ex){
-            System.out.println("Unable to access data in the database.");
+            leaderBoard  = "Unable to access data in the database.";
+//            System.out.println("Unable to access data in the database.");
         }
-       
+       return leaderBoard;
     }
 }
