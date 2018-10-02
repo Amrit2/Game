@@ -21,13 +21,12 @@ public class GamePlay {
     //declarations
     Scanner keyboard;
     Lifelines lifeline;
-//    LeaderBoardDatabase database;
     ReadQuestionsFile file;
-//    PlayerInfo player;
     CheckAnswer checkAnswer;
     Map<Integer, Questions> hMap;
     int currentQuestionNumber;
     int chosenQuestionNumber = 0;
+    List questionsAsked;
     /**
      * The constructor instantiates the PlayerInfo, Lifelines,
      * ReadQuestionsFile, Check Answer, LeaderBoard and Questions class
@@ -35,43 +34,24 @@ public class GamePlay {
      * @param name of the player
      */
     public GamePlay() {
-//        this.player = new PlayerInfo(name, 0);
         this.lifeline = new Lifelines();                               // instantiate the lifeline class
-//        database = new LeaderBoardDatabase();                       // instantiated the leader board class
-//        keyboard = new Scanner(System.in);
+
         file = new ReadQuestionsFile();
         this.checkAnswer = new CheckAnswer();
+        questionsAsked = new ArrayList();
+        hMap = new HashMap<Integer, Questions>();
     }
 
     /**
      * This class shows the questions and handles player input for processing
      */
     public void playGame(JTextField currentQuestionTextField, JTextPane currentPointsTextPane, JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD) {
-        
-        List questionsAsked = new ArrayList();
-        hMap = new HashMap<Integer, Questions>();
-        String userAnswer = "";
-//        database.getDatabase();                                                  // displaying the sorted leaderboard
         file.setQuizQuestions(hMap);
-        
-        // ensure the game keeps running until the player wins or quits the game
-//        while (!userAnswer.equalsIgnoreCase("Q") && (player.getMoney() != 1000000)) {
+        try{
             currentQuestionNumber = getAQuestionAtRandom(hMap, questionsAsked, currentQuestionTextField, optionA, optionB, optionC, optionD);
-            
-//            System.out.println("Would you like to use one of the life lines? If so, type \"YES\" else please type a LETTER to submit your answer or \"Q\" to quit the game.");
-//            userAnswer = keyboard.nextLine();
-
-            // loops to ensure the user enters a valid input 
-            
-            
-//            if (!validUserInput(userAnswer)) {
-//                do {
-//                    System.out.println("Please enter a A,B,C,D or \"yes\" to access lifelines.");
-//                    userAnswer = keyboard.nextLine();
-//                } while (!validUserInput(userAnswer));
-//            }
-
-            //runs if the user says yes to use lifelines and loops to ensure the user picks between one of the three options
+        }catch (NullPointerException ex){
+            System.out.println( "Unable to get a question");
+        }
            
     /**--------        
             if (userAnswer.equalsIgnoreCase("Yes") || userAnswer.equalsIgnoreCase("Y")) {
@@ -96,39 +76,20 @@ public class GamePlay {
 
             }
         **/
-            
-            // if the player wants to quit the game, adds the player to the leaderboard and prints out the leaderboard
-//            if (userAnswer.equalsIgnoreCase("Q")) {
-//                database.addToDatabase(player.getName(), player.getMoney());
-//                database.getDatabase();
-//                System.exit(0);
-//
-//            }
 
-            //checks the player's answer and set the moneyWon accordingly
-    //-------        player.setMoney(checkAnswer.getMoneyWon(userAnswer, player, hMap, currentQuestionNumber, database));
-
-//        }
     }
-
-    /**
-     * This method checks for a valid input which includes ensuring that the
-     * user chooses one of the options or q
-     *
-     * @param userAnswer
-     * @return a boolean
-     */
-//    private boolean validUserInput(String userAnswer) {
-//        return userAnswer.equalsIgnoreCase("Q") || userAnswer.equalsIgnoreCase("Yes")
-//                || userAnswer.equalsIgnoreCase("A") || userAnswer.equalsIgnoreCase("B")
-//                || userAnswer.equalsIgnoreCase("C") || userAnswer.equalsIgnoreCase("D");
-//    }
 
     private int getAQuestionAtRandom(Map<Integer, Questions> hMap, List questionsAlreadyAsked, JTextField currentQuestionTextField, JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD) {
         
         do {
-            Random generator = new Random();
-            chosenQuestionNumber = generator.nextInt(hMap.size());
+            try {
+                Random generator = new Random();
+                System.out.println(hMap.size());
+                chosenQuestionNumber = generator.nextInt(hMap.size());
+            }catch (IllegalArgumentException ex){
+                System.out.println("Invalid Number");
+            }
+            
         } while (questionsAlreadyAsked.contains(chosenQuestionNumber) && chosenQuestionNumber > 0);
 
         currentQuestionTextField.setText(hMap.get(chosenQuestionNumber).getQuestion());

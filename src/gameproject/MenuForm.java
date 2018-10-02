@@ -31,6 +31,8 @@ public class MenuForm extends javax.swing.JFrame{
     GamePlay game;
     PlayerInfo player;
     CheckAnswer updateMoneyWon;
+    boolean prevQuesAnswered
+            = false;
     /**
      * Creates new form GameGui
      */
@@ -262,7 +264,7 @@ public class MenuForm extends javax.swing.JFrame{
 
         parentPanel.add(leaderboardPanel, "card3");
 
-        questionPanel.setBackground(new java.awt.Color(255, 255, 255));
+        questionPanel.setBackground(new java.awt.Color(0, 0, 0));
 
         questionLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         questionLabel.setForeground(new java.awt.Color(255, 204, 0));
@@ -668,12 +670,11 @@ public class MenuForm extends javax.swing.JFrame{
     }//GEN-LAST:event_playerNameTextFieldFocusGained
 
     private void playerNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playerNameTextFieldActionPerformed
-       
-       
-//        player = new PlayerInfo(playerNameTestField.getText(), 0);
+
     }//GEN-LAST:event_playerNameTextFieldActionPerformed
 
     private void lockAnswerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lockAnswerActionPerformed
+        
         boolean correct;
         int money;
         String[] chosenAnswerArray = buttonGroup1.getSelection().getActionCommand().split(":");
@@ -701,6 +702,7 @@ public class MenuForm extends javax.swing.JFrame{
             JOptionPane.showMessageDialog(null, "Congratulations you've won a MILLION dollars!!! (Note: In virtual money)\n");
         }
         currentPointsTextPane.setText(Integer.toString(player.getMoney()));
+        prevQuesAnswered = true;
         // add to database
     }//GEN-LAST:event_lockAnswerActionPerformed
 
@@ -710,6 +712,16 @@ public class MenuForm extends javax.swing.JFrame{
     }//GEN-LAST:event_quitButton4ActionPerformed
 
     private void nextQuesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextQuesButtonActionPerformed
+        System.out.println("ques answered?" + prevQuesAnswered);
+        if (prevQuesAnswered){
+            parentPanel.removeAll();
+            parentPanel.add(questionPanel);
+            parentPanel.repaint();
+            parentPanel.revalidate();
+            
+            currentPointsTextPane.setText(Integer.toString(player.getMoney()));
+            game.playGame(currentQuestionTextField, currentPointsTextPane, optionA, optionB, optionC, optionD); 
+        }
         
     }//GEN-LAST:event_nextQuesButtonActionPerformed
 
