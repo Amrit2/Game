@@ -26,12 +26,12 @@ public class CheckAnswer {
      * @param leaderboard
      * @return the amount of money won by the player after processing the answer
      */
-    public int getMoneyWon(String userAnswer, PlayerInfo player, Map<Integer, Questions> hMap, int currentQuestionNumber, LeaderBoardDatabase database){
+    public void setMoneyWon(boolean answerCorrect, PlayerInfo player){
         this.currentMoney = player.getMoney();
         
         
         // checks if the user answered correctly and sets the money won accordingly
-        if (userAnswer.equalsIgnoreCase(hMap.get(currentQuestionNumber).getAnswer())) {
+        if (answerCorrect) {
             if (player.getMoney() == 0) {
                 player.setMoney(100);
             } else {
@@ -42,13 +42,7 @@ public class CheckAnswer {
                     player.setMoney(player.getMoney() - 3000);
                 }
             }
-            if (player.getMoney() == 1000000){
-                System.out.println("You just won " + player.getMoney() + " dollars!!! (Note: In virtual money)\n"); //money
-                database.addToDatabase(player.getName(), player.getMoney());
-                database.getDatabase();
-            }
-            else 
-                System.out.println("Correct Answer! \nYou've reached " + player.getMoney() + " dollars.\n"); //money
+     
         } else {
             
             // if the user gets a question wrong their money is decreased to the corresponding thresh hold. 
@@ -61,19 +55,9 @@ public class CheckAnswer {
             } else {
                 player.setMoney(0);
             }
-            System.out.println("\nWrong Answer :(. \n"
-                    + "The correct answer is " + hMap.get(currentQuestionNumber).getAnswer() + 
-                    ". \nYou are on " + player.getMoney() + " dollars.");
+           
         }
-        
-        //if the user was on $0, $1000, $32000 and gets a questions wrong, the game quits
-        if (answerWrongAtThreshhold(player) || player.getMoney() == 0){
-            System.out.println("You've lost the game.");
-            database.addToDatabase(player.getName(), player.getMoney());
-            database.getDatabase();
-            System.exit(0);
-        }
-        return player.getMoney();
+
    }
     
    /**
@@ -82,7 +66,7 @@ public class CheckAnswer {
     * @param player
     * @return a boolean
     */
-   private boolean answerWrongAtThreshhold(PlayerInfo player){
+   public boolean answerWrongAtThreshhold(PlayerInfo player){
       return (currentMoney== 0 && player.getMoney() == 0) || (currentMoney== 1000 && player.getMoney() == 1000) || (currentMoney== 32000 && player.getMoney() == 32000);
    }
     

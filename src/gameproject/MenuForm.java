@@ -10,6 +10,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javafx.scene.control.ToggleGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -25,14 +28,20 @@ import javax.swing.JRadioButton;
 public class MenuForm extends javax.swing.JFrame{
     JPanel cards;
     LeaderBoardDatabase database;
+    GamePlay game;
+    PlayerInfo player;
+    CheckAnswer updateMoneyWon;
     /**
      * Creates new form GameGui
      */
     public MenuForm() {
         initComponents();
         getContentPane().setBackground(Color.BLACK);
-       
         
+        //try move it back to GamePlay file
+        game = new GamePlay();
+        player = new PlayerInfo(playerNameTextField.getText(), 0);
+        updateMoneyWon = new CheckAnswer();
     }
 
     /**
@@ -44,8 +53,7 @@ public class MenuForm extends javax.swing.JFrame{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         parentPanel = new javax.swing.JPanel();
         menuPanel = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
@@ -53,7 +61,7 @@ public class MenuForm extends javax.swing.JFrame{
         instructionButton = new javax.swing.JButton();
         quitButton = new javax.swing.JButton();
         leaderboardPanel = new javax.swing.JPanel();
-        playerNameTestField = new java.awt.TextField();
+        playerNameTextField = new java.awt.TextField();
         menuButton = new javax.swing.JButton();
         startButton = new javax.swing.JButton();
         quitButton2 = new javax.swing.JButton();
@@ -62,14 +70,14 @@ public class MenuForm extends javax.swing.JFrame{
         leaderboardTextPane = new javax.swing.JTextPane();
         questionPanel = new javax.swing.JPanel();
         questionLabel = new javax.swing.JLabel();
-        currentQuestion = new javax.swing.JTextField();
+        currentQuestionTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        currentPoints = new javax.swing.JTextPane();
-        optionOne = new javax.swing.JRadioButton();
-        optionTwo = new javax.swing.JRadioButton();
-        optionThree = new javax.swing.JRadioButton();
-        optionFour = new javax.swing.JRadioButton();
+        currentPointsTextPane = new javax.swing.JTextPane();
+        optionA = new javax.swing.JRadioButton();
+        optionB = new javax.swing.JRadioButton();
+        optionC = new javax.swing.JRadioButton();
+        optionD = new javax.swing.JRadioButton();
         lockAnswer = new javax.swing.JButton();
         nextQuesButton = new javax.swing.JButton();
         useLifeline = new javax.swing.JButton();
@@ -91,15 +99,6 @@ public class MenuForm extends javax.swing.JFrame{
         moneyWonValue = new javax.swing.JLabel();
         quitButton3 = new javax.swing.JButton();
         menuButton2 = new javax.swing.JButton();
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Who Wants To Be A Millionaire");
@@ -171,16 +170,16 @@ public class MenuForm extends javax.swing.JFrame{
 
         leaderboardPanel.setBackground(new java.awt.Color(0, 0, 0));
 
-        playerNameTestField.setName(""); // NOI18N
-        playerNameTestField.setText("Name");
-        playerNameTestField.addFocusListener(new java.awt.event.FocusAdapter() {
+        playerNameTextField.setName(""); // NOI18N
+        playerNameTextField.setText("Name");
+        playerNameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                playerNameTestFieldFocusGained(evt);
+                playerNameTextFieldFocusGained(evt);
             }
         });
-        playerNameTestField.addActionListener(new java.awt.event.ActionListener() {
+        playerNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playerNameTestFieldActionPerformed(evt);
+                playerNameTextFieldActionPerformed(evt);
             }
         });
 
@@ -221,7 +220,7 @@ public class MenuForm extends javax.swing.JFrame{
             leaderboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leaderboardPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(playerNameTestField, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(playerNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(244, 244, 244))
             .addGroup(leaderboardPanelLayout.createSequentialGroup()
                 .addGroup(leaderboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -252,7 +251,7 @@ public class MenuForm extends javax.swing.JFrame{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(enterNameLabel)
                 .addGap(13, 13, 13)
-                .addComponent(playerNameTestField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(playerNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(leaderboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(menuButton)
@@ -263,31 +262,66 @@ public class MenuForm extends javax.swing.JFrame{
 
         parentPanel.add(leaderboardPanel, "card3");
 
-        questionPanel.setBackground(new java.awt.Color(0, 0, 0));
+        questionPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         questionLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         questionLabel.setForeground(new java.awt.Color(255, 204, 0));
         questionLabel.setText("Your Question:");
 
-        currentQuestion.setText("jTextField1");
+        currentQuestionTextField.setText("jTextField1");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("You are on:");
 
-        jScrollPane3.setViewportView(currentPoints);
+        jScrollPane3.setViewportView(currentPointsTextPane);
 
-        optionOne.setText("jRadioButton1");
+        buttonGroup1.add(optionA);
+        optionA.setText("optionA");
+        optionA.setMinimumSize(new java.awt.Dimension(100, 30));
+        optionA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optionAActionPerformed(evt);
+            }
+        });
 
-        optionTwo.setText("jRadioButton1");
+        buttonGroup1.add(optionB);
+        optionB.setText("optionB");
+        optionB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optionBActionPerformed(evt);
+            }
+        });
 
-        optionThree.setText("jRadioButton1");
+        buttonGroup1.add(optionC);
+        optionC.setText("optionC");
+        optionC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optionCActionPerformed(evt);
+            }
+        });
 
-        optionFour.setText("jRadioButton1");
+        buttonGroup1.add(optionD);
+        optionD.setText("optionD");
+        optionD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optionDActionPerformed(evt);
+            }
+        });
 
         lockAnswer.setText("Lock In");
+        lockAnswer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lockAnswerActionPerformed(evt);
+            }
+        });
 
         nextQuesButton.setText("Next");
+        nextQuesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextQuesButtonActionPerformed(evt);
+            }
+        });
 
         useLifeline.setText("Use Lifeline");
         useLifeline.addActionListener(new java.awt.event.ActionListener() {
@@ -297,35 +331,16 @@ public class MenuForm extends javax.swing.JFrame{
         });
 
         quitButton4.setText("Quit");
+        quitButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quitButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout questionPanelLayout = new javax.swing.GroupLayout(questionPanel);
         questionPanel.setLayout(questionPanelLayout);
         questionPanelLayout.setHorizontalGroup(
             questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(questionPanelLayout.createSequentialGroup()
-                .addGap(111, 111, 111)
-                .addGroup(questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(questionPanelLayout.createSequentialGroup()
-                        .addComponent(optionOne)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(optionTwo))
-                    .addGroup(questionPanelLayout.createSequentialGroup()
-                        .addComponent(optionThree)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(optionFour))
-                    .addGroup(questionPanelLayout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addGroup(questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(questionPanelLayout.createSequentialGroup()
-                                .addComponent(useLifeline)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lockAnswer))
-                            .addGroup(questionPanelLayout.createSequentialGroup()
-                                .addComponent(nextQuesButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(quitButton4)))
-                        .addGap(127, 127, 127)))
-                .addGap(111, 111, 111))
             .addGroup(questionPanelLayout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addGroup(questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -337,8 +352,34 @@ public class MenuForm extends javax.swing.JFrame{
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(questionPanelLayout.createSequentialGroup()
-                        .addComponent(currentQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(currentQuestionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(39, Short.MAX_VALUE))))
+            .addGroup(questionPanelLayout.createSequentialGroup()
+                .addGap(111, 111, 111)
+                .addGroup(questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(questionPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, questionPanelLayout.createSequentialGroup()
+                                .addComponent(useLifeline)
+                                .addGap(57, 57, 57))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, questionPanelLayout.createSequentialGroup()
+                                .addComponent(nextQuesButton)
+                                .addGap(65, 65, 65)))
+                        .addGroup(questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(quitButton4)
+                            .addComponent(lockAnswer))
+                        .addGap(238, 238, 238))
+                    .addGroup(questionPanelLayout.createSequentialGroup()
+                        .addComponent(optionA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(optionB)
+                        .addGap(188, 188, 188))
+                    .addGroup(questionPanelLayout.createSequentialGroup()
+                        .addComponent(optionC)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(optionD)
+                        .addGap(186, 186, 186))))
         );
         questionPanelLayout.setVerticalGroup(
             questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,24 +391,24 @@ public class MenuForm extends javax.swing.JFrame{
                         .addComponent(jLabel2))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(currentQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(currentQuestionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addGroup(questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(optionOne)
-                    .addComponent(optionTwo))
+                    .addComponent(optionA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(optionB))
                 .addGap(32, 32, 32)
                 .addGroup(questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(optionThree)
-                    .addComponent(optionFour))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                    .addComponent(optionC)
+                    .addComponent(optionD))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addGroup(questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lockAnswer)
                     .addComponent(useLifeline))
-                .addGap(49, 49, 49)
+                .addGap(18, 18, 18)
                 .addGroup(questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nextQuesButton)
-                    .addComponent(quitButton4))
-                .addGap(36, 36, 36))
+                    .addComponent(quitButton4)
+                    .addComponent(nextQuesButton))
+                .addGap(47, 47, 47))
         );
 
         parentPanel.add(questionPanel, "card4");
@@ -538,11 +579,8 @@ public class MenuForm extends javax.swing.JFrame{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void quitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButtonActionPerformed
+        database.addToDatabase(player.getName(), player.getMoney());
         System.exit(0);
     }//GEN-LAST:event_quitButtonActionPerformed
 
@@ -560,18 +598,13 @@ public class MenuForm extends javax.swing.JFrame{
         parentPanel.add(leaderboardPanel);
         parentPanel.repaint();
         parentPanel.revalidate();
-
-        //displaying text from database doesn't work
-        try {
-            leaderboardTextPane.setText("Order of Player:" + database.getDatabase()); 
-        }catch (NullPointerException ex){
-            JOptionPane.showMessageDialog(null, "Leader Board could not be loaded");
-        }
         
-        
+        database = new LeaderBoardDatabase();
+        database.getDatabase(leaderboardTextPane);
     }//GEN-LAST:event_playButtonActionPerformed
 
     private void quitButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButton2ActionPerformed
+        database.addToDatabase(player.getName(), player.getMoney());
         System.exit(0);
     }//GEN-LAST:event_quitButton2ActionPerformed
 
@@ -583,6 +616,7 @@ public class MenuForm extends javax.swing.JFrame{
     }//GEN-LAST:event_menuButtonActionPerformed
 
     private void quitButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButton3ActionPerformed
+        database.addToDatabase(player.getName(), player.getMoney());
         System.exit(0);
     }//GEN-LAST:event_quitButton3ActionPerformed
 
@@ -602,11 +636,17 @@ public class MenuForm extends javax.swing.JFrame{
     }//GEN-LAST:event_useLifelineActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        if (!playerNameTestField.getText().equalsIgnoreCase("") && !playerNameTestField.getText().equalsIgnoreCase("Name")){
+        if (!playerNameTextField.getText().equalsIgnoreCase("") && !playerNameTextField.getText().equalsIgnoreCase("Name")){
             parentPanel.removeAll();
             parentPanel.add(questionPanel);
             parentPanel.repaint();
             parentPanel.revalidate();
+            
+            player.setName(playerNameTextField.getText());
+            database.addToDatabase(player.getName(), player.getMoney());
+            currentPointsTextPane.setText(Integer.toString(player.getMoney()));
+            game.playGame(currentQuestionTextField, currentPointsTextPane, optionA, optionB, optionC, optionD);
+            
         }
         
     }//GEN-LAST:event_startButtonActionPerformed
@@ -619,67 +659,88 @@ public class MenuForm extends javax.swing.JFrame{
     }//GEN-LAST:event_backToQuestionButtonActionPerformed
 
     private void quitButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButton5ActionPerformed
+        database.addToDatabase(player.getName(), player.getMoney());
         System.exit(0);
     }//GEN-LAST:event_quitButton5ActionPerformed
 
-    private void playerNameTestFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_playerNameTestFieldFocusGained
-        playerNameTestField.setText("");
-    }//GEN-LAST:event_playerNameTestFieldFocusGained
+    private void playerNameTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_playerNameTextFieldFocusGained
+        playerNameTextField.setText("");
+    }//GEN-LAST:event_playerNameTextFieldFocusGained
 
-    private void playerNameTestFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playerNameTestFieldActionPerformed
-        new GamePlay(playerNameTestField.getText());
-    }//GEN-LAST:event_playerNameTestFieldActionPerformed
+    private void playerNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playerNameTextFieldActionPerformed
+       
+       
+//        player = new PlayerInfo(playerNameTestField.getText(), 0);
+    }//GEN-LAST:event_playerNameTextFieldActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void lockAnswerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lockAnswerActionPerformed
+        boolean correct;
+        int money;
+        String[] chosenAnswerArray = buttonGroup1.getSelection().getActionCommand().split(":");
+        if (chosenAnswerArray[0].equalsIgnoreCase(game.getAnswer())){
+           correct = true;
+           JOptionPane.showMessageDialog(null, "Correct Answer");
         }
-        //</editor-fold>
-        //</editor-fold>
+        else {
+            correct = false;
+            JOptionPane.showMessageDialog(null, "Wrong Answer, the correct answer was: " + game.getAnswer() );
+            
+        }
+        updateMoneyWon.setMoneyWon(correct, player);
+        if (updateMoneyWon.answerWrongAtThreshhold(player) || player.getMoney() == 0){
+            parentPanel.removeAll();
+            parentPanel.add(gameEndPanel);
+            parentPanel.repaint();
+            parentPanel.revalidate();
+        }
+        else if (player.getMoney() == 1000000){
+            parentPanel.removeAll();
+            parentPanel.add(gameEndPanel);
+            parentPanel.repaint();
+            parentPanel.revalidate();
+            JOptionPane.showMessageDialog(null, "Congratulations you've won a MILLION dollars!!! (Note: In virtual money)\n");
+        }
+        currentPointsTextPane.setText(Integer.toString(player.getMoney()));
+        // add to database
+    }//GEN-LAST:event_lockAnswerActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuForm().setVisible(true);
-               
-            }
-        });
-    }
+    private void quitButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButton4ActionPerformed
+        database.addToDatabase(player.getName(), player.getMoney());
+        System.exit(0);
+    }//GEN-LAST:event_quitButton4ActionPerformed
+
+    private void nextQuesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextQuesButtonActionPerformed
+        
+    }//GEN-LAST:event_nextQuesButtonActionPerformed
+
+    private void optionBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionBActionPerformed
+        optionB.setActionCommand(optionB.getText());
+    }//GEN-LAST:event_optionBActionPerformed
+
+    private void optionAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionAActionPerformed
+        optionA.setActionCommand(optionA.getText());
+    }//GEN-LAST:event_optionAActionPerformed
+
+    private void optionCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionCActionPerformed
+        optionC.setActionCommand(optionC.getText());
+    }//GEN-LAST:event_optionCActionPerformed
+
+    private void optionDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionDActionPerformed
+        optionD.setActionCommand(optionC.getText());
+    }//GEN-LAST:event_optionDActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton audienceOption;
     private javax.swing.JButton backToQuestionButton;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton chooseLifelineButton;
-    private javax.swing.JTextPane currentPoints;
-    private javax.swing.JTextField currentQuestion;
+    private javax.swing.JTextPane currentPointsTextPane;
+    private javax.swing.JTextField currentQuestionTextField;
     private javax.swing.JLabel enterNameLabel;
     private javax.swing.JRadioButton fiftyfiftyOption;
     private javax.swing.JLabel gameEndLabel;
     private javax.swing.JPanel gameEndPanel;
     private javax.swing.JButton instructionButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
@@ -698,14 +759,14 @@ public class MenuForm extends javax.swing.JFrame{
     private javax.swing.JLabel moneyWonLabel;
     private javax.swing.JLabel moneyWonValue;
     private javax.swing.JButton nextQuesButton;
-    private javax.swing.JRadioButton optionFour;
-    private javax.swing.JRadioButton optionOne;
-    private javax.swing.JRadioButton optionThree;
-    private javax.swing.JRadioButton optionTwo;
+    private javax.swing.JRadioButton optionA;
+    private javax.swing.JRadioButton optionB;
+    private javax.swing.JRadioButton optionC;
+    private javax.swing.JRadioButton optionD;
     private javax.swing.JPanel parentPanel;
     private javax.swing.JRadioButton phoneOption;
     private javax.swing.JButton playButton;
-    private java.awt.TextField playerNameTestField;
+    private java.awt.TextField playerNameTextField;
     private javax.swing.JLabel questionLabel;
     private javax.swing.JPanel questionPanel;
     private javax.swing.JButton quitButton;
@@ -716,4 +777,6 @@ public class MenuForm extends javax.swing.JFrame{
     private javax.swing.JButton startButton;
     private javax.swing.JButton useLifeline;
     // End of variables declaration//GEN-END:variables
+
+    
 }

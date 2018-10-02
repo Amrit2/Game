@@ -67,11 +67,11 @@ public class Lifelines {
                 this.setAudienceVoteOptions(hMap, currentQuestionNumber);
                 
             }
-        } else {
-            //set the leaderboard before quitting if user enters Q for quit
-            database.addToDatabase(player.getName(), player.getMoney());
-            database.getDatabase();
-            System.exit(0);
+//        } else {
+//            //set the leaderboard before quitting if user enters Q for quit
+//            database.addToDatabase(player.getName(), player.getMoney());
+//            database.getDatabase();
+//            System.exit(0);
         }
 
     }

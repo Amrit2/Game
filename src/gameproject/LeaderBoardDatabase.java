@@ -11,6 +11,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import javax.swing.JTextPane;
 
 /**
  *
@@ -33,7 +36,8 @@ public class LeaderBoardDatabase {
     public void establishConnection(){
         try{
             conn = DriverManager.getConnection(url, username, pass);
-            System.out.println("Database Connected(" + url + ").");
+             JOptionPane.showMessageDialog(null, "Database Connected(" + url + ").");
+//            System.out.println("Database Connected(" + url + ").");
             statement = conn.createStatement();
             DatabaseMetaData data = conn.getMetaData();
             ResultSet rs = data.getTables(null, "GAME", "LEADERBOARD", null);
@@ -42,7 +46,8 @@ public class LeaderBoardDatabase {
             }
             
         }catch (SQLException ex){
-            System.err.println("Unable to check if the table, "+ table + ", exists.");
+            JOptionPane.showMessageDialog(null, "Unable to check if the table, "+ table + ", exists.");
+//            System.err.println("Unable to check if the table, "+ table + ", exists.");
         }
     }
     
@@ -68,7 +73,7 @@ public class LeaderBoardDatabase {
         
     }
     
-    public String getDatabase(){
+    public void getDatabase(JTextPane leaderboardTextPane){
         try{
            ResultSet rs = statement.executeQuery("SELECT *FROM " + table + " ORDER BY Points DESC"); 
 //           System.out.print("\nLeaderBoard: \n");
@@ -82,6 +87,6 @@ public class LeaderBoardDatabase {
             leaderBoard  = "Unable to access data in the database.";
 //            System.out.println("Unable to access data in the database.");
         }
-       return leaderBoard;
+       leaderboardTextPane.setText(leaderBoard);
     }
 }
