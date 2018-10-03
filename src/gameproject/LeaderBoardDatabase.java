@@ -37,7 +37,6 @@ public class LeaderBoardDatabase {
         try{
             conn = DriverManager.getConnection(url, username, pass);
              JOptionPane.showMessageDialog(null, "Database Connected(" + url + ").");
-//            System.out.println("Database Connected(" + url + ").");
             statement = conn.createStatement();
             DatabaseMetaData data = conn.getMetaData();
             ResultSet rs = data.getTables(null, "GAME", "LEADERBOARD", null);
@@ -47,7 +46,6 @@ public class LeaderBoardDatabase {
             
         }catch (SQLException ex){
             JOptionPane.showMessageDialog(null, "Unable to check if the table, "+ table + ", exists.");
-//            System.err.println("Unable to check if the table, "+ table + ", exists.");
         }
     }
     
@@ -58,7 +56,7 @@ public class LeaderBoardDatabase {
                                     + "Name VARCHAR (100), Points INT)";
                 statement.executeUpdate(sqlCreateTable); 
             }catch(SQLException ex){
-                System.out.println("Unable to create the table, " + table);
+                JOptionPane.showMessageDialog(null, "Unable to create the table " + table);
             }
     }
     
@@ -68,7 +66,7 @@ public class LeaderBoardDatabase {
             statement.executeUpdate(insertData);
             id++;
         }catch (SQLException ex){
-            System.out.println("Unable to update the table.");
+            JOptionPane.showMessageDialog(null, "Unable to update the table");
         }
         
     }
@@ -76,16 +74,13 @@ public class LeaderBoardDatabase {
     public void getDatabase(JTextPane leaderboardTextPane){
         try{
            ResultSet rs = statement.executeQuery("SELECT *FROM " + table + " ORDER BY Points DESC"); 
-//           System.out.print("\nLeaderBoard: \n");
            while (rs.next()){
                String playerName = rs.getString("Name");
                int playerPoints = rs.getInt("Points");
                leaderBoard +=  playerName + ": " + playerPoints + "\n";
-//               System.out.print(playerName + ": " + playerPoints + "\n");
            }
         }catch(SQLException ex){
             leaderBoard  = "Unable to access data in the database.";
-//            System.out.println("Unable to access data in the database.");
         }
        leaderboardTextPane.setText(leaderBoard);
     }

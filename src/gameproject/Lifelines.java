@@ -38,22 +38,8 @@ public class Lifelines {
      * @param leaderboard
      * @param quizQues 
      */
-    public void useLifeLine(PlayerInfo player, LeaderBoardDatabase database, Map<Integer, Questions> hMap, int currentQuestionNumber) {
+    public void useLifeLine(Map<Integer, Questions> hMap, int currentQuestionNumber) {
         String chosenLifeLine = "";
-
-        System.out.println("Type the related NUMBER to pick an option "
-                + "\n1. 50:50"
-                + "\n2. Phone a friend"
-                + "\n3. Audience Vote");
-        chosenLifeLine = keyboard.nextLine();
-        
-        //loops to ensure the user picks an option from 1,2,3
-        if (!validLifeLineUserInput(chosenLifeLine)) {
-            do {
-                System.out.println("\nPlease choose 1, 2 or 3.");
-                chosenLifeLine = keyboard.nextLine();
-            } while (!validLifeLineUserInput(chosenLifeLine));
-        }
 
         // process the life line chosen if the user didn't choose q
         if (!chosenLifeLine.equalsIgnoreCase("Q")) {
@@ -67,13 +53,7 @@ public class Lifelines {
                 this.setAudienceVoteOptions(hMap, currentQuestionNumber);
                 
             }
-//        } else {
-//            //set the leaderboard before quitting if user enters Q for quit
-//            database.addToDatabase(player.getName(), player.getMoney());
-//            database.getDatabase();
-//            System.exit(0);
         }
-
     }
     
     /**

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -50,32 +51,11 @@ public class GamePlay {
         try{
             currentQuestionNumber = getAQuestionAtRandom(hMap, questionsAsked, currentQuestionTextField, optionA, optionB, optionC, optionD);
         }catch (NullPointerException ex){
-            System.out.println( "Unable to get a question");
+            JOptionPane.showMessageDialog(null, "Unable to get a questions");
         }
-           
-    /**--------        
-            if (userAnswer.equalsIgnoreCase("Yes") || userAnswer.equalsIgnoreCase("Y")) {
-
-                // keep repeting the loop to allow the user to use lifelines until the user answers the questions
-                do {
+      
                     // displays the lifeline options and process the use of the lifeline used
-                    lifeline.useLifeLine(player, database, hMap, currentQuestionNumber);
-
-                    //asks the player if they want to use another lifelline 
-                    System.out.println("Would you like to use one of the life lines? If so, type yes else please type a LETTER to submit your answer or Q to quit the game.");
-                    userAnswer = keyboard.nextLine();
-
-                    //loops to ensure a valid input
-                    if (!validUserInput(userAnswer)) {
-                        do {
-                            System.out.println("Please enter a A,B,C,D or \"yes\" to access lifelines.\n");
-                            userAnswer = keyboard.nextLine();
-                        } while (!validUserInput(userAnswer));
-                    }
-                } while (userAnswer.equalsIgnoreCase("yes"));
-
-            }
-        **/
+//         lifeline.useLifeLine(player, database, hMap, currentQuestionNumber);
 
     }
 
@@ -84,10 +64,9 @@ public class GamePlay {
         do {
             try {
                 Random generator = new Random();
-                System.out.println(hMap.size());
                 chosenQuestionNumber = generator.nextInt(hMap.size());
             }catch (IllegalArgumentException ex){
-                System.out.println("Invalid Number");
+                 JOptionPane.showMessageDialog(null, "Unable to generate a valid number");
             }
             
         } while (questionsAlreadyAsked.contains(chosenQuestionNumber) && chosenQuestionNumber > 0);
