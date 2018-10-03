@@ -3,6 +3,9 @@ package gameproject;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 /**
  *This class handles the life lines to alter the options accordingly
@@ -30,33 +33,6 @@ public class Lifelines {
     }
 
     /**
-     * This method processes the user input by calling the corresponding methods
-     * @param player
-     * @param database
-     * @param hMap
-     * @param currentQuestionNumber
-     * @param leaderboard
-     * @param quizQues 
-     */
-    public void useLifeLine(Map<Integer, Questions> hMap, int currentQuestionNumber) {
-        String chosenLifeLine = "";
-
-        // process the life line chosen if the user didn't choose q
-        if (!chosenLifeLine.equalsIgnoreCase("Q")) {
-            if (chosenLifeLine.equalsIgnoreCase("1")) {                                               // process the 50:50 option
-                this.setFiftyFiftyOptions(hMap, currentQuestionNumber);
-            }
-            if (chosenLifeLine.equalsIgnoreCase("2")) {                                               // process the phone a friend option
-                this.setPhoneAFriendOptions(hMap, currentQuestionNumber);
-            }
-            if (chosenLifeLine.equalsIgnoreCase("3")) {                                               // process the set audience option
-                this.setAudienceVoteOptions(hMap, currentQuestionNumber);
-                
-            }
-        }
-    }
-    
-    /**
      * Method for setting the fifty fifty options
      * @param hMap
      * @param currentQuestion
@@ -65,32 +41,47 @@ public class Lifelines {
      * @param question
      * @return an array that contains two options, one correct, one incorrect
      */
-    public void setFiftyFiftyOptions(Map<Integer, Questions> hMap, int currentQuestion) {
+    public void setFiftyFiftyOptions(JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD, String answer) {
         Random rand = new Random();
-        this.fiftyFiftyOptions = new String[2];
+        String[] optiona = optionA.getText().split(":");
+        String[] optionb = optionB.getText().split(":");
+        String[] optionc = optionC.getText().split(":");
+        String[] optiond = optionD.getText().split(":");
+        boolean setIncorrectOption = false;
         if (this.usedFifty() == false) {                                     // ensure the options hasn't been used already
             this.setUsedFifty(true);
-            String[] options = hMap.get(currentQuestion).getOptions();
-            this.fiftyFiftyOptions[0] = options[0];
-            try {
-                if (!options[0].contains(hMap.get(currentQuestion).getAnswer())) {                             // if place 0 doesn't have the answer then loop through to find and save the answer 
-                    for (int i = 1; i < options.length; i++) {                  
-                        if (options[i].contains(hMap.get(currentQuestion).getAnswer())) {
-                            this.fiftyFiftyOptions[1] = options[i];             // if answer is found save it at place 1                
-                        }   
-                    }
-                } else {
-                    this.fiftyFiftyOptions[1] = options[1];                     // if place 0 has the answer, then save another option at 1
+            
+            if (!optiona[0].equalsIgnoreCase(answer)){
+                if (!setIncorrectOption){
+                    setIncorrectOption = true;
                 }
-                hMap.put(currentQuestion, new Questions(hMap.get(currentQuestion).getQuestion(), this.fiftyFiftyOptions, hMap.get(currentQuestion).getAnswer()));
-                System.out.println(hMap.get(currentQuestion));
-                
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("The array that stores the options is of the incorrect length.");
+                else
+                    optionA.setVisible(false);
+            }
+            if (!optionb[0].equalsIgnoreCase(answer)){
+                if (!setIncorrectOption){
+                    setIncorrectOption = true;
+                }
+                else 
+                    optionB.setVisible(false);
+            }
+            if (!optionc[0].equalsIgnoreCase(answer)){
+                if (!setIncorrectOption){
+                    setIncorrectOption = true;
+                }
+                else
+                    optionC.setVisible(false);
+            }
+            if (!optiond[0].equalsIgnoreCase(answer)){
+                if (!setIncorrectOption){
+                    setIncorrectOption = true;
+                }
+                else
+                    optionD.setVisible(false);
             }
         }
         else
-            System.out.println("\nYou've already used this option\n");
+             JOptionPane.showMessageDialog(null,"\nYou've already used this option\n");
     }
 
     /**
@@ -213,4 +204,5 @@ public class Lifelines {
     public boolean getShowWrongAnswer(){
         return this.showWrongAnswer;
     }
+
 }

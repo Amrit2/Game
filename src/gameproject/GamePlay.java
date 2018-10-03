@@ -49,7 +49,7 @@ public class GamePlay {
     public void playGame(JTextField currentQuestionTextField, JTextPane currentPointsTextPane, JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD) {
         file.setQuizQuestions(hMap);
         try{
-            currentQuestionNumber = getAQuestionAtRandom(hMap, questionsAsked, currentQuestionTextField, optionA, optionB, optionC, optionD);
+           setQuestionAtRandom(hMap,currentQuestionTextField, optionA, optionB, optionC, optionD);
         }catch (NullPointerException ex){
             JOptionPane.showMessageDialog(null, "Unable to get a questions");
         }
@@ -59,7 +59,7 @@ public class GamePlay {
 
     }
 
-    private int getAQuestionAtRandom(Map<Integer, Questions> hMap, List questionsAlreadyAsked, JTextField currentQuestionTextField, JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD) {
+    public int setQuestionAtRandom(Map<Integer, Questions> hMap, JTextField currentQuestionTextField, JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD) {
         
         do {
             try {
@@ -69,29 +69,41 @@ public class GamePlay {
                  JOptionPane.showMessageDialog(null, "Unable to generate a valid number");
             }
             
-        } while (questionsAlreadyAsked.contains(chosenQuestionNumber) && chosenQuestionNumber > 0);
+        } while (questionsAsked.contains(chosenQuestionNumber) && chosenQuestionNumber > 0);
 
         currentQuestionTextField.setText(hMap.get(chosenQuestionNumber).getQuestion());
         String[] op = hMap.get(chosenQuestionNumber).getOptions();
         for (int i = 0; i <= 3 ; i++){
             if (i == 0){
+               
                 optionA.setText(op[0]);
             }
             if (i == 1){
+               
                 optionB.setText(op[1]);
             }
             if (i == 2){
+                
                 optionC.setText(op[2]);
             }
             if (i == 3){
+                
                 optionD.setText(op[3]);
             }
         }
-        questionsAlreadyAsked.add(chosenQuestionNumber);
+        questionsAsked.add(chosenQuestionNumber);
         return chosenQuestionNumber;
     }
     
     public String getAnswer(){
         return hMap.get(chosenQuestionNumber).getAnswer();
+    }
+   
+    public int getCurrentQuestionNumber(){
+        return this.currentQuestionNumber;
+    }
+    
+    public Map<Integer, Questions> getHashMap(){
+        return this.hMap;
     }
 }
