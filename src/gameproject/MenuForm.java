@@ -693,16 +693,11 @@ public class MenuForm extends javax.swing.JFrame{
         updateMoneyWon.setMoneyWon(isCorrect, player);
         if (updateMoneyWon.answerWrongAtThreshhold(player)){
             displayGameEndPanel(gameEndPanel);
-            database.addToDatabase(player.getName(), player.getMoney());
-            database.getDatabase(gameEndLeaderBoard);
-            moneyWonValue.setText(Integer.toString(player.getMoney()));
         }
         else if (player.getMoney() == 1000000){
             displayGameEndPanel(gameEndPanel);
             JOptionPane.showMessageDialog(null, "Congratulations you've won a MILLION dollars!!! (Note: In virtual money)\n");
-            moneyWonValue.setText(Integer.toString(player.getMoney()));
-            database.addToDatabase(player.getName(), player.getMoney());
-            database.getDatabase(gameEndLeaderBoard);
+            
         }
         else{
             currentPointsTextPane.setText(Integer.toString(player.getMoney()));
@@ -795,6 +790,9 @@ public class MenuForm extends javax.swing.JFrame{
         parentPanel.add(gameEndPanel);
         parentPanel.repaint();
         parentPanel.revalidate();
+        moneyWonValue.setText(Integer.toString(player.getMoney()));
+        database.addToDatabase(player.getName(), player.getMoney());
+        database.getDatabase(gameEndLeaderBoard);
     }
      
     // Variables declaration - do not modify//GEN-BEGIN:variables
