@@ -664,6 +664,7 @@ public class MenuForm extends javax.swing.JFrame{
             optionA.setVisible(true);
             optionB.setVisible(true);
             optionC.setVisible(true);
+            
             optionD.setVisible(true);
             
             parentPanel.removeAll();
@@ -746,6 +747,7 @@ public class MenuForm extends javax.swing.JFrame{
             optionB.setVisible(true);
             optionC.setVisible(true);
             optionD.setVisible(true);
+            optionsButtonGroup.clearSelection();
             currentPointsTextPane.setText(Integer.toString(player.getMoney()));
             game.playGame(currentQuestionTextField, currentPointsTextPane, optionA, optionB, optionC, optionD); 
             answeredQues = false;
