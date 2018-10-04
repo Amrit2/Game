@@ -47,7 +47,6 @@ public class Questions {
             this.options = new String[inputOption.length];
             try {
                 for (int i = 0; i < inputOption.length; i++) {
-
                     for (int j = 0; j < options.length; j++) {
                         if (i == j) {
                             try {
@@ -90,7 +89,6 @@ public class Questions {
                 }
             }
             return alternatives;
-   
     }
 
     public String getAnswer() {

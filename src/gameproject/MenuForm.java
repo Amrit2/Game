@@ -759,15 +759,7 @@ public class MenuForm extends javax.swing.JFrame{
              JOptionPane.showMessageDialog(null, "Please choose a lifeline to apply");
         }
         
-        if (chosenLifeLine.equalsIgnoreCase("50:50")){
-            lifeLine.setFiftyFiftyOptions(optionA,optionB, optionC, optionD, game.getAnswer());
-        }
-        else if (chosenLifeLine.equalsIgnoreCase("Phone A Friend")){
-            lifeLine.setPhoneAFriendOptions(optionA,optionB, optionC, optionD, game.getAnswer());
-        }
-        else if (chosenLifeLine.equalsIgnoreCase("Audience Vote")){
-            lifeLine.setAudienceVoteOptions(optionA,optionB, optionC, optionD, game.getAnswer());
-        }
+        lifeLine.processChosenLifeLine(chosenLifeLine, optionA, optionB, optionC, optionD, game.getAnswer());
   
     }//GEN-LAST:event_applyLifeLineActionPerformed
 

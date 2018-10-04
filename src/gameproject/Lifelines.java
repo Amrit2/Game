@@ -29,12 +29,27 @@ public class Lifelines {
         usedAudience = false;
         keyboard = new Scanner(System.in);
     }
+    
+    public void processChosenLifeLine(String chosenLifeLine, JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD, String answer) {
+        if (chosenLifeLine.equalsIgnoreCase("50:50")){
+           this.setFiftyFiftyOptions(optionA,optionB, optionC, optionD, answer);
+        }
+        else if (chosenLifeLine.equalsIgnoreCase("Phone A Friend")){
+            this.setPhoneAFriendOptions(optionA,optionB, optionC, optionD, answer);
+        }
+        else if (chosenLifeLine.equalsIgnoreCase("Audience Vote")){
+            this.setAudienceVoteOptions(optionA,optionB, optionC, optionD, answer);
+        }
+        
+    }
 
+    
+    
     /**
      * Method for setting the fifty fifty options
      * @param answer
      * **/
-    public void setFiftyFiftyOptions(JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD, String answer) {
+    private void setFiftyFiftyOptions(JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD, String answer) {
         Random rand = new Random();
         String[] optiona = optionA.getText().split(":");
         String[] optionb = optionB.getText().split(":");
@@ -82,7 +97,7 @@ public class Lifelines {
      * @param answer
      * @param question 
      */
-    public void setPhoneAFriendOptions(JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD, String answer) {
+    private void setPhoneAFriendOptions(JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD, String answer) {
         Random r = new Random();
         int low = 1;
         int high = 100;
@@ -101,14 +116,14 @@ public class Lifelines {
         int probability = r.nextInt(high - low) + low;
         if (this.usedFriendCall() == false) {                                              // ensure the options hasn't been used already
             this.setUsedCall(true);
-            for (int i = 0; i < options.length; i++){
-                if (probability >= 10){
-                    if (options[i].equalsIgnoreCase(answer)){
-                        JOptionPane.showMessageDialog(null,"\nYour friend has suggested to go for " + options[i] + "\n");
+            for (String option: options){
+                 if (probability >= 10){
+                    if (option.equalsIgnoreCase(answer)){
+                        JOptionPane.showMessageDialog(null,"\nYour friend has suggested to go for " + option + "\n");
                     }
                 }
-                else if (!options[i].equalsIgnoreCase(answer) && !giveAnswer){
-                    JOptionPane.showMessageDialog(null,"\nYour friend has suggested to go for " + options[i] + "\n");
+                else if (!option.equalsIgnoreCase(answer) && !giveAnswer){
+                    JOptionPane.showMessageDialog(null,"\nYour friend has suggested to go for " + option + "\n");
                     giveAnswer = true;
                 }
             }
@@ -125,7 +140,7 @@ public class Lifelines {
      * @param answer
      * @return an array of options that has a percentage attached to each option
      */
-    public void setAudienceVoteOptions(JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD, String answer) {
+    private void setAudienceVoteOptions(JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD, String answer) {
         Random r = new Random();
         int high = 100;
         if (this.usedAudienceVote() == false) {                                  // ensure the options hasn't been used already
@@ -178,4 +193,5 @@ public class Lifelines {
         return this.showWrongAnswer;
     }
 
+   
 }
