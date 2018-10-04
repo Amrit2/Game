@@ -2,7 +2,6 @@ package gameproject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -20,13 +19,11 @@ import javax.swing.JTextPane;
 public class GamePlay {
 
     //declarations
-    Scanner keyboard;
     Lifelines lifeline;
     ReadQuestionsFile file;
     CheckAnswer checkAnswer;
     Map<Integer, Questions> hMap;
-    int currentQuestionNumber;
-    int chosenQuestionNumber = 0;
+    int currentQuestionNumber = 0;
     List questionsAsked;
     /**
      * The constructor instantiates the PlayerInfo, Lifelines,
@@ -53,9 +50,6 @@ public class GamePlay {
         }catch (NullPointerException ex){
             JOptionPane.showMessageDialog(null, "Unable to get a questions");
         }
-      
-                    // displays the lifeline options and process the use of the lifeline used
-//         lifeline.useLifeLine(player, database, hMap, currentQuestionNumber);
 
     }
 
@@ -64,15 +58,15 @@ public class GamePlay {
         do {
             try {
                 Random generator = new Random();
-                chosenQuestionNumber = generator.nextInt(hMap.size());
+                currentQuestionNumber = generator.nextInt(hMap.size());
             }catch (IllegalArgumentException ex){
                  JOptionPane.showMessageDialog(null, "Unable to generate a valid number");
             }
             
-        } while (questionsAsked.contains(chosenQuestionNumber) && chosenQuestionNumber > 0);
+        } while (questionsAsked.contains(currentQuestionNumber) && currentQuestionNumber > 0);
 
-        currentQuestionTextField.setText(hMap.get(chosenQuestionNumber).getQuestion());
-        String[] op = hMap.get(chosenQuestionNumber).getOptions();
+        currentQuestionTextField.setText(hMap.get(currentQuestionNumber).getQuestion());
+        String[] op = hMap.get(currentQuestionNumber).getOptions();
         for (int i = 0; i <= 3 ; i++){
             if (i == 0){
                
@@ -91,18 +85,14 @@ public class GamePlay {
                 optionD.setText(op[3]);
             }
         }
-        questionsAsked.add(chosenQuestionNumber);
-        return chosenQuestionNumber;
+        questionsAsked.add(currentQuestionNumber);
+        return currentQuestionNumber;
     }
     
     public String getAnswer(){
-        return hMap.get(chosenQuestionNumber).getAnswer();
+        return hMap.get(currentQuestionNumber).getAnswer();
     }
    
-    public int getCurrentQuestionNumber(){
-        return this.currentQuestionNumber;
-    }
-    
     public Map<Integer, Questions> getHashMap(){
         return this.hMap;
     }

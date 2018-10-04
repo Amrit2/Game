@@ -16,9 +16,6 @@ public class Questions {
         this.setQuestion(q);
         this.setOptions(o);
         this.setAnswer(a);
-//        this.question = q;
-//        this.options = o;
-//        this.answer = a;
     }
 
     /**
@@ -28,6 +25,15 @@ public class Questions {
      */
     public void setQuestion(String inputQuestion) {
         this.question = inputQuestion;
+    }
+
+     /**
+     * method for setting the answer to the question
+     *
+     * @param answer
+     */
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
     /**
@@ -59,15 +65,7 @@ public class Questions {
         }
     }
 
-    /**
-     * method for setting the answer to the question
-     *
-     * @param answer
-     */
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
+   
     public String getQuestion() {
         return this.question;
     }
@@ -97,19 +95,5 @@ public class Questions {
 
     public String getAnswer() {
         return this.answer;
-    }
-
-    /**
-     * To string method displays the question and options
-     *
-     * @return a string
-     */
-    public String toString() {
-        String output = "\nYour question is: \n" + this.getQuestion() + "\n";
-        
-        for (String choice : this.getOptions()) {
-            output += choice + "\n";
-        }
-        return output;
     }
 }

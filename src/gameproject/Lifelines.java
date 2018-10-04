@@ -1,11 +1,9 @@
 package gameproject;
 
-import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 
 /**
  *This class handles the life lines to alter the options accordingly
@@ -34,13 +32,8 @@ public class Lifelines {
 
     /**
      * Method for setting the fifty fifty options
-     * @param hMap
-     * @param currentQuestion
-     * @param options
      * @param answer
-     * @param question
-     * @return an array that contains two options, one correct, one incorrect
-     */
+     * **/
     public void setFiftyFiftyOptions(JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD, String answer) {
         Random rand = new Random();
         String[] optiona = optionA.getText().split(":");
@@ -86,7 +79,6 @@ public class Lifelines {
 
     /**
      * Method for recommending an option, that gives the correct option 90% of the time
-     * @param options
      * @param answer
      * @param question 
      */

@@ -1,10 +1,6 @@
 package gameproject;
 
-import java.awt.Color;
-import java.awt.Toolkit;
 import java.sql.SQLException;
-import java.util.Scanner;
-import javax.swing.JFrame;
 
 /**
  * This class is the entry point of the program

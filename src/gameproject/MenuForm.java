@@ -5,20 +5,8 @@
  */
 package gameproject;
 
-import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Map;
-import javafx.scene.control.ToggleGroup;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -536,6 +524,7 @@ public class MenuForm extends javax.swing.JFrame{
             }
         });
 
+        gameEndLeaderBoard.setEditable(false);
         jScrollPane2.setViewportView(gameEndLeaderBoard);
 
         quitButton3.setText("Quit");
@@ -661,16 +650,8 @@ public class MenuForm extends javax.swing.JFrame{
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         if (!playerNameTextField.getText().equalsIgnoreCase("") && !playerNameTextField.getText().equalsIgnoreCase("Name")){
-            optionA.setVisible(true);
-            optionB.setVisible(true);
-            optionC.setVisible(true);
-            
-            optionD.setVisible(true);
-            
-            parentPanel.removeAll();
-            parentPanel.add(questionPanel);
-            parentPanel.repaint();
-            parentPanel.revalidate();
+            resetOptions(optionA, optionB, optionC, optionD);
+            displayQuestionPanel(questionPanel);
             player.setName(playerNameTextField.getText());
             currentPointsTextPane.setText(Integer.toString(player.getMoney()));
             game.playGame(currentQuestionTextField, currentPointsTextPane, optionA, optionB, optionC, optionD);
@@ -679,15 +660,9 @@ public class MenuForm extends javax.swing.JFrame{
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void backToQuestionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToQuestionButtonActionPerformed
-        optionA.setVisible(true);
-        optionB.setVisible(true);
-        optionC.setVisible(true);
-        optionD.setVisible(true);
-            
-        parentPanel.removeAll();
-        parentPanel.add(questionPanel);
-        parentPanel.repaint();
-        parentPanel.revalidate();
+        resetOptions(optionA, optionB, optionC, optionD);
+        displayQuestionPanel(questionPanel);
+
     }//GEN-LAST:event_backToQuestionButtonActionPerformed
 
     private void quitButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButton5ActionPerformed
@@ -717,19 +692,13 @@ public class MenuForm extends javax.swing.JFrame{
         }
         updateMoneyWon.setMoneyWon(isCorrect, player);
         if (updateMoneyWon.answerWrongAtThreshhold(player)){
-            parentPanel.removeAll();
-            parentPanel.add(gameEndPanel);
-            parentPanel.repaint();
-            parentPanel.revalidate();
+            displayGameEndPanel(gameEndPanel);
             database.addToDatabase(player.getName(), player.getMoney());
             database.getDatabase(gameEndLeaderBoard);
             moneyWonValue.setText(Integer.toString(player.getMoney()));
         }
         else if (player.getMoney() == 1000000){
-            parentPanel.removeAll();
-            parentPanel.add(gameEndPanel);
-            parentPanel.repaint();
-            parentPanel.revalidate();
+            displayGameEndPanel(gameEndPanel);
             JOptionPane.showMessageDialog(null, "Congratulations you've won a MILLION dollars!!! (Note: In virtual money)\n");
             moneyWonValue.setText(Integer.toString(player.getMoney()));
             database.addToDatabase(player.getName(), player.getMoney());
@@ -738,15 +707,8 @@ public class MenuForm extends javax.swing.JFrame{
         else{
             currentPointsTextPane.setText(Integer.toString(player.getMoney()));
             answeredQues = true;
-        
-            parentPanel.removeAll();
-            parentPanel.add(questionPanel);
-            parentPanel.repaint();
-            parentPanel.revalidate();
-            optionA.setVisible(true);
-            optionB.setVisible(true);
-            optionC.setVisible(true);
-            optionD.setVisible(true);
+            displayQuestionPanel(questionPanel);
+            resetOptions(optionA, optionB, optionC, optionD);
             optionsButtonGroup.clearSelection();
             currentPointsTextPane.setText(Integer.toString(player.getMoney()));
             game.playGame(currentQuestionTextField, currentPointsTextPane, optionA, optionB, optionC, optionD); 
@@ -793,10 +755,7 @@ public class MenuForm extends javax.swing.JFrame{
     }//GEN-LAST:event_audienceOptionActionPerformed
 
     private void applyLifeLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyLifeLineActionPerformed
-        parentPanel.removeAll();
-        parentPanel.add(questionPanel);
-        parentPanel.repaint();
-        parentPanel.revalidate();
+        displayQuestionPanel(questionPanel);
        
         String chosenLifeLine = ""; 
         try {
@@ -817,6 +776,27 @@ public class MenuForm extends javax.swing.JFrame{
   
     }//GEN-LAST:event_applyLifeLineActionPerformed
 
+    public void resetOptions(JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD) {
+        optionA.setVisible(true);
+        optionB.setVisible(true);
+        optionC.setVisible(true);
+        optionD.setVisible(true);
+    }
+    
+    public void displayQuestionPanel(JPanel questionPanel) {
+        parentPanel.removeAll();
+        parentPanel.add(questionPanel);
+        parentPanel.repaint();
+        parentPanel.revalidate();
+    }
+    
+     public void displayGameEndPanel(JPanel gameEndPanel) {
+        parentPanel.removeAll();
+        parentPanel.add(gameEndPanel);
+        parentPanel.repaint();
+        parentPanel.revalidate();
+    }
+     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton applyLifeLine;
     private javax.swing.JRadioButton audienceOption;
@@ -865,4 +845,5 @@ public class MenuForm extends javax.swing.JFrame{
     private javax.swing.JButton startButton;
     private javax.swing.JButton useLifeline;
     // End of variables declaration//GEN-END:variables
+    
 }

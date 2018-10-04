@@ -5,8 +5,6 @@
  */
 package gameproject;
 
-import java.util.Map;
-
 /**
  *This class has the functions related to checking the players answer and setting the money 
  * @author Amritpal Kaur 14865526
@@ -21,11 +19,7 @@ public class CheckAnswer {
     /**
      * This method checks the user's answer
      * @param answerCorrect
-     * @param userAnswer: the user's answer
      * @param player
-     * @param quizQues
-     * @param leaderboard
-     * @return the amount of money won by the player after processing the answer
      */
     public void setMoneyWon(boolean answerCorrect, PlayerInfo player){
         this.currentMoney = player.getMoney();
