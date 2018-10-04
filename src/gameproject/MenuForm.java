@@ -32,8 +32,8 @@ public class MenuForm extends javax.swing.JFrame{
     GamePlay game;
     PlayerInfo player;
     CheckAnswer updateMoneyWon;
-    boolean prevQuesAnswered = false;
     Lifelines lifeLine;
+    boolean answeredQues = false;
     /**
      * Creates new form GameGui
      */
@@ -83,7 +83,6 @@ public class MenuForm extends javax.swing.JFrame{
         optionC = new javax.swing.JRadioButton();
         optionD = new javax.swing.JRadioButton();
         lockAnswer = new javax.swing.JButton();
-        nextQuesButton = new javax.swing.JButton();
         useLifeline = new javax.swing.JButton();
         quitButton4 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -319,13 +318,6 @@ public class MenuForm extends javax.swing.JFrame{
             }
         });
 
-        nextQuesButton.setText("Next");
-        nextQuesButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nextQuesButtonActionPerformed(evt);
-            }
-        });
-
         useLifeline.setText("Lifelines");
         useLifeline.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -350,9 +342,7 @@ public class MenuForm extends javax.swing.JFrame{
         questionPanelLayout.setHorizontalGroup(
             questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, questionPanelLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(nextQuesButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(23, 587, Short.MAX_VALUE)
                 .addComponent(quitButton4)
                 .addGap(20, 20, 20))
             .addGroup(questionPanelLayout.createSequentialGroup()
@@ -382,7 +372,7 @@ public class MenuForm extends javax.swing.JFrame{
                         .addComponent(useLifeline)
                         .addGap(73, 73, 73)
                         .addComponent(lockAnswer)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         questionPanelLayout.setVerticalGroup(
             questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -399,13 +389,8 @@ public class MenuForm extends javax.swing.JFrame{
                 .addGroup(questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(questionPanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, questionPanelLayout.createSequentialGroup()
-                                .addComponent(quitButton4)
-                                .addGap(19, 19, 19))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, questionPanelLayout.createSequentialGroup()
-                                .addComponent(nextQuesButton)
-                                .addContainerGap())))
+                        .addComponent(quitButton4)
+                        .addGap(19, 19, 19))
                     .addGroup(questionPanelLayout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addGroup(questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -668,6 +653,11 @@ public class MenuForm extends javax.swing.JFrame{
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         if (!playerNameTextField.getText().equalsIgnoreCase("") && !playerNameTextField.getText().equalsIgnoreCase("Name")){
+            optionA.setVisible(true);
+            optionB.setVisible(true);
+            optionC.setVisible(true);
+            optionD.setVisible(true);
+            
             parentPanel.removeAll();
             parentPanel.add(questionPanel);
             parentPanel.repaint();
@@ -682,6 +672,11 @@ public class MenuForm extends javax.swing.JFrame{
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void backToQuestionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToQuestionButtonActionPerformed
+        optionA.setVisible(true);
+        optionB.setVisible(true);
+        optionC.setVisible(true);
+        optionD.setVisible(true);
+            
         parentPanel.removeAll();
         parentPanel.add(questionPanel);
         parentPanel.repaint();
@@ -734,25 +729,25 @@ public class MenuForm extends javax.swing.JFrame{
             database.getDatabase(gameEndLeaderBoard);
         }
         currentPointsTextPane.setText(Integer.toString(player.getMoney()));
-        prevQuesAnswered = true;
-        // add to database
+        answeredQues = true;
+        
+        parentPanel.removeAll();
+        parentPanel.add(questionPanel);
+        parentPanel.repaint();
+        parentPanel.revalidate();
+        optionA.setVisible(true);
+            optionB.setVisible(true);
+            optionC.setVisible(true);
+            optionD.setVisible(true);
+            currentPointsTextPane.setText(Integer.toString(player.getMoney()));
+            game.playGame(currentQuestionTextField, currentPointsTextPane, optionA, optionB, optionC, optionD); 
+            answeredQues = false;
     }//GEN-LAST:event_lockAnswerActionPerformed
 
     private void quitButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButton4ActionPerformed
         database.addToDatabase(player.getName(), player.getMoney());
         System.exit(0);
     }//GEN-LAST:event_quitButton4ActionPerformed
-
-    private void nextQuesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextQuesButtonActionPerformed
-            parentPanel.removeAll();
-            parentPanel.add(questionPanel);
-            parentPanel.repaint();
-            parentPanel.revalidate();
-            
-            currentPointsTextPane.setText(Integer.toString(player.getMoney()));
-            game.playGame(currentQuestionTextField, currentPointsTextPane, optionA, optionB, optionC, optionD); 
-      
-    }//GEN-LAST:event_nextQuesButtonActionPerformed
 
     private void optionBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionBActionPerformed
         optionB.setActionCommand(optionB.getText());
@@ -804,10 +799,10 @@ public class MenuForm extends javax.swing.JFrame{
             lifeLine.setFiftyFiftyOptions(optionA,optionB, optionC, optionD, game.getAnswer());
         }
         else if (chosenLifeLine.equalsIgnoreCase("Phone A Friend")){
-//            lifeLine.setPhoneAFriendOptions(hMap, PROPERTIES);
+            lifeLine.setPhoneAFriendOptions(optionA,optionB, optionC, optionD, game.getAnswer());
         }
         else if (chosenLifeLine.equalsIgnoreCase("Audience Vote")){
-//            lifeLine.setAudienceVoteOptions(hMap, PROPERTIES);
+            lifeLine.setAudienceVoteOptions(optionA,optionB, optionC, optionD, game.getAnswer());
         }
   
     }//GEN-LAST:event_applyLifeLineActionPerformed
@@ -842,7 +837,6 @@ public class MenuForm extends javax.swing.JFrame{
     private javax.swing.JPanel menuPanel;
     private javax.swing.JLabel moneyWonLabel;
     private javax.swing.JLabel moneyWonValue;
-    private javax.swing.JButton nextQuesButton;
     private javax.swing.JRadioButton optionA;
     private javax.swing.JRadioButton optionB;
     private javax.swing.JRadioButton optionC;

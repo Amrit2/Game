@@ -90,37 +90,40 @@ public class Lifelines {
      * @param answer
      * @param question 
      */
-    public void setPhoneAFriendOptions(Map<Integer, Questions> hMap, int currentQuestion) {
+    public void setPhoneAFriendOptions(JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD, String answer) {
         Random r = new Random();
         int low = 1;
         int high = 100;
-        String[] options = hMap.get(currentQuestion).getOptions();
+        boolean giveAnswer = false;
+        String[] optiona = optionA.getText().split(":");
+        String[] optionb = optionB.getText().split(":");
+        String[] optionc = optionC.getText().split(":");
+        String[] optiond = optionD.getText().split(":");
+        String[] options = new String [4];
+        options[0] = optiona[0];
+        options[1] = optionb[0];
+        options[2] = optionc[0];
+        options[3] = optiond[0];
+        
         // randoly choose a number which decides if the right answer is given or not
         int probability = r.nextInt(high - low) + low;
         if (this.usedFriendCall() == false) {                                              // ensure the options hasn't been used already
             this.setUsedCall(true);
-            try {
-                if (probability >= 10) {                                                //if the number picked is greater or equal to 10 give the correct answer
-                    for (int i = 0; i < options.length; i++) {
-                        if (options[i].contains(hMap.get(currentQuestion).getAnswer())) {
-                           System.out.println("\nYour friend has suggested to go for " + options[i] + "\n");
-                        }
-                    }
-                } else {
-                    for (int i = 0; i < options.length; i++) {                          // else give a wrong answer
-                        if (!options[i].contains(hMap.get(currentQuestion).getAnswer()) && this.getShowWrongAnswer() == false) {
-                            this.setShowWrongAnswer(true);
-                           System.out.println("\nYour friend has suggested to go for " + options[i] + "\n");
-                        }
+            for (int i = 0; i < options.length; i++){
+                if (probability >= 10){
+                    if (options[i].equalsIgnoreCase(answer)){
+                        JOptionPane.showMessageDialog(null,"\nYour friend has suggested to go for " + options[i] + "\n");
                     }
                 }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("The array that stores the options is of the incorrect length.");
+                else if (!options[i].equalsIgnoreCase(answer) && !giveAnswer){
+                    JOptionPane.showMessageDialog(null,"\nYour friend has suggested to go for " + options[i] + "\n");
+                    giveAnswer = true;
+                }
             }
-        } else {
-            System.out.println("\nYou've already used this option\n");
-        }
-
+            
+        } 
+        else 
+             JOptionPane.showMessageDialog(null,"\nYou've already used this option\n");
     }
 
     /**
@@ -130,12 +133,9 @@ public class Lifelines {
      * @param answer
      * @return an array of options that has a percentage attached to each option
      */
-    public void setAudienceVoteOptions(Map<Integer, Questions> hMap, int currentQuestion) {
+    public void setAudienceVoteOptions(JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD, String answer) {
         Random r = new Random();
         int high = 100;
-        String[] options = hMap.get(currentQuestion).getOptions();
-        String question = hMap.get(currentQuestion).getQuestion();
-        String answer = hMap.get(currentQuestion).getAnswer();
         if (this.usedAudienceVote() == false) {                                  // ensure the options hasn't been used already
             this.setUsedAudience(true);
             
@@ -144,34 +144,15 @@ public class Lifelines {
             int probabilityTwo = r.nextInt(high - probabilityOne);
             int probabilityThree = r.nextInt(high - (probabilityTwo + probabilityOne));
             int probabilityFour = high - (probabilityTwo + probabilityOne + probabilityThree);
-
-            // rewrite the options to include probability
-            try {
-                options[0] = options[0] + ", Audience Voted:" + probabilityOne + "%";
-                options[1] = options[1] + ", Audience Voted:" + probabilityTwo + "%";
-                options[2] = options[2] + ", Audience Voted:" + probabilityThree + "%";
-                options[3] = options[3] + ", Audience Voted:" + probabilityFour + "%";
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("The array that stores the options is of the incorrect length.");
-            }
-
-            hMap.put(currentQuestion, new Questions(question, options, answer));
-            System.out.println(hMap.get(currentQuestion));    
+            JOptionPane.showMessageDialog(null, optionA.getText() + ", Audience Voted:" + probabilityOne + "% \n"+
+                                                optionB.getText() + ", Audience Voted:" + probabilityTwo + "% \n"+
+                                                optionC.getText() + ", Audience Voted:" + probabilityThree + "% \n"+
+                                                optionD.getText() + ", Audience Voted:" + probabilityFour + "%");
         }
         else
-            System.out.println("\nYou've already used this option\n");
+            JOptionPane.showMessageDialog(null,"\nYou've already used this option\n");
     }
 
-     /**
-     * This method checks for valid life line input to ensure users picks at least one of the options or q
-     * @param userChoice
-     * @return a boolean
-     */
-    private boolean validLifeLineUserInput(String userChoice) {
-        return userChoice.equalsIgnoreCase("Q") || userChoice.equalsIgnoreCase("1")
-                || userChoice.equalsIgnoreCase("2") || userChoice.equalsIgnoreCase("3");
-    }
-    
     // get/set methods of the boolean for the lifelines
     public void setUsedFifty(boolean used) {
         this.usedFifty = used;

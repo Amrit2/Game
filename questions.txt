@@ -118,71 +118,71 @@ D:A Shark
 B
 
 What type of wild animal is an ibex?
-A:Goat
-B:Pig
-C:Hare
-D:Deer
+A: Goat
+B: Pig
+C: Hare
+D: Deer
 A
 
 What type of creature is a Tai Pan?
-A:A Snake
-B:A Fish
-C:A Bird
-D:A Monkey
+A: A Snake
+B: A Fish
+C: A Bird
+D: A Monkey
 A
 
 The television quizshow "Who Wants To Be A Millionaire" was first broadcasted in which year?
-A:1996
-B:1997
-C:1998
-D:1999
+A: 1996
+B: 1997
+C: 1998
+D: 1999
 C
 
 Which of the these U.S. President appeared on the television series "Laugh-In"?
-A:Lyndon Johnson
-B:Richard Nixon
-C:Jimmy Carter
-D:Gerald Ford
+A: Lyndon Johnson
+B: Richard Nixon
+C: Jimmy Carter
+D: Gerald Ford
 B
 
 Translated from the Latin, what is the motto of the United States?
-A:In God we Trust
-B:One out of Many
-C:All is One
-D:Striving together
+A: In God we Trust
+B: One out of Many
+C: All is One
+D: Striving together
 B
 
 According to the nursery rhyme, what did Little Jack Horner pull from a pie?
-A:Ribbon
-B:Plum
-C:Blackbird
-D:Little Jill Horner
+A: Ribbon
+B: Plum
+C: Blackbird
+D: Little Jill Horner
 B
 
 Which First Lady was a ninth-generation descendant of Pocahontas?
-A:Helen Taft
-B:Bess Truman
-C:Edith Wilson
-D:Mamie Elsenhower
+A: Helen Taft
+B: Bess Truman
+C: Edith Wilson
+D: Mamie Elsenhower
 C
 
 Name the world's largest ocean?
-A:Pacific
-B:Indian
-C:Nile
-D:Niagra
+A: Pacific
+B: Indian
+C: Nile
+D: Niagra
 A
 
 What is the diameter of the earth?
-A:6000 miles
-B:7000 miles
-C:8000 miles
-D:9000 miles
+A: 6000 miles
+B: 7000 miles
+C: 8000 miles
+D: 9000 miles
 C
 
 What is someone who shoes horses called?
-A:Farrier
-B:Herder
-C:Nothing
-D:Clown
+A: Farrier
+B: Herder
+C: Nothing
+D: Clown
 A
