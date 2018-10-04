@@ -111,7 +111,6 @@ public class MenuForm extends javax.swing.JFrame{
         setTitle("Who Wants To Be A Millionaire");
         setBackground(new java.awt.Color(51, 51, 51));
         setMinimumSize(new java.awt.Dimension(700, 450));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         parentPanel.setLayout(new java.awt.CardLayout());
 
@@ -335,6 +334,8 @@ public class MenuForm extends javax.swing.JFrame{
         });
 
         currentQuestionTextField.setEditable(false);
+        currentQuestionTextField.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        currentQuestionTextField.setAutoscrolls(false);
         currentQuestionTextField.setMinimumSize(new java.awt.Dimension(6, 10));
         currentQuestionTextField.setPreferredSize(new java.awt.Dimension(59, 10));
 
@@ -349,7 +350,7 @@ public class MenuForm extends javax.swing.JFrame{
                         .addComponent(quitButton4)
                         .addGap(20, 20, 20))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, questionPanelLayout.createSequentialGroup()
-                        .addComponent(currentQuestionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(currentQuestionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
                         .addGap(45, 45, 45))))
             .addGroup(questionPanelLayout.createSequentialGroup()
                 .addGroup(questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -387,7 +388,7 @@ public class MenuForm extends javax.swing.JFrame{
                         .addComponent(questionLabel))
                     .addComponent(currentPointsTextPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
-                .addComponent(currentQuestionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(currentQuestionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addGap(39, 39, 39)
                 .addGroup(questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(optionA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -589,7 +590,17 @@ public class MenuForm extends javax.swing.JFrame{
 
         parentPanel.add(gameEndPanel, "card5");
 
-        getContentPane().add(parentPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 660, 440));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(parentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(parentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
         parentPanel.getAccessibleContext().setAccessibleName("parentPanel");
 
         pack();
@@ -660,7 +671,6 @@ public class MenuForm extends javax.swing.JFrame{
             parentPanel.repaint();
             parentPanel.revalidate();
             player.setName(playerNameTextField.getText());
-            database.addToDatabase(player.getName(), player.getMoney());
             currentPointsTextPane.setText(Integer.toString(player.getMoney()));
             game.playGame(currentQuestionTextField, currentPointsTextPane, optionA, optionB, optionC, optionD);
             
@@ -693,27 +703,36 @@ public class MenuForm extends javax.swing.JFrame{
     }//GEN-LAST:event_playerNameTextFieldActionPerformed
 
     private void lockAnswerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lockAnswerActionPerformed
-        
-        boolean correct;
-        int money;
+        boolean isCorrect;
         String[] chosenAnswerArray = optionsButtonGroup.getSelection().getActionCommand().split(":");
         if (chosenAnswerArray[0].equalsIgnoreCase(game.getAnswer())){
-           correct = true;
+           isCorrect = true;
            JOptionPane.showMessageDialog(null, "Correct Answer");
         }
         else {
-            correct = false;
+            isCorrect = false;
             JOptionPane.showMessageDialog(null, "Wrong Answer, the correct answer was: " + game.getAnswer() );
             
         }
-        updateMoneyWon.setMoneyWon(correct, player);
+        updateMoneyWon.setMoneyWon(isCorrect, player);
         if (updateMoneyWon.answerWrongAtThreshhold(player)){
             parentPanel.removeAll();
             parentPanel.add(gameEndPanel);
             parentPanel.repaint();
             parentPanel.revalidate();
+            database.addToDatabase(player.getName(), player.getMoney());
             database.getDatabase(gameEndLeaderBoard);
             moneyWonValue.setText(Integer.toString(player.getMoney()));
+        }
+        else if (player.getMoney() == 1000000){
+            parentPanel.removeAll();
+            parentPanel.add(gameEndPanel);
+            parentPanel.repaint();
+            parentPanel.revalidate();
+            JOptionPane.showMessageDialog(null, "Congratulations you've won a MILLION dollars!!! (Note: In virtual money)\n");
+            moneyWonValue.setText(Integer.toString(player.getMoney()));
+            database.addToDatabase(player.getName(), player.getMoney());
+            database.getDatabase(gameEndLeaderBoard);
         }
         else{
             currentPointsTextPane.setText(Integer.toString(player.getMoney()));
