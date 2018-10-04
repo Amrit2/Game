@@ -20,6 +20,7 @@ public class CheckAnswer {
     
     /**
      * This method checks the user's answer
+     * @param answerCorrect
      * @param userAnswer: the user's answer
      * @param player
      * @param quizQues
@@ -67,7 +68,7 @@ public class CheckAnswer {
     * @return a boolean
     */
    public boolean answerWrongAtThreshhold(PlayerInfo player){
-      return (currentMoney== 0 && player.getMoney() == 0) || (currentMoney== 1000 && player.getMoney() == 1000) || (currentMoney== 32000 && player.getMoney() == 32000);
+      return (currentMoney < 1000 && player.getMoney() == 0) || (currentMoney== 1000 && player.getMoney() == 1000) || (currentMoney== 32000 && player.getMoney() == 32000);
    }
     
 }

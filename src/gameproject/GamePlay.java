@@ -39,7 +39,7 @@ public class GamePlay {
 
         file = new ReadQuestionsFile();
         this.checkAnswer = new CheckAnswer();
-        questionsAsked = new ArrayList();
+        questionsAsked = new ArrayList<Integer>();
         hMap = new HashMap<Integer, Questions>();
     }
 

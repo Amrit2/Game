@@ -1,13 +1,60 @@
+Thu Oct 04 19:51:39 NZDT 2018 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
 ----------------------------------------------------------------
-Thu Oct 04 13:06:27 NZDT 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0166-3c65-aad0-000002d8b778 
-on database directory C:\Users\Amrit\Documents\GameProject\LeaderBoard with class loader sun.misc.Launcher$AppClassLoader@55f96302 
-Loaded from file:/C:/Users/Amrit/Documents/GameProject/lib/derby.jar
+Thu Oct 04 19:51:39 NZDT 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0166-3dd8-a102-00007aa598df 
+on database directory C:\Users\Amrit\Documents\GameProject\LeaderBoard with class loader sun.misc.Launcher$AppClassLoader@6f94fa3e 
+Loaded from file:/C:/Users/Amrit/Downloads/db-derby-10.14.2.0-bin/db-derby-10.14.2.0-bin/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_131-b11
-user.dir=C:\Users\Amrit\Documents\GameProject
+user.dir=C:\Users\Amrit\Downloads\db-derby-10.14.2.0-bin\db-derby-10.14.2.0-bin
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0
-derby.system.home=null
+derby.system.home=C:\Users\Amrit\Documents\GameProject
 Database Class Loader started - derby.database.classpath=''
+Thu Oct 04 19:51:46 NZDT 2018 Thread[DRDAConnThread_2,5,main] (XID = 2373), (SESSIONID = 1), (DATABASE = LeaderBoard), (DRDAID = ????????.????-435440250335485339{1}), Cleanup action starting
+Thu Oct 04 19:51:46 NZDT 2018 Thread[DRDAConnThread_2,5,main] (XID = 2373), (SESSIONID = 1), (DATABASE = LeaderBoard), (DRDAID = ????????.????-435440250335485339{1}), Failed Statement is: CALL SYSIBM.SQLPRIMARYKEYS(?,?,?,?) with 4 parameters begin parameter #1: NULL :end parameter begin parameter #2: GAME :end parameter begin parameter #3: LEADERBOARD :end parameter begin parameter #4: DATATYPE='JDBC';DYNAMIC=0;REPORTPUBLICPRIVILEGES=1;CURSORHOLD=1 :end parameter 
+java.lang.NullPointerException
+	at org.apache.derby.iapi.types.TypeId.getTypeId(Unknown Source)
+	at org.apache.derby.iapi.types.DataTypeDescriptor.getType(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.SYSCOLUMNSRowFactory.buildDescriptor(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.getDescriptorViaIndexMinion(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.getDescriptorViaIndex(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.getColumnDescriptorsScan(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.getSPSParams(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.getSPSDescriptorIndex1Scan(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.getUncachedSPSDescriptor(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.SPSNameCacheable.setIdentity(Unknown Source)
+	at org.apache.derby.impl.services.cache.ConcurrentCache.find(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.getSPSDescriptor(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedDatabaseMetaData.prepareSPS(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedDatabaseMetaData.getPreparedQueryUsingSystemTables(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedDatabaseMetaData.getPreparedQuery(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedDatabaseMetaData.getPreparedQuery(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedDatabaseMetaData.getPrimaryKeys(Unknown Source)
+	at org.apache.derby.catalog.SystemProcedures.SQLPRIMARYKEYS(Unknown Source)
+	at org.apache.derby.exe.acf81e0010x0166x3dd8xa102x00007aa598df7.g0(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.derby.impl.services.reflect.ReflectMethod.invoke(Unknown Source)
+	at org.apache.derby.impl.sql.execute.CallStatementResultSet.open(Unknown Source)
+	at org.apache.derby.impl.sql.GenericPreparedStatement.executeStmt(Unknown Source)
+	at org.apache.derby.impl.sql.GenericPreparedStatement.execute(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedStatement.executeStatement(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedPreparedStatement.executeStatement(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedCallableStatement.executeStatement(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedPreparedStatement.execute(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAStatement.execute(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.parseEXCSQLSTTobjects(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.parseEXCSQLSTT(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.processCommands(Unknown Source)
+	at org.apache.derby.impl.drda.DRDAConnThread.run(Unknown Source)
+Cleanup action completed
+----------------------------------------------------------------
+Thu Oct 04 19:52:15 NZDT 2018: Shutting down Derby engine
+----------------------------------------------------------------
+Thu Oct 04 19:52:15 NZDT 2018:
+Shutting down instance a816c00e-0166-3dd8-a102-00007aa598df on database directory C:\Users\Amrit\Documents\GameProject\LeaderBoard with class loader sun.misc.Launcher$AppClassLoader@6f94fa3e 
+----------------------------------------------------------------
