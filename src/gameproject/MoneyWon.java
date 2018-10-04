@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  * @author Amritpal Kaur 14865526
  */
 public class MoneyWon {
-   int currentMoney;
+   private int currentMoney;
     
     public MoneyWon(){
         this.currentMoney = 0;

@@ -19,14 +19,14 @@ import javax.swing.JTextPane;
  * @author Amrit
  */
 public class LeaderBoardDatabase {
-    public static Connection conn;
-    public static String url = "jdbc:derby:LeaderBoard; create=true";
-    public static String username = "game";
-    public static String pass = "game";
-    public int id = 1;
-    public Statement statement;
-    public String table = "LeaderBoard";
-    public String leaderBoard = "";
+    private static Connection conn;
+    private static String url = "jdbc:derby:LeaderBoard; create=true";
+    private static String username = "game";
+    private static String pass = "game";
+    private int id = 1;
+    private Statement statement;
+    private String table = "LeaderBoard";
+    private String leaderBoard = "";
     
     public LeaderBoardDatabase(){
         establishConnection();

@@ -20,12 +20,11 @@ import javax.swing.JTextPane;
 public class GamePlay {
 
     //declarations
-    Lifelines lifeline;
-    ReadQuestionsFile file;
-    MoneyWon checkAnswer;
-    Map<Integer, Questions> hMap;
-    int currentQuestionNumber = 0;
-    List questionsAsked;
+    private final Lifelines lifeline;
+    private final ReadQuestionsFile file;
+    private Map<Integer, Questions> hMap;
+    private int currentQuestionNumber = 0;
+    private List questionsAsked;
     /**
      * The constructor instantiates the PlayerInfo, Lifelines,
      * ReadQuestionsFile, Check Answer, LeaderBoard and Questions class
@@ -36,7 +35,6 @@ public class GamePlay {
         this.lifeline = new Lifelines();                               // instantiate the lifeline class
 
         file = new ReadQuestionsFile();
-        this.checkAnswer = new MoneyWon();
         questionsAsked = new ArrayList<Integer>();
         hMap = new HashMap<Integer, Questions>();
     }

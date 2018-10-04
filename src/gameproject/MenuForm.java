@@ -20,12 +20,12 @@ public class MenuForm extends javax.swing.JFrame {
     JPanel cards;
     JScrollPane sp;
 
-    LeaderBoardDatabase database;
-    GamePlay game;
-    PlayerInfo player;
-    MoneyWon updateMoneyWon;
-    Lifelines lifeLine;
-    boolean answeredQues = false;
+    private final LeaderBoardDatabase database;
+    private final GamePlay game;
+    private final PlayerInfo player;
+    private final MoneyWon updateMoneyWon;
+    private final Lifelines lifeLine;
+    private boolean answeredQues = false;
 
     /**
      * Creates new form GameGui
