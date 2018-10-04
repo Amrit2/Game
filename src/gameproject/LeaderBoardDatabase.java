@@ -73,6 +73,7 @@ public class LeaderBoardDatabase {
     public void getDatabase(JTextPane leaderboardTextPane){
         leaderBoard = "";
         try{
+            
            ResultSet rs = statement.executeQuery("SELECT *FROM " + table + " ORDER BY Points DESC"); 
            while (rs.next()){
                String playerName = rs.getString("Name");

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -21,7 +22,7 @@ public class GamePlay {
     //declarations
     Lifelines lifeline;
     ReadQuestionsFile file;
-    CheckAnswer checkAnswer;
+    MoneyWon checkAnswer;
     Map<Integer, Questions> hMap;
     int currentQuestionNumber = 0;
     List questionsAsked;
@@ -35,7 +36,7 @@ public class GamePlay {
         this.lifeline = new Lifelines();                               // instantiate the lifeline class
 
         file = new ReadQuestionsFile();
-        this.checkAnswer = new CheckAnswer();
+        this.checkAnswer = new MoneyWon();
         questionsAsked = new ArrayList<Integer>();
         hMap = new HashMap<Integer, Questions>();
     }
@@ -43,7 +44,7 @@ public class GamePlay {
     /**
      * This class shows the questions and handles player input for processing
      */
-    public void playGame(JTextField currentQuestionTextField, JTextPane currentPointsTextPane, JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD) {
+    public void playGame(JTextField currentQuestionTextField, JLabel currentPoints, JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD) {
         file.setQuizQuestions(hMap);
         try{
            setQuestionAtRandom(hMap,currentQuestionTextField, optionA, optionB, optionC, optionD);

@@ -5,14 +5,16 @@
  */
 package gameproject;
 
+import javax.swing.JOptionPane;
+
 /**
  *This class has the functions related to checking the players answer and setting the money 
  * @author Amritpal Kaur 14865526
  */
-public class CheckAnswer {
+public class MoneyWon {
    int currentMoney;
     
-    public CheckAnswer(){
+    public MoneyWon(){
         this.currentMoney = 0;
     }
     
@@ -64,5 +66,5 @@ public class CheckAnswer {
    public boolean answerWrongAtThreshhold(PlayerInfo player){
       return (currentMoney < 1000 && player.getMoney() == 0) || (currentMoney== 1000 && player.getMoney() == 1000) || (currentMoney== 32000 && player.getMoney() == 32000);
    }
-    
+
 }

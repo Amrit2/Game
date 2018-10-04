@@ -13,12 +13,12 @@ import java.util.Map;
  */
 public class ReadQuestionsFile {
     // variable declarations
-    File f;
-    FileReader fr;
-    BufferedReader br;
-    String question = "";
-    String answer = ""; 
-    String[] options = new String[4];          // the options related to the question
+    private File f;
+    private FileReader fr;
+    private BufferedReader br;
+    private String question = "";
+    private String answer = ""; 
+    private String[] options = new String[4];          // the options related to the question
    
     //create a map
     /**
