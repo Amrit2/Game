@@ -21,11 +21,11 @@ import static org.junit.Assert.*;
  *
  * @author Amrit
  */
-public class GamePlayTest {
+public class ReadQuestionsFileControllerTest {
     private Map<Integer, Questions> hMap;
     private final ReadQuestionsFile file;
     
-    public GamePlayTest() {
+    public ReadQuestionsFileControllerTest() {
         file = new ReadQuestionsFile();
         hMap = new HashMap<Integer, Questions>();
     }
@@ -51,7 +51,7 @@ public class GamePlayTest {
     // The methods must be annotated with annotation @Test. For example:
     //
      @Test
-     public void getAnswerTest() {
+    public void getAnswerTest() {
         ReadQuestionsFileController gameplay = new ReadQuestionsFileController();
         file.setQuizQuestions(hMap);
         gameplay.setHashMap(hMap);
@@ -60,10 +60,10 @@ public class GamePlayTest {
         String expectedAnswer = "B";
         
         Assert.assertEquals(expectedAnswer, actualAnswer);
-     }
+    }
      
     public static void main (String[] args){
-         GamePlayTest test = new GamePlayTest();
+         ReadQuestionsFileControllerTest test = new ReadQuestionsFileControllerTest();
          test.getAnswerTest();
     }
 }

@@ -14,7 +14,6 @@ public class LifeLine {
 
     // variable declarations
     private String[] fiftyFiftyOptions;
-    private boolean showWrongAnswer = false;
     public boolean stateA = true;
     public boolean stateB = true;
     public boolean stateC = true;
@@ -115,14 +114,6 @@ public class LifeLine {
 
     // get/set methods of the boolean for the lifelines
    
-    public void setShowWrongAnswer(boolean state){
-        this.showWrongAnswer = state;
-    }
-    
-    public boolean getShowWrongAnswer(){
-        return this.showWrongAnswer;
-    }
-
     public void setStateA (boolean state){
         this.stateA = state;
     }

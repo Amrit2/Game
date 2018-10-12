@@ -73,7 +73,7 @@ public class LeaderBoardDatabase {
     
     public String getDatabase(){
         leaderBoard = "";
-        try{
+        try{    
            ResultSet rs = statement.executeQuery("SELECT *FROM " + table + " ORDER BY Points DESC"); 
            while (rs.next()){
                String playerName = rs.getString("Name");
