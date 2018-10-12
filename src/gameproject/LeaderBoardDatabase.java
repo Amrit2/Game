@@ -35,7 +35,7 @@ public class LeaderBoardDatabase {
     public void establishConnection(){
         try{
             conn = DriverManager.getConnection(url, username, pass);
-             JOptionPane.showMessageDialog(null, "Database Connected(" + url + ").");
+            JOptionPane.showMessageDialog(null, "Database Connected(" + url + ").");
             statement = conn.createStatement();
             DatabaseMetaData data = conn.getMetaData();
             ResultSet rs = data.getTables(null, "GAME", "LEADERBOARD", null);
@@ -61,6 +61,7 @@ public class LeaderBoardDatabase {
     
     public void addToDatabase(String name, int money){
         try{
+            
             String insertData = "INSERT INTO " + table + " VALUES (" + id  + ", '"+ name + "', " + money + ")";
             statement.executeUpdate(insertData);
             id++;
@@ -70,10 +71,9 @@ public class LeaderBoardDatabase {
         
     }
     
-    public void getDatabase(JTextPane leaderboardTextPane){
+    public String getDatabase(){
         leaderBoard = "";
         try{
-            
            ResultSet rs = statement.executeQuery("SELECT *FROM " + table + " ORDER BY Points DESC"); 
            while (rs.next()){
                String playerName = rs.getString("Name");
@@ -83,6 +83,6 @@ public class LeaderBoardDatabase {
         }catch(SQLException ex){
             leaderBoard  = "Unable to access data in the database.";
         }
-       leaderboardTextPane.setText(leaderBoard);
+       return leaderBoard;
     }
 }

@@ -5,22 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Scanner;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 
 /**
  * This class handles the game play
  *
  * @author Amritpal Kaur 14865526
  */
-public class GamePlay {
+public class ReadQuestionsFileController {
 
     //declarations
-    private final Lifelines lifeline;
     private final ReadQuestionsFile file;
     private Map<Integer, Questions> hMap;
     private int currentQuestionNumber = 0;
@@ -28,12 +25,9 @@ public class GamePlay {
     /**
      * The constructor instantiates the PlayerInfo, Lifelines,
      * ReadQuestionsFile, Check Answer, LeaderBoard and Questions class
-     *
      * @param name of the player
      */
-    public GamePlay() {
-        this.lifeline = new Lifelines();                               // instantiate the lifeline class
-
+    public ReadQuestionsFileController() {
         file = new ReadQuestionsFile();
         questionsAsked = new ArrayList<Integer>();
         hMap = new HashMap<Integer, Questions>();
@@ -49,23 +43,21 @@ public class GamePlay {
         }catch (NullPointerException ex){
             JOptionPane.showMessageDialog(null, "Unable to get a questions");
         }
-
     }
 
-    public int setQuestionAtRandom(Map<Integer, Questions> hMap, JTextField currentQuestionTextField, JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD) {
-        
+    public void setQuestionAtRandom(Map<Integer, Questions> hMap, JTextField currentQuestionTextField, JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD) {
         do {
             try {
                 Random generator = new Random();
-                currentQuestionNumber = generator.nextInt(hMap.size());
+                this.setCurrentQuestionNumber(generator.nextInt(hMap.size()));
             }catch (IllegalArgumentException ex){
                  JOptionPane.showMessageDialog(null, "Unable to generate a valid number");
             }
             
-        } while (questionsAsked.contains(currentQuestionNumber) && currentQuestionNumber > 0);
+        } while (questionsAsked.contains(this.getCurrentQuestionNumber()) && this.getCurrentQuestionNumber() > 0);
 
-        currentQuestionTextField.setText(hMap.get(currentQuestionNumber).getQuestion());
-        String[] op = hMap.get(currentQuestionNumber).getOptions();
+        currentQuestionTextField.setText(hMap.get(this.getCurrentQuestionNumber()).getQuestion());
+        String[] op = hMap.get(this.getCurrentQuestionNumber()).getOptions();
         for (int i = 0; i <= 3 ; i++){
             if (i == 0){
                
@@ -84,15 +76,27 @@ public class GamePlay {
                 optionD.setText(op[3]);
             }
         }
-        questionsAsked.add(currentQuestionNumber);
-        return currentQuestionNumber;
+        questionsAsked.add(this.getCurrentQuestionNumber());
     }
     
     public String getAnswer(){
-        return hMap.get(currentQuestionNumber).getAnswer();
+        return hMap.get(this.getCurrentQuestionNumber()).getAnswer();
     }
    
     public Map<Integer, Questions> getHashMap(){
         return this.hMap;
     }
+    
+    public void setCurrentQuestionNumber(int num){
+        this.currentQuestionNumber = num;
+    }
+    
+    public int getCurrentQuestionNumber(){
+        return this.currentQuestionNumber;
+    }
+    
+    public void setHashMap(Map<Integer, Questions> hashMap){
+        this.hMap.putAll(hashMap);
+    }
+    
 }

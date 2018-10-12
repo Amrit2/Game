@@ -20,11 +20,12 @@ public class MenuForm extends javax.swing.JFrame {
     JPanel cards;
     JScrollPane sp;
 
-    private final LeaderBoardDatabase database;
-    private final GamePlay game;
-    private final PlayerInfo player;
+    private final LeaderBoardController dbController;
+    private final ReadQuestionsFileController gameController;
+    private final PlayerInfoController playerController;
+    private final PlayerInfo playerInfo;
     private final MoneyWon updateMoneyWon;
-    private final Lifelines lifeLine;
+    private final LifeLineController lifelineController;
     private boolean answeredQues = false;
 
     /**
@@ -33,12 +34,13 @@ public class MenuForm extends javax.swing.JFrame {
     public MenuForm() {
         initComponents();
         getContentPane().setBackground(Color.BLACK);
-        //try move it back to GamePlay file
-        game = new GamePlay();
-        player = new PlayerInfo(playerNameTextField.getText(), 0);
+        //try move it back to ReadQuestionsFileController file
+        gameController = new ReadQuestionsFileController();
+        playerController = new PlayerInfoController();
+        playerInfo = new PlayerInfo("", 0);
         updateMoneyWon = new MoneyWon();
-        lifeLine = new Lifelines();
-        database = new LeaderBoardDatabase();
+        lifelineController = new LifeLineController();
+        dbController = new LeaderBoardController();
     }
 
     /**
@@ -597,7 +599,7 @@ public class MenuForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void quitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButtonActionPerformed
-        database.addToDatabase(player.getName(), player.getMoney());
+        dbController.add(playerController.playerName(), playerController.moneyWon());
         System.exit(0);
     }//GEN-LAST:event_quitButtonActionPerformed
 
@@ -617,11 +619,11 @@ public class MenuForm extends javax.swing.JFrame {
         parentPanel.repaint();
         parentPanel.revalidate();
 
-        database.getDatabase(leaderboardTextPane);
+        dbController.getContent(leaderboardTextPane);
     }//GEN-LAST:event_playButtonActionPerformed
 
     private void quitButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButton2ActionPerformed
-        database.addToDatabase(player.getName(), player.getMoney());
+        dbController.add(playerController.playerName(), playerController.moneyWon());
         System.exit(0);
     }//GEN-LAST:event_quitButton2ActionPerformed
 
@@ -644,18 +646,21 @@ public class MenuForm extends javax.swing.JFrame {
         parentPanel.add(lifelinePanel);
         parentPanel.repaint();
         parentPanel.revalidate();
-
+        lifelineButtonGroup.clearSelection();
     }//GEN-LAST:event_useLifelineActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         if (!playerNameTextField.getText().equalsIgnoreCase("") && !playerNameTextField.getText().equalsIgnoreCase("Name")) {
+            optionsButtonGroup.clearSelection();
             resetOptions(optionA, optionB, optionC, optionD);
             displayQuestionPanel(questionPanel);
-            player.setName(playerNameTextField.getText());
-            currentMoney.setText(Integer.toString(player.getMoney()));
-            game.playGame(currentQuestionTextField, currentMoney, optionA, optionB, optionC, optionD);
-
+            playerController.addName(playerNameTextField.getText());
+            currentMoney.setText(Integer.toString(playerController.moneyWon()));
+            gameController.playGame(currentQuestionTextField, currentMoney, optionA, optionB, optionC, optionD);
         }
+        else
+            JOptionPane.showMessageDialog(null,"Please enter your name.");
+
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void backToQuestionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToQuestionButtonActionPerformed
@@ -665,7 +670,7 @@ public class MenuForm extends javax.swing.JFrame {
     }//GEN-LAST:event_backToQuestionButtonActionPerformed
 
     private void quitButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButton5ActionPerformed
-        database.addToDatabase(player.getName(), player.getMoney());
+        dbController.add(playerController.playerName(), playerController.moneyWon());
         System.exit(0);
     }//GEN-LAST:event_quitButton5ActionPerformed
 
@@ -684,29 +689,31 @@ public class MenuForm extends javax.swing.JFrame {
         try {
             chosenAnswerArray = optionsButtonGroup.getSelection().getActionCommand().split(":");
 
-            if (chosenAnswerArray[0].equalsIgnoreCase(game.getAnswer())) {
+            if (chosenAnswerArray[0].equalsIgnoreCase(gameController.getAnswer())) {
                 isCorrect = true;
                 JOptionPane.showMessageDialog(null, "Correct Answer");
             } else {
                 isCorrect = false;
-                JOptionPane.showMessageDialog(null, "Wrong Answer, the correct answer was: " + game.getAnswer());
+                JOptionPane.showMessageDialog(null, "Wrong Answer, the correct answer was: " + gameController.getAnswer());
 
             }
-            updateMoneyWon.setMoneyWon(isCorrect, player);
-            if (updateMoneyWon.answerWrongAtThreshhold(player)) {
+            
+            //TAKE THIS CODE OUT AND PASS IN OPTION PANE
+            updateMoneyWon.setMoneyWon(isCorrect, playerInfo);
+            if (updateMoneyWon.answerWrongAtThreshhold(playerInfo)) {
                 displayGameEndPanel(gameEndPanel);
-            } else if (player.getMoney() == 1000000) {
+            } else if (playerInfo.getMoney() == 1000000) {
                 displayGameEndPanel(gameEndPanel);
                 JOptionPane.showMessageDialog(null, "Congratulations you've won a MILLION dollars!!! (Note: In virtual money)\n");
 
             } else {
-                currentMoney.setText(Integer.toString(player.getMoney()));
+                currentMoney.setText(Integer.toString(playerInfo.getMoney()));
                 answeredQues = true;
                 displayQuestionPanel(questionPanel);
                 resetOptions(optionA, optionB, optionC, optionD);
                 optionsButtonGroup.clearSelection();
-                currentMoney.setText(Integer.toString(player.getMoney()));
-                game.playGame(currentQuestionTextField, currentMoney, optionA, optionB, optionC, optionD);
+                currentMoney.setText(Integer.toString(playerInfo.getMoney()));
+                gameController.playGame(currentQuestionTextField, currentMoney, optionA, optionB, optionC, optionD);
                 answeredQues = false;
             }
         } catch (NullPointerException ex) {
@@ -716,7 +723,7 @@ public class MenuForm extends javax.swing.JFrame {
     }//GEN-LAST:event_lockAnswerActionPerformed
 
     private void quitButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButton4ActionPerformed
-        database.addToDatabase(player.getName(), player.getMoney());
+        dbController.add(playerController.playerName(), playerController.moneyWon());
         System.exit(0);
     }//GEN-LAST:event_quitButton4ActionPerformed
 
@@ -737,7 +744,7 @@ public class MenuForm extends javax.swing.JFrame {
     }//GEN-LAST:event_optionDActionPerformed
 
     private void quitButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButton3ActionPerformed
-        database.addToDatabase(player.getName(), player.getMoney());
+        dbController.add(playerController.playerName(), playerController.moneyWon());
         System.exit(0);
     }//GEN-LAST:event_quitButton3ActionPerformed
 
@@ -755,15 +762,15 @@ public class MenuForm extends javax.swing.JFrame {
 
     private void applyLifeLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyLifeLineActionPerformed
         displayQuestionPanel(questionPanel);
-
+        
         String chosenLifeLine = "";
         try {
             chosenLifeLine = lifelineButtonGroup.getSelection().getActionCommand();
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Please choose a lifeline to apply");
         }
-
-        lifeLine.processChosenLifeLine(chosenLifeLine, optionA, optionB, optionC, optionD, game.getAnswer());
+        
+        lifelineController.processChosenOption(chosenLifeLine, optionA, optionB, optionC, optionD, gameController.getAnswer());
 
     }//GEN-LAST:event_applyLifeLineActionPerformed
 
@@ -786,9 +793,9 @@ public class MenuForm extends javax.swing.JFrame {
         parentPanel.add(gameEndPanel);
         parentPanel.repaint();
         parentPanel.revalidate();
-        moneyWonValue.setText(Integer.toString(player.getMoney()));
-        database.addToDatabase(player.getName(), player.getMoney());
-        database.getDatabase(gameEndLeaderBoard);
+        moneyWonValue.setText(Integer.toString(playerInfo.getMoney()));
+        dbController.add(playerController.playerName(), playerController.moneyWon());
+        dbController.getContent(gameEndLeaderBoard);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

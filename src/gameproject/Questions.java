@@ -75,7 +75,6 @@ public class Questions {
      * @return
      */
     public String[] getOptions() {
-       
             String[] alternatives = new String[this.options.length];
             for (int i = 0; i < options.length; i++) {
                 for (int j = 0; j < alternatives.length; j++) {

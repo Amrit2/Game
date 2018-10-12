@@ -7,7 +7,7 @@ import java.sql.SQLException;
  * @author Amritpal Kaur
  * 14865526
  */
-public class GameProject {
+public class GameMain {
 
     /**
      * the main function

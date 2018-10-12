@@ -26,7 +26,6 @@ public class MoneyWon {
     public void setMoneyWon(boolean answerCorrect, PlayerInfo player){
         this.currentMoney = player.getMoney();
         
-        
         // checks if the user answered correctly and sets the money won accordingly
         if (answerCorrect) {
             if (player.getMoney() == 0) {
@@ -54,7 +53,6 @@ public class MoneyWon {
             }
            
         }
-
    }
     
    /**
