@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gameproject;
 
 import java.sql.Connection;
@@ -12,31 +7,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-import javax.swing.JTextPane;
 
 /**
- *
- * @author Amrit
+ *This class creates the database connection and handles the logic needed for reading and writing 
+ * to the database
+ * @author Amritpal Kaur
+ * 14865526
  */
 public class LeaderBoardDatabase {
     private static Connection conn;
-    private static String url = "jdbc:derby:LeaderBoard; create=true";
-    private static String username = "game";
-    private static String pass = "game";
+    private final String url = "jdbc:derby:LeaderBoard; create=true";
+    private final String username = "game";
+    private final String pass = "game";
     private int id = 1;
     private Statement statement;
-    private String table = "LeaderBoard";
+    private final String table = "LeaderBoard";
     private String leaderBoard = "";
     
+    /**
+     * constructor calls the establish connection method to create a connection to the database
+     */
     public LeaderBoardDatabase(){
         establishConnection();
     }
     
+    /*
+    * This method establishes the connection to the database
+    */
     public void establishConnection(){
         try{
-            conn = DriverManager.getConnection(url, username, pass);
-            JOptionPane.showMessageDialog(null, "Database Connected(" + url + ").");
+            conn = DriverManager.getConnection(url, username, pass);                  //gets the connection
+            JOptionPane.showMessageDialog(null, "Database Connected(" + url + ").");    
             statement = conn.createStatement();
+            
+            // only creates the table if it doesn't exist
             DatabaseMetaData data = conn.getMetaData();
             ResultSet rs = data.getTables(null, "GAME", "LEADERBOARD", null);
             if (!rs.next()){
@@ -48,9 +52,11 @@ public class LeaderBoardDatabase {
         }
     }
     
+    /*
+    * Method that creates the leaderboard table in the database using SQL
+    */
     public void createTable(){
             try {
-                    
                 String sqlCreateTable = "CREATE TABLE " + table + " (ID INT," 
                                     + "Name VARCHAR (100), Points INT)";
                 statement.executeUpdate(sqlCreateTable); 
@@ -59,9 +65,13 @@ public class LeaderBoardDatabase {
             }
     }
     
+    /**
+     * adds content to the database
+     * @param name of the player
+     * @param money the player has won
+     */
     public void addToDatabase(String name, int money){
         try{
-            
             String insertData = "INSERT INTO " + table + " VALUES (" + id  + ", '"+ name + "', " + money + ")";
             statement.executeUpdate(insertData);
             id++;
@@ -71,6 +81,10 @@ public class LeaderBoardDatabase {
         
     }
     
+    /**
+     * Method used to read the content of the database
+     * @return a String of the content that was stored in the database
+     */
     public String getDatabase(){
         leaderBoard = "";
         try{    
@@ -81,7 +95,7 @@ public class LeaderBoardDatabase {
                leaderBoard +=  playerName + ": " + playerPoints + "\n";
            }
         }catch(SQLException ex){
-            leaderBoard  = "Unable to access data in the database.";
+            leaderBoard  = "No data avaliable";
         }
        return leaderBoard;
     }

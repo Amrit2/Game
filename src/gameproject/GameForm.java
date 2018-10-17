@@ -15,13 +15,13 @@ import javax.swing.JScrollPane;
  *
  * @author Amrit
  */
-public class MenuForm extends javax.swing.JFrame {
+public class GameForm extends javax.swing.JFrame {
 
     JPanel cards;
     JScrollPane sp;
 
     private final LeaderBoardController dbController;
-    private final ReadQuestionsFileController gameController;
+    private final GamePlayController gameController;
     private final PlayerInfoController playerController;
     private final PlayerInfo playerInfo;
     private final MoneyWon updateMoneyWon;
@@ -31,11 +31,11 @@ public class MenuForm extends javax.swing.JFrame {
     /**
      * Creates new form GameGui
      */
-    public MenuForm() {
+    public GameForm() {
         initComponents();
         getContentPane().setBackground(Color.BLACK);
-        //try move it back to ReadQuestionsFileController file
-        gameController = new ReadQuestionsFileController();
+        //try move it back to GamePlayController file
+        gameController = new GamePlayController();
         playerController = new PlayerInfoController();
         playerInfo = new PlayerInfo("", 0);
         updateMoneyWon = new MoneyWon();
@@ -80,6 +80,7 @@ public class MenuForm extends javax.swing.JFrame {
         quitButton4 = new javax.swing.JButton();
         currentQuestionTextField = new javax.swing.JTextField();
         currentMoney = new javax.swing.JLabel();
+        walkAway = new javax.swing.JButton();
         lifelinePanel = new javax.swing.JPanel();
         lifelineLabel = new javax.swing.JLabel();
         fiftyfiftyOption = new javax.swing.JRadioButton();
@@ -330,19 +331,21 @@ public class MenuForm extends javax.swing.JFrame {
         currentMoney.setForeground(new java.awt.Color(255, 204, 0));
         currentMoney.setText("jLabel3");
 
+        walkAway.setText("WalkAway");
+        walkAway.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                walkAwayActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout questionPanelLayout = new javax.swing.GroupLayout(questionPanel);
         questionPanel.setLayout(questionPanelLayout);
         questionPanelLayout.setHorizontalGroup(
             questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, questionPanelLayout.createSequentialGroup()
                 .addContainerGap(69, Short.MAX_VALUE)
-                .addGroup(questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, questionPanelLayout.createSequentialGroup()
-                        .addComponent(quitButton4)
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, questionPanelLayout.createSequentialGroup()
-                        .addComponent(currentQuestionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
-                        .addGap(45, 45, 45))))
+                .addComponent(currentQuestionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+                .addGap(45, 45, 45))
             .addGroup(questionPanelLayout.createSequentialGroup()
                 .addGroup(questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(questionPanelLayout.createSequentialGroup()
@@ -366,6 +369,12 @@ public class MenuForm extends javax.swing.JFrame {
                         .addComponent(currentMoney, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(58, 58, 58)))
                 .addContainerGap(88, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, questionPanelLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(walkAway)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(quitButton4)
+                .addGap(20, 20, 20))
         );
         questionPanelLayout.setVerticalGroup(
             questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -393,7 +402,9 @@ public class MenuForm extends javax.swing.JFrame {
                     .addComponent(useLifeline)
                     .addComponent(lockAnswer))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                .addComponent(quitButton4)
+                .addGroup(questionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(quitButton4)
+                    .addComponent(walkAway))
                 .addGap(19, 19, 19))
         );
 
@@ -599,7 +610,6 @@ public class MenuForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void quitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButtonActionPerformed
-        dbController.add(playerController.playerName(), playerController.moneyWon());
         System.exit(0);
     }//GEN-LAST:event_quitButtonActionPerformed
 
@@ -609,7 +619,7 @@ public class MenuForm extends javax.swing.JFrame {
                 + "- To use a lifeline, click on the 'LifeLine' button.\n"
                 + "- If you get an answer wrong, your money won will decrease to the corresponding thresholds (0,100, 1000, 32000).\n"
                 + "- If you get a question wrong at the threshold, the game will end.\n"
-                + "- To walk away with the amount you have, simply press 'Quit'"
+                + "- To walk away with the amount you have, simply press 'WalkAway'"
                 + "- If you're ready to become a millionaire, click 'Play'.", "Instructions", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_instructionButtonActionPerformed
 
@@ -623,7 +633,7 @@ public class MenuForm extends javax.swing.JFrame {
     }//GEN-LAST:event_playButtonActionPerformed
 
     private void quitButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButton2ActionPerformed
-        dbController.add(playerController.playerName(), playerController.moneyWon());
+        
         System.exit(0);
     }//GEN-LAST:event_quitButton2ActionPerformed
 
@@ -670,7 +680,7 @@ public class MenuForm extends javax.swing.JFrame {
     }//GEN-LAST:event_backToQuestionButtonActionPerformed
 
     private void quitButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButton5ActionPerformed
-        dbController.add(playerController.playerName(), playerController.moneyWon());
+       
         System.exit(0);
     }//GEN-LAST:event_quitButton5ActionPerformed
 
@@ -723,7 +733,7 @@ public class MenuForm extends javax.swing.JFrame {
     }//GEN-LAST:event_lockAnswerActionPerformed
 
     private void quitButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButton4ActionPerformed
-        dbController.add(playerController.playerName(), playerController.moneyWon());
+        
         System.exit(0);
     }//GEN-LAST:event_quitButton4ActionPerformed
 
@@ -744,7 +754,7 @@ public class MenuForm extends javax.swing.JFrame {
     }//GEN-LAST:event_optionDActionPerformed
 
     private void quitButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButton3ActionPerformed
-        dbController.add(playerController.playerName(), playerController.moneyWon());
+        
         System.exit(0);
     }//GEN-LAST:event_quitButton3ActionPerformed
 
@@ -773,6 +783,11 @@ public class MenuForm extends javax.swing.JFrame {
         lifelineController.processChosenOption(chosenLifeLine, optionA, optionB, optionC, optionD, gameController.getAnswer());
 
     }//GEN-LAST:event_applyLifeLineActionPerformed
+
+    private void walkAwayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_walkAwayActionPerformed
+        dbController.add(playerController.playerName(), Integer.parseInt(currentMoney.getText()));
+        System.exit(0);
+    }//GEN-LAST:event_walkAwayActionPerformed
 
     public void resetOptions(JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD) {
         optionA.setVisible(true);
@@ -844,6 +859,7 @@ public class MenuForm extends javax.swing.JFrame {
     private javax.swing.JButton quitButton5;
     private javax.swing.JButton startButton;
     private javax.swing.JButton useLifeline;
+    private javax.swing.JButton walkAway;
     // End of variables declaration//GEN-END:variables
 
 }

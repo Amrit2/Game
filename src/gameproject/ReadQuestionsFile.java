@@ -37,16 +37,16 @@ public class ReadQuestionsFile {
     }
     
     /**
-     * This method reads the lines in the file to set the questions,options and answer accordingly
+     * This method reads the lines in the file and adds it to the hash map
      * @param hMap
      * @param quiz 
      */
     public void setQuizQuestions( Map<Integer, Questions> hMap){
         int quesNumber = 0;
         String line;
-        int currentOption = 0;                     // array index of the options
+        int currentOption = 0;                                                          // array index of the options
          try {
-                while ((line = br.readLine()) != null) {                // keep the loop running until no text in the file
+                while ((line = br.readLine()) != null) {                                // keep the loop running until no text in the file
                     
                     if (line.contains("?")) {
                         

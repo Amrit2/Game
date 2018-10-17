@@ -1,16 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gameproject;
 
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
 /**
- *
- * @author Amrit
+ *This class acts as the median between the View and Model for the logic related to the lifelines
+ * @author Amritpal Kaur
+ * 14865526
  */
 public class LifeLineController {
     public LifeLine lifeLine;
@@ -56,7 +52,8 @@ public class LifeLineController {
         else if (chosenLifeLine.equalsIgnoreCase("Audience Vote")){
             if (!this.usedAudienceVote()) {                                  // ensure the options hasn't been used already
                 this.setUsedAudience(true);
-                JOptionPane.showMessageDialog(null,lifeLine.getAudienceVote(optionA,optionB, optionC, optionD, answer));
+                
+                JOptionPane.showMessageDialog(null,lifeLine.getAudienceVote(optionA.getText(),optionB.getText(), optionC.getText(), optionD.getText(), answer));
             }
             else
                 JOptionPane.showMessageDialog(null,"\nYou've already used this option\n");

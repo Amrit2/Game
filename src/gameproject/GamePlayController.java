@@ -11,41 +11,45 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 /**
- * This class handles the game play
- *
+ * This class is the link between the view and Read questions file. It gets the questions and sets the view 
  * @author Amritpal Kaur 14865526
  */
-public class ReadQuestionsFileController {
+public class GamePlayController {
 
     //declarations
-    private final ReadQuestionsFile file;
+    private final ReadQuestionsFile quiz;
     private Map<Integer, Questions> hMap;
     private int currentQuestionNumber = 0;
     private List questionsAsked;
+    
     /**
-     * The constructor instantiates the PlayerInfo, Lifelines,
-     * ReadQuestionsFile, Check Answer, LeaderBoard and Questions class
+     * The constructor instantiates the ReadQuestionsFile, an array and a HashMap
      * @param name of the player
      */
-    public ReadQuestionsFileController() {
-        file = new ReadQuestionsFile();
+    public GamePlayController() {
+        quiz = new ReadQuestionsFile();
         questionsAsked = new ArrayList<Integer>();
         hMap = new HashMap<Integer, Questions>();
     }
 
     /**
-     * This class shows the questions and handles player input for processing
+     * This sets the quiz question and calls the method to set the view of the frame
      */
     public void playGame(JTextField currentQuestionTextField, JLabel currentPoints, JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD) {
-        file.setQuizQuestions(hMap);
+        //store the quiz questions in the hash map
+        quiz.setQuizQuestions(hMap);
         try{
-           setQuestionAtRandom(hMap,currentQuestionTextField, optionA, optionB, optionC, optionD);
+            // shows questions at random as the user plays the game
+           displayQuestionAtRandom(hMap,currentQuestionTextField, optionA, optionB, optionC, optionD);
         }catch (NullPointerException ex){
             JOptionPane.showMessageDialog(null, "Unable to get a questions");
         }
     }
 
-    public void setQuestionAtRandom(Map<Integer, Questions> hMap, JTextField currentQuestionTextField, JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD) {
+    /*
+    * This methods display a question at random for the player
+    */
+    public void displayQuestionAtRandom(Map<Integer, Questions> hMap, JTextField currentQuestionTextField, JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD) {
         do {
             try {
                 Random generator = new Random();
@@ -53,11 +57,13 @@ public class ReadQuestionsFileController {
             }catch (IllegalArgumentException ex){
                  JOptionPane.showMessageDialog(null, "Unable to generate a valid number");
             }
-            
+            //loops to ensure a questions is not repeated
         } while (questionsAsked.contains(this.getCurrentQuestionNumber()) && this.getCurrentQuestionNumber() > 0);
 
+        //setting the question in the view
         currentQuestionTextField.setText(hMap.get(this.getCurrentQuestionNumber()).getQuestion());
         String[] op = hMap.get(this.getCurrentQuestionNumber()).getOptions();
+        //setting the options in the view
         for (int i = 0; i <= 3 ; i++){
             if (i == 0){
                
@@ -76,17 +82,21 @@ public class ReadQuestionsFileController {
                 optionD.setText(op[3]);
             }
         }
+        //adding the question to the already asked questions list to ensure it won't be repeated
         questionsAsked.add(this.getCurrentQuestionNumber());
     }
     
+    //returns the answer of the current ques via using the current question number
     public String getAnswer(){
         return hMap.get(this.getCurrentQuestionNumber()).getAnswer();
     }
    
+    //returns the hashmap of quiz questions
     public Map<Integer, Questions> getHashMap(){
         return this.hMap;
     }
     
+    //get/sets for variables
     public void setCurrentQuestionNumber(int num){
         this.currentQuestionNumber = num;
     }

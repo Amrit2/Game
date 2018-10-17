@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-import gameproject.ReadQuestionsFileController;
+import gameproject.GamePlayController;
 import gameproject.Questions;
 import gameproject.ReadQuestionsFile;
 import java.util.HashMap;
@@ -52,7 +52,7 @@ public class ReadQuestionsFileControllerTest {
     //
      @Test
     public void getAnswerTest() {
-        ReadQuestionsFileController gameplay = new ReadQuestionsFileController();
+        GamePlayController gameplay = new GamePlayController();
         file.setQuizQuestions(hMap);
         gameplay.setHashMap(hMap);
         gameplay.setCurrentQuestionNumber(2);

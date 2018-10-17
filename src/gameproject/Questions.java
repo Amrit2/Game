@@ -1,8 +1,7 @@
 package gameproject;
 
 /**
- * This class saves the Questions, options and answer\
- *
+ * This class saves the Questions, options and answer
  * @author Amritpal Kaur 14865526
  */
 public class Questions {
