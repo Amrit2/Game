@@ -660,6 +660,7 @@ public class GameForm extends javax.swing.JFrame {
     }//GEN-LAST:event_useLifelineActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
+        //ensures a valid name before continuing
         if (!playerNameTextField.getText().equalsIgnoreCase("") && !playerNameTextField.getText().equalsIgnoreCase("Name") && !playerNameTextField.getText().equalsIgnoreCase(" ")) {
             optionsButtonGroup.clearSelection();
             resetOptions(optionA, optionB, optionC, optionD);
@@ -697,8 +698,10 @@ public class GameForm extends javax.swing.JFrame {
         String[] chosenAnswerArray = null;
 
         try {
+            // get the user's answer
             chosenAnswerArray = optionsButtonGroup.getSelection().getActionCommand().split(":");
 
+            // check to see if the answer is correct or not
             if (chosenAnswerArray[0].equalsIgnoreCase(gameController.getAnswer())) {
                 isCorrect = true;
                 JOptionPane.showMessageDialog(null, "Correct Answer");
@@ -708,7 +711,8 @@ public class GameForm extends javax.swing.JFrame {
 
             }
             
-            //TAKE THIS CODE OUT AND PASS IN OPTION PANE
+          
+            //update money based on if the answer was right or wrong
             updateMoneyWon.setMoneyWon(isCorrect, playerInfo);
             if (updateMoneyWon.answerWrongAtThreshhold(playerInfo)) {
                 displayGameEndPanel(gameEndPanel);
@@ -773,6 +777,7 @@ public class GameForm extends javax.swing.JFrame {
     private void applyLifeLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyLifeLineActionPerformed
         displayQuestionPanel(questionPanel);
         
+        //get which lifeline was chosen by the user and process it
         String chosenLifeLine = "";
         try {
             chosenLifeLine = lifelineButtonGroup.getSelection().getActionCommand();
