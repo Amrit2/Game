@@ -40,13 +40,6 @@ C:Tigers
 D:Lions, Tigers and Jackals
 A
 
-Coconut water is sterile and has an ideal pH level. It can be used (in emergencies) as a substitute for blood?
-A:Plasma
-B:Donation
-C:Transfusion
-D:Purification
-A
-
 Who invented the telephone?
 A:Albert Einstein
 B:Nikola Tesla

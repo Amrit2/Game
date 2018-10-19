@@ -660,7 +660,7 @@ public class GameForm extends javax.swing.JFrame {
     }//GEN-LAST:event_useLifelineActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        if (!playerNameTextField.getText().equalsIgnoreCase("") && !playerNameTextField.getText().equalsIgnoreCase("Name")) {
+        if (!playerNameTextField.getText().equalsIgnoreCase("") && !playerNameTextField.getText().equalsIgnoreCase("Name") && !playerNameTextField.getText().equalsIgnoreCase(" ")) {
             optionsButtonGroup.clearSelection();
             resetOptions(optionA, optionB, optionC, optionD);
             displayQuestionPanel(questionPanel);

@@ -24,7 +24,6 @@ public class GamePlayController {
     
     /**
      * The constructor instantiates the ReadQuestionsFile, an array and a HashMap
-     * @param name of the player
      */
     public GamePlayController() {
         quiz = new ReadQuestionsFile();
@@ -34,6 +33,11 @@ public class GamePlayController {
 
     /**
      * This sets the quiz question and calls the method to set the view of the frame
+     * @param currentQuestionTextField
+     * @param currentPoints
+     * @param optionA
+     * @param optionD
+     * @param optionC
      */
     public void playGame(JTextField currentQuestionTextField, JLabel currentPoints, JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD) {
         //store the quiz questions in the hash map
@@ -57,12 +61,14 @@ public class GamePlayController {
             }catch (IllegalArgumentException ex){
                  JOptionPane.showMessageDialog(null, "Unable to generate a valid number");
             }
+            
             //loops to ensure a questions is not repeated
-        } while (questionsAsked.contains(this.getCurrentQuestionNumber()) && this.getCurrentQuestionNumber() > 0);
+        } while (questionsAsked.contains(this.getCurrentQuestionNumber()) && this.getCurrentQuestionNumber() < 0);
 
         //setting the question in the view
         currentQuestionTextField.setText(hMap.get(this.getCurrentQuestionNumber()).getQuestion());
         String[] op = hMap.get(this.getCurrentQuestionNumber()).getOptions();
+        
         //setting the options in the view
         for (int i = 0; i <= 3 ; i++){
             if (i == 0){
@@ -105,6 +111,8 @@ public class GamePlayController {
         return this.currentQuestionNumber;
     }
     
+    
+   
     public void setHashMap(Map<Integer, Questions> hashMap){
         this.hMap.putAll(hashMap);
     }

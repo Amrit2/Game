@@ -2,7 +2,7 @@ package gameproject;
 
 /**
  *This class is the connection between the PlayerInfo logic and the view
- * @author Amritpal Kaur
+ * @author Amritpal Kaur 14865526
  */
 public class PlayerInfoController {
     public  PlayerInfo player;

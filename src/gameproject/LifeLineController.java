@@ -19,6 +19,15 @@ public class LifeLineController {
         lifeLine = new LifeLine();
     }
 
+    /**
+     * Method to process the chosen lifeline
+     * @param chosenLifeLine
+     * @param optionA
+     * @param optionB
+     * @param optionC
+     * @param optionD
+     * @param answer 
+     */
     public void processChosenOption(String chosenLifeLine, JRadioButton optionA, JRadioButton optionB, JRadioButton optionC, JRadioButton optionD, String answer) {
         String[] optiona = optionA.getText().split(":");
         String[] optionb = optionB.getText().split(":");
@@ -28,11 +37,8 @@ public class LifeLineController {
             if (!this.usedFifty()) { 
                 this.setUsedFifty(true);
                 lifeLine.setFiftyFiftyOptions(optiona[0],optionb[0], optionc[0], optiond[0], answer);
-                
-                System.out.println("Options: " + optiona[0] + " " + optionb[0] + " " + optionc[0] + " " + optiond[0]);
-                System.out.println("Answer : " + answer);
-                System.out.println("LifeLine status" +lifeLine.getStateA() + " " +  lifeLine.getStateB() + " " + lifeLine.getStateC() + " " +lifeLine.getStateD());
-                
+               
+                //setting the state of the radio buttons
                 optionA.setVisible(lifeLine.getStateA());
                 optionB.setVisible(lifeLine.getStateB());
                 optionC.setVisible(lifeLine.getStateC());
@@ -42,7 +48,7 @@ public class LifeLineController {
              JOptionPane.showMessageDialog(null,"\nYou've already used this option\n");
         }
         else if (chosenLifeLine.equalsIgnoreCase("Phone A Friend")){
-            if (!this.usedFriendCall()) {                                              // ensure the options hasn't been used already
+            if (!this.usedFriendCall()) {                                                               // ensure the options hasn't been used already
                 this.setUsedCall(true);
                 JOptionPane.showMessageDialog(null,lifeLine.getMessageFromFriend(optiona[0],optionb[0], optionc[0], optiond[0], answer));
             } 
@@ -50,7 +56,7 @@ public class LifeLineController {
                 JOptionPane.showMessageDialog(null,"\nYou've already used this option\n");
         }
         else if (chosenLifeLine.equalsIgnoreCase("Audience Vote")){
-            if (!this.usedAudienceVote()) {                                  // ensure the options hasn't been used already
+            if (!this.usedAudienceVote()) {                                                             // ensure the options hasn't been used already
                 this.setUsedAudience(true);
                 
                 JOptionPane.showMessageDialog(null,lifeLine.getAudienceVote(optionA.getText(),optionB.getText(), optionC.getText(), optionD.getText(), answer));
@@ -60,6 +66,7 @@ public class LifeLineController {
             }
     }
     
+    // get/set methods
     public void setUsedFifty(boolean used) {
         this.usedFifty = used;
     }
